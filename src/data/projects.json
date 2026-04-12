@@ -1,0 +1,34 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "IntelliML Platform",
+      "description": "An AI-powered data science platform that automates EDA, cleaning, and model training through a natural language interface.",
+      "tags": [
+        "Next.js",
+        "FastAPI",
+        "Llama 3.3",
+        "Scikit-learn",
+        "Tailwind CSS"
+      ],
+      "image": "/images/intelliML.png",
+      "demo": "https://github.com/NeonNinjaX/IntelliML-Platform",
+      "github": "https://github.com/NeonNinjaX/IntelliML-Platform"
+    },
+    {
+      "id": 2,
+      "title": "Violence Detection System",
+      "description": "A real-time deep learning pipeline achieving 97% accuracy in detecting violent activities in video streams with automated alerts.",
+      "tags": [
+        "Python",
+        "TensorFlow",
+        "MobileNetV2",
+        "LSTM",
+        "OpenCV"
+      ],
+      "image": "/images/violence%20detection.png",
+      "demo": "https://github.com/Theani7/Violence-Detection-System-using-CNN-LSTM-Models",
+      "github": "https://github.com/Theani7/Violence-Detection-System-using-CNN-LSTM-Models"
+    }
+  ]
+}

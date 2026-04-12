@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio CMS</title>
+    <link rel="stylesheet" href="/admin/custom.css" />
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        background: #09090b;
+        color: #e4e4e7;
+      }
+      .gate {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+      .card {
+        width: 100%;
+        max-width: 24rem;
+        background: #18181b;
+        border: 1px solid #27272a;
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+      }
+      .title {
+        font-size: 1rem;
+        margin: 0 0 0.4rem;
+      }
+      .subtitle {
+        font-size: 0.875rem;
+        color: #a1a1aa;
+        margin: 0 0 1rem;
+      }
+      input {
+        width: 100%;
+        padding: 0.65rem 0.8rem;
+        border-radius: 0.55rem;
+        border: 1px solid #3f3f46;
+        background: #09090b;
+        color: #fafafa;
+        box-sizing: border-box;
+      }
+      button {
+        width: 100%;
+        margin-top: 0.7rem;
+        padding: 0.65rem 0.8rem;
+        border: 0;
+        border-radius: 0.55rem;
+        background: #2563eb;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.65;
+        cursor: wait;
+      }
+      .error {
+        margin-top: 0.6rem;
+        font-size: 0.85rem;
+        color: #fca5a5;
+        min-height: 1.2rem;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="gate" class="gate">
+      <form id="login-form" class="card">
+        <h1 class="title">Portfolio CMS</h1>
+        <p class="subtitle">Enter admin password to continue.</p>
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+        <button id="submit" type="submit">Unlock Admin</button>
+        <p id="error" class="error"></p>
+      </form>
+    </main>
+
+    <script>
+      window.CMS_MANUAL_INIT = true;
+
+      const gate = document.getElementById("gate");
+      const form = document.getElementById("login-form");
+      const passInput = document.getElementById("password");
+      const submitBtn = document.getElementById("submit");
+      const errorEl = document.getElementById("error");
+
+      const setBusy = (busy) => {
+        submitBtn.disabled = busy;
+        submitBtn.textContent = busy ? "Checking..." : "Unlock Admin";
+      };
+
+      const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+      const loadCms = () => {
+        gate.classList.add("hidden");
+        const script = document.createElement("script");
+        script.src = "https://unpkg.com/decap-cms@^3.5.0/dist/decap-cms.js";
+        script.onload = () => window.CMS.init();
+        document.body.appendChild(script);
+      };
+
+      const checkSession = async () => {
+        const resp = await fetch("/api/admin-session", { credentials: "include" });
+        if (!resp.ok) return false;
+        const data = await resp.json();
+        return Boolean(data.authenticated);
+      };
+
+      const run = async () => {
+        if (isLocalhost) {
+          loadCms();
+          return;
+        }
+        try {
+          if (await checkSession()) {
+            loadCms();
+          }
+        } catch {
+          // Keep login gate visible.
+        }
+      };
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        errorEl.textContent = "";
+        setBusy(true);
+        try {
+          const resp = await fetch("/api/admin-login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-admin-password": passInput.value,
+            },
+            credentials: "include",
+            body: JSON.stringify({ password: passInput.value }),
+          });
+
+          if (!resp.ok) {
+            let message = `Login failed (${resp.status})`;
+            try {
+              const data = await resp.json();
+              if (data && typeof data.error === "string" && data.error.trim()) {
+                message = data.error;
+              }
+            } catch {
+              try {
+                const text = await resp.text();
+                if (text && text.trim()) {
+                  message = `${message}: ${text.slice(0, 160)}`;
+                }
+              } catch {
+                // Keep generic fallback.
+              }
+            }
+            errorEl.textContent = message;
+            setBusy(false);
+            return;
+          }
+
+          loadCms();
+        } catch {
+          errorEl.textContent = "Login failed. Try again.";
+          setBusy(false);
+        }
+      });
+
+      run();
+    </script>
+  </body>
+</html>

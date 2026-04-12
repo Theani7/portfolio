@@ -1,0 +1,95 @@
+:root {
+  --bg: #09090b;
+  --surface: #111217;
+  --surface-soft: #161922;
+  --border: #27272a;
+  --text: #f4f4f5;
+  --muted: #a1a1aa;
+  --accent: #3b82f6;
+  --accent-soft: rgba(59, 130, 246, 0.16);
+}
+
+html,
+body {
+  background: radial-gradient(circle at top right, rgba(30, 41, 59, 0.22), transparent 38%), var(--bg) !important;
+  color: var(--text) !important;
+}
+
+#nc-root,
+#nc-root * {
+  color: var(--text);
+  border-color: var(--border) !important;
+}
+
+#nc-root [class*="AppHeader"] {
+  background: rgba(9, 9, 11, 0.9) !important;
+  border-bottom: 1px solid var(--border) !important;
+  backdrop-filter: blur(10px);
+}
+
+#nc-root aside,
+#nc-root main {
+  background: transparent !important;
+}
+
+#nc-root aside > div,
+#nc-root [class*="Card"],
+#nc-root [class*="Pane"],
+#nc-root [class*="EditorContainer"],
+#nc-root [class*="CollectionTop"] {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22) !important;
+}
+
+#nc-root input,
+#nc-root textarea,
+#nc-root select {
+  background: var(--surface-soft) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+}
+
+#nc-root input:focus,
+#nc-root textarea:focus,
+#nc-root select:focus {
+  outline: none !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22) !important;
+}
+
+#nc-root button,
+#nc-root [role="button"],
+#nc-root a[role="button"] {
+  border-radius: 10px !important;
+}
+
+#nc-root button[type="submit"],
+#nc-root [class*="Toolbar"] button {
+  background: var(--accent) !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-weight: 600 !important;
+}
+
+#nc-root button:hover,
+#nc-root [role="button"]:hover,
+#nc-root a[role="button"]:hover {
+  filter: brightness(1.04);
+}
+
+#nc-root aside [aria-current="page"],
+#nc-root aside [class*="active"] {
+  background: var(--accent-soft) !important;
+  border-left: 2px solid var(--accent) !important;
+}
+
+#nc-root p,
+#nc-root small,
+#nc-root label,
+#nc-root [class*="hint"],
+#nc-root [class*="meta"] {
+  color: var(--muted) !important;
+}

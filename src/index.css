@@ -1,0 +1,216 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@theme {
+  --font-display: "Playfair Display", serif;
+}
+
+/* ═══════════════════════════════════════════
+   NEWSPRINT DESIGN SYSTEM — Global Styles
+   ═══════════════════════════════════════════ */
+
+body {
+  margin: 0;
+  background-color: #F9F9F7;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23111111' fill-opacity='0.04' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  color: #111111;
+  font-family: 'Lora', Georgia, serif;
+  line-height: 1.625;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #111111;
+  color: #F9F9F7;
+}
+
+a,
+button,
+input {
+  outline: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+  border-radius: 0px;
+}
+
+/* ── Sharp Corners Utility ── */
+.sharp-corners,
+.sharp-corners * {
+  border-radius: 0px !important;
+}
+
+/* ── Newsprint Texture Overlay ── */
+.newsprint-texture {
+  position: relative;
+}
+.newsprint-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(0deg, transparent 98%, rgba(0,0,0,0.02) 100%),
+    linear-gradient(90deg, transparent 98%, rgba(0,0,0,0.02) 100%);
+  background-size: 3px 3px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* ── Hard Shadow Hover ── */
+.hard-shadow-hover {
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.hard-shadow-hover:hover {
+  box-shadow: 4px 4px 0px 0px #111111;
+  transform: translate(-2px, -2px);
+}
+
+/* ── Tap Feedback ── */
+.tap-feedback {
+  transition: transform 130ms ease, box-shadow 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tap-feedback:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* ── Drop Cap ── */
+.drop-cap::first-letter {
+  float: left;
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5em;
+  line-height: 0.8;
+  padding-right: 0.1em;
+  margin-top: 0.05em;
+  color: #111111;
+  font-weight: 900;
+}
+
+.drop-cap-accent::first-letter {
+  color: #CC0000;
+}
+
+/* ── Serif Italic ── */
+.serif-italic {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ── Link Hover Underline ── */
+.link-hover {
+  position: relative;
+  text-decoration: none;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #CC0000;
+}
+
+.link-hover:hover {
+  text-decoration: underline;
+}
+
+/* ── Navigation Item ── */
+.nav-item {
+  position: relative;
+  transition: color 200ms ease;
+}
+
+.nav-item:hover {
+  color: #CC0000;
+}
+
+/* ── Skip Link ── */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  transform: translateY(-220%);
+  background: #111111;
+  color: #F9F9F7;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0px;
+  z-index: 100;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ── Marquee ── */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Ornamental Divider ── */
+.ornament-divider {
+  padding: 2rem 0;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #A3A3A3;
+  letter-spacing: 1em;
+}
+
+/* ── Grayscale Image ── */
+.img-newsprint {
+  filter: grayscale(100%);
+  transition: filter 200ms ease-out;
+}
+
+.img-newsprint:hover {
+  filter: grayscale(100%) sepia(50%);
+}
+
+/* ── Mobile App Shell ── */
+@media (max-width: 767px) {
+  .mobile-app-shell {
+    min-height: 100dvh;
+    background-color: #F9F9F7;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23111111' fill-opacity='0.04' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  .mobile-main {
+    margin: 0;
+    min-height: 100dvh;
+    border-radius: 0px;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+  }
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
