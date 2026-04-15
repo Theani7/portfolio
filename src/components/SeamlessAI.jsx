@@ -617,14 +617,14 @@ const SeamlessAI = ({ className = "", isPage = false, compact = false }) => {
   const containerClasses = compact
     ? "max-w-none bg-transparent border-0 shadow-none p-0"
     : isPage
-      ? "max-w-3xl bg-[#F9F9F7] border-2 border-[#111111] p-6 md:p-12 transition-all duration-300"
+      ? "max-w-3xl bg-md-surface rounded-3xl p-6 md:p-12 transition-all duration-300 shadow-md"
       : "max-w-2xl transition-all duration-300";
 
   const inputClasses = compact
-    ? "py-3 text-base border-b-2 border-[#111111]"
+    ? "py-3 text-base bg-md-surface-variant rounded-t-lg px-4 border-b-2 border-md-outline focus:border-md-primary"
     : isPage
-      ? "py-4 md:py-5 text-xl md:text-3xl border-b-2 border-[#111111] placeholder:text-neutral-400"
-      : "py-4 md:py-6 text-xl md:text-3xl border-b-2 font-medium";
+      ? "py-4 md:py-5 text-xl md:text-3xl bg-md-surface-variant rounded-t-lg px-4 border-b-2 border-md-outline focus:border-md-primary placeholder:text-md-on-surface-variant/50"
+      : "py-4 md:py-6 text-xl md:text-3xl bg-md-surface-variant rounded-t-lg px-4 border-b-2 border-md-outline focus:border-md-primary font-medium";
 
   const [placeholder, setPlaceholder] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -805,7 +805,7 @@ const SeamlessAI = ({ className = "", isPage = false, compact = false }) => {
     <div className={`w-full ${containerClasses} relative ${className}`}>
       {!isPage && !compact && (
         <div
-          className={`absolute -inset-10 bg-[#CC0000]/5 transition-all duration-1000 ${
+          className={`absolute -inset-10 bg-md-primary/10 rounded-full blur-3xl transition-all duration-1000 ${
             isFocused ? "opacity-100 scale-105" : "opacity-30 scale-95"
           }`}
         />
@@ -814,22 +814,22 @@ const SeamlessAI = ({ className = "", isPage = false, compact = false }) => {
       <div className="relative z-10">
         <div className={`flex items-center justify-between opacity-60 ${compact ? "mb-4" : "mb-6 md:mb-8"}`}>
           <div className="flex items-center gap-2">
-            <Sparkles size={14} className="text-[#CC0000] animate-pulse md:w-4 md:h-4" />
-            <span className="text-[10px] md:text-xs font-mono tracking-[0.2em] uppercase text-neutral-500 font-semibold">
+            <Sparkles size={14} className="text-md-primary animate-pulse md:w-4 md:h-4" />
+            <span className="text-xs font-medium text-md-on-surface-variant">
               Intelligence v4.0
             </span>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={toggleListening}
-              className={`p-1 border transition-colors ${isListening ? "text-[#CC0000] border-[#CC0000]" : "text-[#111111] border-[#111111] hover:text-[#CC0000] hover:border-[#CC0000]"}`}
+              className={`p-2 rounded-full transition-all duration-200 active:scale-95 ${isListening ? "bg-md-primary text-md-on-primary" : "text-md-on-surface-variant hover:bg-md-primary/10"}`}
               aria-label="Toggle voice input"
             >
               {isListening ? <MicOff size={16} /> : <Mic size={16} />}
             </button>
             <button
               onClick={() => setSpeechEnabled((prev) => !prev)}
-              className={`p-1 border transition-colors ${speechEnabled ? "text-[#CC0000] border-[#CC0000]" : "text-[#111111] border-[#111111] hover:text-[#CC0000] hover:border-[#CC0000]"}`}
+              className={`p-2 rounded-full transition-all duration-200 active:scale-95 ${speechEnabled ? "bg-md-primary text-md-on-primary" : "text-md-on-surface-variant hover:bg-md-primary/10"}`}
               aria-label="Toggle voice output"
             >
               {speechEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
@@ -840,9 +840,9 @@ const SeamlessAI = ({ className = "", isPage = false, compact = false }) => {
         <div className={`space-y-6 md:space-y-8 mb-6 md:mb-8 w-full ${compact ? "min-h-[70px] max-h-56 overflow-y-auto pr-1" : "min-h-[100px]"}`}>
           {isBooting && (
             <div className="space-y-3" aria-hidden="true">
-              <div className="h-3 w-32 animate-pulse bg-neutral-200" />
-              <div className="h-5 w-full animate-pulse bg-neutral-100" />
-              <div className="h-5 w-5/6 animate-pulse bg-neutral-100" />
+              <div className="h-3 w-32 animate-pulse bg-md-surface-variant rounded" />
+              <div className="h-5 w-full animate-pulse bg-md-surface-variant rounded" />
+              <div className="h-5 w-5/6 animate-pulse bg-md-surface-variant rounded" />
             </div>
           )}
           <AnimatePresence mode="popLayout">
@@ -857,14 +857,15 @@ const SeamlessAI = ({ className = "", isPage = false, compact = false }) => {
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="group"
                 >
-                  <div className="text-neutral-500 text-[10px] md:text-xs tracking-widest uppercase mb-2 md:mb-3 font-medium flex items-center gap-2 pl-3 border-l-2 border-[#CC0000]/40">
+                  <div className="text-md-on-surface-variant text-xs font-medium mb-2 md:mb-3 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-md-primary/60" />
                     {pair.question}
                   </div>
-                  <div className={`text-[#111111] font-serif leading-relaxed transition-colors duration-300 ${compact ? "text-base md:text-lg" : "text-lg md:text-2xl"}`}>
+                  <div className={`text-md-on-background leading-relaxed transition-colors duration-300 ${compact ? "text-base md:text-lg" : "text-lg md:text-2xl"}`}>
                     <AnswerText text={pair.answer} />
                   </div>
 
-                  <div className="mt-2 flex items-center gap-2 text-[10px] text-neutral-500">
+                  <div className="mt-2 flex items-center gap-2 text-xs text-md-on-surface-variant/70">
                     <span>confidence: {Math.round((pair.confidence || 0) * 100)}%</span>
                     {!!pair.sources?.length && <span>sources: {pair.sources.slice(0, 2).join(", ")}</span>}
                   </div>
@@ -872,14 +873,14 @@ const SeamlessAI = ({ className = "", isPage = false, compact = false }) => {
                   <div className="mt-2 flex items-center gap-2">
                     <button
                       onClick={() => appendFeedback(absoluteIndex, "up")}
-                      className={`p-1 border ${pair.feedback === "up" ? "text-[#CC0000] border-[#CC0000]" : "text-neutral-500 border-neutral-300 hover:text-[#111111] hover:border-[#111111]"}`}
+                      className={`p-1.5 rounded-full transition-all duration-200 active:scale-95 ${pair.feedback === "up" ? "bg-md-primary text-md-on-primary" : "text-md-on-surface-variant hover:bg-md-primary/10"}`}
                       aria-label="Helpful response"
                     >
                       <ThumbsUp size={14} />
                     </button>
                     <button
                       onClick={() => appendFeedback(absoluteIndex, "down")}
-                      className={`p-1 border ${pair.feedback === "down" ? "text-[#CC0000] border-[#CC0000]" : "text-neutral-500 border-neutral-300 hover:text-[#111111] hover:border-[#111111]"}`}
+                      className={`p-1.5 rounded-full transition-all duration-200 active:scale-95 ${pair.feedback === "down" ? "bg-md-primary text-md-on-primary" : "text-md-on-surface-variant hover:bg-md-primary/10"}`}
                       aria-label="Unhelpful response"
                     >
                       <ThumbsDown size={14} />
@@ -892,7 +893,7 @@ const SeamlessAI = ({ className = "", isPage = false, compact = false }) => {
                         <button
                           key={action.label}
                           onClick={() => executeActionButton(action)}
-                          className="px-2 py-1 text-xs border border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-[#F9F9F7]"
+                          className="px-3 py-1.5 text-xs font-medium rounded-full bg-md-surface-variant text-md-on-surface-variant hover:bg-md-primary/10 transition-all duration-200 active:scale-95"
                         >
                           {action.label}
                         </button>
@@ -914,24 +915,24 @@ const SeamlessAI = ({ className = "", isPage = false, compact = false }) => {
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             placeholder={showSuggestions ? placeholder : "Ask follow up..."}
-            className={`w-full bg-transparent border-[#111111] focus:border-[#CC0000] text-[#111111] placeholder:text-neutral-400 focus:outline-none transition-all duration-300 font-medium tracking-tight ${inputClasses}`}
+            className={`w-full text-md-on-background placeholder:text-md-on-surface-variant/50 focus:outline-none transition-all duration-300 font-medium tracking-tight ${inputClasses}`}
           />
 
           <div className={`absolute right-0 top-1/2 -translate-y-1/2 flex items-center ${compact ? "gap-2" : "gap-4"}`}>
             {isTyping && (
               <div className="flex gap-1">
-                <span className="w-1.5 h-1.5 bg-[#CC0000] animate-bounce" style={{ animationDelay: "0ms" }} />
-                <span className="w-1.5 h-1.5 bg-[#CC0000] animate-bounce" style={{ animationDelay: "150ms" }} />
-                <span className="w-1.5 h-1.5 bg-[#CC0000] animate-bounce" style={{ animationDelay: "300ms" }} />
+                <span className="w-1.5 h-1.5 bg-md-primary rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                <span className="w-1.5 h-1.5 bg-md-primary rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                <span className="w-1.5 h-1.5 bg-md-primary rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
               </div>
             )}
             {!isTyping && input && (
-              <button onClick={() => handleSend()} className="tap-feedback text-[#111111] hover:text-[#CC0000] hover:scale-110 transition-all" aria-label="Send message">
+              <button onClick={() => handleSend()} className="p-2 rounded-full text-md-primary hover:bg-md-primary/10 transition-all active:scale-95" aria-label="Send message">
                 <ArrowRight size={compact ? 18 : 24} strokeWidth={2} />
               </button>
             )}
             {!isTyping && !input && (
-              <span className="text-neutral-500 font-mono text-xs border border-[#111111] px-1.5 py-0.5 opacity-50 transition-colors duration-300">
+              <span className="text-md-on-surface-variant/50 text-xs bg-md-surface-variant px-2 py-1 rounded">
                 ⏎
               </span>
             )}
@@ -949,7 +950,7 @@ const SeamlessAI = ({ className = "", isPage = false, compact = false }) => {
               <button
                 key={suggestion}
                 onClick={() => handleSend(suggestion)}
-                className={`font-medium text-[#111111] bg-neutral-100 hover:bg-[#111111] hover:text-[#F9F9F7] transition-all duration-300 border border-[#111111] hover:border-[#111111] ${compact ? "px-2.5 py-1 text-[11px]" : "px-3 py-1.5 text-xs md:text-sm"}`}
+                className={`font-medium text-md-on-background bg-md-surface-variant hover:bg-md-primary/10 transition-all duration-200 rounded-full active:scale-95 ${compact ? "px-3 py-1.5 text-xs" : "px-4 py-2 text-sm"}`}
               >
                 {suggestion}
               </button>

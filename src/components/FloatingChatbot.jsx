@@ -82,24 +82,24 @@ const FloatingChatbot = () => {
                         onTouchEnd={onTouchEnd}
                         style={{ transform: touchDelta > 0 ? `translateY(${Math.min(120, touchDelta)}px)` : undefined }}
                     >
-                        <div className="border-2 border-[#111111] bg-[#F9F9F7] p-4 md:p-5 h-full flex flex-col">
+                        <div className="bg-md-surface rounded-3xl shadow-lg p-4 md:p-5 h-full flex flex-col border border-md-outline/20">
                             {isMobile && (
                                 <button
                                     type="button"
                                     onClick={() => setSheetMode((prev) => (prev === "mid" ? "full" : "mid"))}
-                                    className="mx-auto mb-2 h-1.5 w-12 bg-neutral-300"
+                                    className="mx-auto mb-2 h-1.5 w-12 bg-md-outline/30 rounded-full"
                                     aria-label="Resize chat panel"
                                 />
                             )}
                             <div className="flex items-center justify-between mb-3">
-                                <p className="text-[10px] font-mono uppercase tracking-widest text-[#CC0000] font-semibold">Ask AI</p>
+                                <p className="text-sm font-medium text-md-primary">Ask AI</p>
                                 <button
                                     onClick={() => setIsOpen(false)}
                                     type="button"
-                                    className="p-1 border border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-[#F9F9F7] transition-all duration-200"
+                                    className="p-2 rounded-full text-md-on-surface-variant hover:bg-md-primary/10 transition-all duration-200 active:scale-95"
                                     aria-label="Close chat"
                                 >
-                                    <X size={16} strokeWidth={1.5} />
+                                    <X size={20} />
                                 </button>
                             </div>
                             {isMobile && (
@@ -111,7 +111,7 @@ const FloatingChatbot = () => {
                                             onClick={() => {
                                                 window.dispatchEvent(new CustomEvent("portfolio:quick-chat", { detail: { prompt } }));
                                             }}
-                                            className="tap-feedback shrink-0 border border-[#111111] px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-[#111111] hover:bg-[#111111] hover:text-[#F9F9F7] transition-all duration-200"
+                                            className="shrink-0 bg-md-surface-variant text-md-on-surface-variant px-3 py-1.5 text-xs font-medium rounded-full hover:bg-md-primary/10 transition-all duration-200 active:scale-95"
                                         >
                                             {prompt}
                                         </button>
@@ -127,12 +127,12 @@ const FloatingChatbot = () => {
             <button
                 onClick={() => setIsOpen((prev) => !prev)}
                 type="button"
-                className="tap-feedback h-12 w-12 md:h-14 md:w-14 border-2 border-[#111111] bg-[#111111] text-[#F9F9F7] hover:bg-[#F9F9F7] hover:text-[#111111] transition-all duration-200 flex items-center justify-center"
+                className="h-14 w-14 rounded-full bg-md-primary text-md-on-primary shadow-lg hover:bg-md-primary/90 transition-all duration-200 active:scale-95 flex items-center justify-center"
                 aria-label={isOpen ? "Close AI chat" : "Open AI chat"}
                 aria-expanded={isOpen}
                 aria-controls="floating-chat-panel"
             >
-                {isOpen ? <X size={20} strokeWidth={1.5} /> : <MessageCircle size={20} strokeWidth={1.5} />}
+                {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
             </button>
         </div>
     );
