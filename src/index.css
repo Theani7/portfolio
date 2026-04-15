@@ -1,28 +1,23 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
-@theme {
-  --font-display: "Playfair Display", serif;
-}
-
 /* ═══════════════════════════════════════════
-   NEWSPRINT DESIGN SYSTEM — Global Styles
+   MATERIAL YOU DESIGN SYSTEM — Global Styles
    ═══════════════════════════════════════════ */
 
 body {
   margin: 0;
-  background-color: #F9F9F7;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23111111' fill-opacity='0.04' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
-  color: #111111;
-  font-family: 'Lora', Georgia, serif;
-  line-height: 1.625;
+  background-color: #FFFBFE;
+  color: #1C1B1F;
+  font-family: 'Roboto', system-ui, sans-serif;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: #111111;
-  color: #F9F9F7;
+  background-color: #6750A4;
+  color: #FFFFFF;
 }
 
 a,
@@ -34,97 +29,56 @@ input {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible {
-  outline: 2px solid #111111;
+  outline: 2px solid #6750A4;
   outline-offset: 2px;
-  border-radius: 0px;
+  border-radius: 8px;
 }
 
-/* ── Sharp Corners Utility ── */
-.sharp-corners,
-.sharp-corners * {
-  border-radius: 0px !important;
+/* ── Material You State Layers ── */
+.state-layer-hover {
+  transition: background-color 200ms cubic-bezier(0.2, 0, 0, 1);
 }
 
-/* ── Newsprint Texture Overlay ── */
-.newsprint-texture {
-  position: relative;
+.state-layer-hover:hover {
+  background-color: rgb(103 80 164 / 0.1);
 }
-.newsprint-texture::before {
-  content: '';
+
+/* ── Pill Button Base ── */
+.pill-button {
+  border-radius: 9999px;
+  transition: all 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.pill-button:active {
+  transform: scale(0.95);
+}
+
+/* ── Card Base ── */
+.md-card {
+  background-color: #F3EDF7;
+  border-radius: 24px;
+  transition: all 300ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.md-card:hover {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transform: scale(1.02);
+}
+
+/* ── Organic Blur Shapes ── */
+.blur-shape {
   position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(0deg, transparent 98%, rgba(0,0,0,0.02) 100%),
-    linear-gradient(90deg, transparent 98%, rgba(0,0,0,0.02) 100%);
-  background-size: 3px 3px;
+  border-radius: 100px;
+  filter: blur(64px);
+  opacity: 0.3;
   pointer-events: none;
-  opacity: 0.5;
 }
 
-/* ── Hard Shadow Hover ── */
-.hard-shadow-hover {
-  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
-}
-.hard-shadow-hover:hover {
-  box-shadow: 4px 4px 0px 0px #111111;
-  transform: translate(-2px, -2px);
-}
-
-/* ── Tap Feedback ── */
-.tap-feedback {
-  transition: transform 130ms ease, box-shadow 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.tap-feedback:active {
-  transform: translate(2px, 2px);
-  box-shadow: none;
-}
-
-/* ── Drop Cap ── */
-.drop-cap::first-letter {
-  float: left;
-  font-family: 'Playfair Display', serif;
-  font-size: 4.5em;
-  line-height: 0.8;
-  padding-right: 0.1em;
-  margin-top: 0.05em;
-  color: #111111;
-  font-weight: 900;
-}
-
-.drop-cap-accent::first-letter {
-  color: #CC0000;
-}
-
-/* ── Serif Italic ── */
-.serif-italic {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-weight: 400;
-}
-
-/* ── Link Hover Underline ── */
-.link-hover {
-  position: relative;
-  text-decoration: none;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 2px;
-  text-decoration-color: #CC0000;
-}
-
-.link-hover:hover {
-  text-decoration: underline;
-}
-
-/* ── Navigation Item ── */
-.nav-item {
-  position: relative;
-  transition: color 200ms ease;
-}
-
-.nav-item:hover {
-  color: #CC0000;
+/* ── Glass Card ── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ── Skip Link ── */
@@ -133,14 +87,15 @@ input:focus-visible {
   left: 1rem;
   top: 1rem;
   transform: translateY(-220%);
-  background: #111111;
-  color: #F9F9F7;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0px;
+  background: #6750A4;
+  color: #FFFFFF;
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
   z-index: 100;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   font-size: 0.75rem;
 }
 
@@ -148,54 +103,17 @@ input:focus-visible {
   transform: translateY(0);
 }
 
-/* ── Marquee ── */
-.marquee-container {
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.marquee-content {
-  display: inline-block;
-  animation: marquee 25s linear infinite;
-}
-
-@keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
-}
-
-/* ── Ornamental Divider ── */
-.ornament-divider {
-  padding: 2rem 0;
-  text-align: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  color: #A3A3A3;
-  letter-spacing: 1em;
-}
-
-/* ── Grayscale Image ── */
-.img-newsprint {
-  filter: grayscale(100%);
-  transition: filter 200ms ease-out;
-}
-
-.img-newsprint:hover {
-  filter: grayscale(100%) sepia(50%);
-}
-
 /* ── Mobile App Shell ── */
 @media (max-width: 767px) {
   .mobile-app-shell {
     min-height: 100dvh;
-    background-color: #F9F9F7;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23111111' fill-opacity='0.04' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+    background-color: #FFFBFE;
   }
 
   .mobile-main {
     margin: 0;
     min-height: 100dvh;
-    border-radius: 0px;
+    border-radius: 0;
     border: none;
     background: transparent;
     box-shadow: none;

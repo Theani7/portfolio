@@ -20,10 +20,10 @@ const ProjectDetailPage = () => {
         return (
             <PageWrapper>
                 <section className="mb-16 md:mb-24">
-                    <p className="font-body text-neutral-600 mb-4">Project not found.</p>
+                    <p className="text-md-on-surface-variant mb-4">Project not found.</p>
                     <Link
                         to="/projects"
-                        className="text-xs font-sans font-semibold uppercase tracking-widest text-[#111111] link-hover"
+                        className="text-sm font-medium text-md-primary hover:bg-md-primary/10 px-4 py-2 rounded-full transition-all duration-200"
                         aria-label="Back to projects page"
                     >
                         ← Back to Projects
@@ -35,58 +35,59 @@ const ProjectDetailPage = () => {
 
     return (
         <PageWrapper>
-            <article className="mb-16 border-b-4 border-[#111111] pb-12 md:mb-24" aria-labelledby="project-title">
+            <article className="mb-16 md:mb-24" aria-labelledby="project-title">
                 {/* Back Link */}
-                <Link to="/projects" className="text-xs font-sans font-semibold uppercase tracking-widest text-[#111111] link-hover">
+                <Link 
+                    to="/projects" 
+                    className="inline-flex items-center gap-2 text-sm font-medium text-md-primary hover:bg-md-primary/10 px-4 py-2 rounded-full transition-all duration-200"
+                >
                     ← Back to Projects
                 </Link>
 
                 {/* Header */}
-                <header className="mt-6 mb-6">
-                    <h1 id="project-title" className="font-serif text-4xl lg:text-5xl font-black tracking-tighter leading-[0.9] text-[#111111]">
+                <header className="mt-8 mb-8">
+                    <h1 id="project-title" className="text-3xl lg:text-4xl font-medium text-md-on-background mb-4">
                         {project.title}
                     </h1>
                     {!!project.tags?.length && (
-                        <p className="mt-3 text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
-                            {project.tags.join(" · ")}
-                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {project.tags.map((tag) => (
+                                <span key={tag} className="text-xs font-medium text-md-on-surface-variant bg-md-surface-variant px-3 py-1 rounded-full">
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
                     )}
                 </header>
 
-                {/* Image — Grayscale with sharp border */}
+                {/* Image */}
                 {project.image && (
-                    <div className="mb-6 border border-[#111111] overflow-hidden">
+                    <div className="mb-8 rounded-3xl overflow-hidden shadow-md">
                         <img
                             src={project.image}
                             alt={`${project.title} preview`}
-                            className="w-full h-56 md:h-80 object-cover img-newsprint"
+                            className="w-full h-56 md:h-80 object-cover"
                             loading="lazy"
                         />
-                        <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest px-3 py-1.5 border-t border-[#E5E5E0] bg-[#F9F9F7]">
-                            Fig. {project.id}.1 — {project.title}
-                        </p>
                     </div>
                 )}
 
-                {/* Overview with Drop Cap */}
-                <section className="mb-8">
-                    <h2 className="text-xs font-sans font-bold uppercase tracking-widest text-neutral-500 mb-3 flex items-center gap-4">
-                        Overview
-                        <span className="h-px bg-[#111111] flex-grow" />
-                    </h2>
-                    <p className="drop-cap font-body text-base md:text-lg text-neutral-600 leading-relaxed text-justify max-w-3xl">
+                {/* Overview */}
+                <section className="mb-8 bg-md-surface rounded-3xl p-6 md:p-8">
+                    <h2 className="text-lg font-medium text-md-on-background mb-4">Overview</h2>
+                    <p className="text-base text-md-on-surface-variant leading-relaxed max-w-3xl">
                         {project.description || "No project description is available yet."}
                     </p>
                 </section>
 
-                {/* Action Buttons — Sharp Corners */}
+                {/* Action Buttons */}
                 <section className="flex flex-wrap gap-4">
                     {project.demo && project.demo !== "#" && (
                         <a
                             href={project.demo}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="tap-feedback inline-flex items-center bg-[#111111] text-[#F9F9F7] border border-transparent px-6 py-3 text-xs font-sans font-semibold uppercase tracking-widest transition-all duration-200 hover:bg-white hover:text-[#111111] hover:border-[#111111] min-h-[44px]"
+                            className="inline-flex items-center bg-md-primary text-md-on-primary px-6 py-3 text-sm font-medium rounded-full transition-all duration-200 hover:bg-md-primary/90 active:scale-95 shadow-md"
                             aria-label={`Open live demo for ${project.title}`}
                         >
                             Open Live Demo
@@ -97,7 +98,7 @@ const ProjectDetailPage = () => {
                             href={project.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="tap-feedback inline-flex items-center border border-[#111111] bg-transparent px-6 py-3 text-xs font-sans font-semibold uppercase tracking-widest text-[#111111] transition-all duration-200 hover:bg-[#111111] hover:text-[#F9F9F7] min-h-[44px]"
+                            className="inline-flex items-center border border-md-outline bg-transparent px-6 py-3 text-sm font-medium rounded-full text-md-primary transition-all duration-200 hover:bg-md-primary/10 active:scale-95"
                             aria-label={`Open GitHub repository for ${project.title}`}
                         >
                             View Source Code

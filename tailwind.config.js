@@ -7,45 +7,37 @@ export default {
     theme: {
         extend: {
             colors: {
-                newsprint: {
-                    bg: '#F9F9F7',
-                    fg: '#111111',
-                    muted: '#E5E5E0',
-                    accent: '#CC0000',
-                    border: '#111111',
-                },
-                neutral: {
-                    100: '#F5F5F5',
-                    200: '#E5E5E5',
-                    400: '#A3A3A3',
-                    500: '#737373',
-                    600: '#525252',
-                    700: '#404040',
+                md: {
+                    background: '#FFFBFE',
+                    'on-background': '#1C1B1F',
+                    surface: '#F3EDF7',
+                    'surface-variant': '#E7E0EC',
+                    primary: '#6750A4',
+                    'on-primary': '#FFFFFF',
+                    'secondary-container': '#E8DEF8',
+                    'on-secondary-container': '#1D192B',
+                    tertiary: '#7D5260',
+                    'on-tertiary': '#FFFFFF',
+                    outline: '#79747E',
+                    'on-surface-variant': '#49454F',
                 },
             },
             fontFamily: {
-                serif: ['"Playfair Display"', '"Times New Roman"', 'serif'],
-                body: ['"Lora"', 'Georgia', 'serif'],
-                sans: ['"Inter"', '"Helvetica Neue"', 'sans-serif'],
-                mono: ['"JetBrains Mono"', '"Courier New"', 'monospace'],
+                sans: ['Roboto', 'system-ui', 'sans-serif'],
             },
             borderRadius: {
-                none: '0px',
-            },
-            maxWidth: {
-                screen: '1280px',
+                'md-xs': '8px',
+                'md-sm': '12px',
+                'md-md': '16px',
+                'md-lg': '24px',
+                'md-xl': '28px',
+                'md-2xl': '32px',
+                'md-3xl': '48px',
             },
             boxShadow: {
-                hard: '4px 4px 0px 0px #111111',
-            },
-            keyframes: {
-                marquee: {
-                    '0%': { transform: 'translateX(0%)' },
-                    '100%': { transform: 'translateX(-50%)' },
-                },
-            },
-            animation: {
-                marquee: 'marquee 25s linear infinite',
+                'md-elevation-1': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+                'md-elevation-2': '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+                'md-elevation-3': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
             },
         },
     },

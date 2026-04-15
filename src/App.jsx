@@ -27,7 +27,7 @@ const AnimatedRoutes = () => {
 function App() {
   return (
     <Router>
-      <div className="mobile-app-shell min-h-screen text-[#111111] bg-[#F9F9F7]">
+      <div className="mobile-app-shell min-h-screen text-md-on-background bg-md-background">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
