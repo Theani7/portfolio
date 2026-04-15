@@ -21,30 +21,29 @@ const Projects = () => {
     return (
         <section className="mb-16 md:mb-24" aria-labelledby="projects-heading">
             {/* Section Header */}
-            <h2 id="projects-heading" className="text-xs font-sans font-bold uppercase tracking-widest text-neutral-500 mb-8 md:mb-12 flex items-center gap-4">
-                Selected Projects
-                <span className="h-px bg-[#111111] flex-grow" />
-            </h2>
+            <div className="flex items-center gap-4 mb-8 md:mb-12">
+                <h2 id="projects-heading" className="text-lg font-medium text-md-on-background">
+                    Selected Projects
+                </h2>
+                <span className="h-px bg-md-outline flex-grow" />
+            </div>
 
             {isLoading && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-[#111111]" aria-hidden="true">
-                    {[1, 2, 3, 4].map((item) => (
-                        <div key={item} className="border-b border-r md:border-r last:border-r-0 p-6">
-                            <div className="h-7 w-52 animate-pulse bg-neutral-200" />
-                            <div className="mt-4 h-4 w-full max-w-2xl animate-pulse bg-neutral-100" />
-                            <div className="mt-2 h-4 w-5/6 max-w-xl animate-pulse bg-neutral-100" />
-                            <div className="mt-4 flex gap-4">
-                                <div className="h-4 w-20 animate-pulse bg-neutral-200" />
-                                <div className="h-4 w-20 animate-pulse bg-neutral-200" />
-                            </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6" aria-hidden="true">
+                    {[1, 2].map((item) => (
+                        <div key={item} className="bg-md-surface rounded-3xl p-6">
+                            <div className="h-48 rounded-2xl bg-md-surface-variant animate-pulse mb-4" />
+                            <div className="h-6 w-48 bg-md-surface-variant animate-pulse rounded-lg" />
+                            <div className="mt-3 h-4 w-full bg-md-surface-variant animate-pulse rounded" />
+                            <div className="mt-2 h-4 w-5/6 bg-md-surface-variant animate-pulse rounded" />
                         </div>
                     ))}
                 </div>
             )}
 
-            {/* Newspaper Grid */}
+            {/* Project Grid */}
             <div
-                className={`grid grid-cols-1 md:grid-cols-2 border border-[#111111] ${isLoading ? "hidden" : ""}`}
+                className={`grid grid-cols-1 md:grid-cols-2 gap-6 ${isLoading ? "hidden" : ""}`}
                 onMouseLeave={() => setHovered(null)}
             >
                 {PROJECTS.map((project, i) => (
@@ -55,65 +54,73 @@ const Projects = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 + (i * 0.08) }}
                         onMouseEnter={() => setHovered(project.id)}
-                        className={`group hard-shadow-hover border-b border-r md:border-r p-6 md:p-8 last:border-r-0 bg-[#F9F9F7] transition-opacity duration-300 ${hovered && hovered !== project.id ? "md:opacity-60" : "opacity-100"}`}
+                        className={`group bg-md-surface rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-md hover:scale-[1.02] ${hovered && hovered !== project.id ? "md:opacity-70" : "opacity-100"}`}
                     >
                         {/* Image */}
                         {project.image && (
-                            <div className="mb-4 overflow-hidden border border-[#E5E5E0]">
+                            <div className="relative overflow-hidden">
                                 <img
                                     src={project.image}
                                     alt={`${project.title} preview`}
-                                    className="w-full h-40 md:h-48 object-cover img-newsprint"
+                                    className="w-full h-48 md:h-56 object-cover transition-transform duration-300 group-hover:scale-105"
                                     loading="lazy"
                                 />
+                                <div className="absolute inset-0 bg-gradient-to-t from-md-surface/80 to-transparent" />
                             </div>
                         )}
 
-                        {/* Title & Tags */}
-                        <div className="flex items-start justify-between gap-3 mb-2">
-                            <Link
-                                to={`/projects/${project.id}-${getSlug(project.title)}`}
-                                className="font-serif text-2xl lg:text-3xl font-bold text-[#111111] group-hover:text-[#CC0000] transition-colors duration-200 leading-tight"
-                                aria-label={`View details for ${project.title}`}
-                            >
-                                {project.title}
-                            </Link>
-                            <ArrowUpRight
-                                size={18}
-                                strokeWidth={1.5}
-                                className="opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-200 text-[#111111] shrink-0 mt-1 hidden md:block"
-                            />
-                        </div>
-
-                        <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block mb-3">
-                            {project.tags.slice(0, 3).join(" · ")}
-                        </span>
-
-                        {/* Description */}
-                        <p className="font-body text-sm md:text-base text-neutral-600 leading-relaxed text-justify">
-                            {project.description}
-                        </p>
-
-                        {/* Links */}
-                        <div className="mt-4 flex items-center gap-4 border-t border-[#E5E5E0] pt-4">
-                            <Link
-                                to={`/projects/${project.id}-${getSlug(project.title)}`}
-                                className="tap-feedback text-xs font-sans font-semibold uppercase tracking-widest text-[#111111] link-hover"
-                                aria-label={`Read full case study for ${project.title}`}
-                            >
-                                Case Study
-                            </Link>
-                            {project.demo && project.demo !== "#" && (
-                                <a
-                                    href={project.demo}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="tap-feedback text-xs font-sans font-semibold uppercase tracking-widest text-[#111111] link-hover"
-                                    aria-label={`Open live demo for ${project.title}`}
+                        {/* Content */}
+                        <div className="p-6">
+                            {/* Title */}
+                            <div className="flex items-start justify-between gap-3 mb-3">
+                                <Link
+                                    to={`/projects/${project.id}-${getSlug(project.title)}`}
+                                    className="text-xl font-medium text-md-on-background group-hover:text-md-primary transition-colors duration-200"
+                                    aria-label={`View details for ${project.title}`}
                                 >
-                                    Live Demo ↗
-                                </a>
-                            )}
+                                    {project.title}
+                                </Link>
+                                <ArrowUpRight
+                                    size={20}
+                                    className="opacity-0 group-hover:opacity-100 transition-all duration-200 text-md-primary shrink-0"
+                                />
+                            </div>
+
+                            {/* Tags */}
+                            <div className="flex flex-wrap gap-2 mb-3">
+                                {project.tags.slice(0, 3).map((tag) => (
+                                    <span key={tag} className="text-xs font-medium text-md-on-surface-variant bg-md-surface-variant px-3 py-1 rounded-full">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+
+                            {/* Description */}
+                            <p className="text-sm text-md-on-surface-variant leading-relaxed mb-4">
+                                {project.description}
+                            </p>
+
+                            {/* Links */}
+                            <div className="flex items-center gap-4 pt-4 border-t border-md-outline/20">
+                                <Link
+                                    to={`/projects/${project.id}-${getSlug(project.title)}`}
+                                    className="text-sm font-medium text-md-primary hover:underline"
+                                    aria-label={`Read full case study for ${project.title}`}
+                                >
+                                    Case Study
+                                </Link>
+                                {project.demo && project.demo !== "#" && (
+                                    <a
+                                        href={project.demo}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm font-medium text-md-primary hover:underline"
+                                        aria-label={`Open live demo for ${project.title}`}
+                                    >
+                                        Live Demo ↗
+                                    </a>
+                                )}
+                            </div>
                         </div>
                     </motion.article>
                 ))}
@@ -125,7 +132,7 @@ const Projects = () => {
                     href="https://github.com/Theani7"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-sans font-semibold uppercase tracking-widest text-[#111111] link-hover"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-md-primary hover:bg-md-primary/10 px-4 py-2 rounded-full transition-all duration-200"
                     aria-label="Open full GitHub project archive"
                 >
                     View Full Archive →

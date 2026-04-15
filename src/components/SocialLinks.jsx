@@ -1,8 +1,6 @@
 import { CONTENT } from "../constants";
 
-const SocialLinks = ({ className = "", iconSize = 18, variant = "default" }) => {
-    const isInverted = variant === "inverted";
-
+const SocialLinks = ({ className = "", iconSize = 20 }) => {
     return (
         <div className={`flex gap-3 ${className}`}>
             {CONTENT.social.map(link => {
@@ -13,11 +11,7 @@ const SocialLinks = ({ className = "", iconSize = 18, variant = "default" }) => 
                         href={link.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex items-center justify-center border h-10 w-10 transition-all duration-200 ${
-                            isInverted
-                                ? "border-neutral-600 text-neutral-400 hover:bg-[#F9F9F7] hover:text-[#111111] hover:border-[#F9F9F7]"
-                                : "border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-[#F9F9F7]"
-                        }`}
+                        className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-md-surface-variant text-md-on-surface-variant transition-all duration-200 hover:bg-md-primary/10 hover:text-md-primary active:scale-95"
                         aria-label={link.name}
                     >
                         <Icon size={iconSize} strokeWidth={1.5} />

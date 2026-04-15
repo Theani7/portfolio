@@ -87,36 +87,34 @@ const ChatModal = ({ isOpen, onClose }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#111111]/50 p-4">
-            <div className="w-full max-w-md bg-[#F9F9F7] border-2 border-[#111111] overflow-hidden flex flex-col h-[500px]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-md-on-background/50 p-4 backdrop-blur-sm">
+            <div className="w-full max-w-md bg-md-background rounded-3xl overflow-hidden flex flex-col h-[500px] shadow-2xl">
                 {/* Header */}
-                <div className="bg-[#111111] px-4 py-3 flex items-center justify-between border-b-2 border-[#111111]">
-                    <div className="flex items-center gap-2">
-                        <div className="p-1.5 border border-[#CC0000]">
-                            <Bot size={18} className="text-[#CC0000]" strokeWidth={1.5} />
+                <div className="bg-md-primary px-4 py-3 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-md-on-primary/20 flex items-center justify-center">
+                            <Bot size={20} className="text-md-on-primary" />
                         </div>
                         <div>
-                            <h3 className="text-xs font-sans font-semibold uppercase tracking-widest text-[#F9F9F7]">Ask AI</h3>
-                            <p className="text-[10px] font-mono text-neutral-400">
-                                Assistant
-                            </p>
+                            <h3 className="text-sm font-medium text-md-on-primary">Ask AI</h3>
+                            <p className="text-xs text-md-on-primary/70">Assistant</p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="text-neutral-400 hover:text-[#F9F9F7] transition-colors border border-neutral-600 hover:border-[#F9F9F7] p-1">
-                        <X size={16} strokeWidth={1.5} />
+                    <button onClick={onClose} className="p-2 rounded-full text-md-on-primary/70 hover:bg-md-on-primary/20 hover:text-md-on-primary transition-all duration-200 active:scale-95">
+                        <X size={20} />
                     </button>
                 </div>
 
                 {/* Messages */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F9F9F7]">
+                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-md-background">
                     {messages.map((msg, i) => (
                         <div key={i} className={`flex gap-3 ${msg.type === "user" ? "flex-row-reverse" : ""}`}>
-                            <div className={`w-8 h-8 border flex items-center justify-center shrink-0 ${msg.type === "ai" ? "border-[#CC0000] text-[#CC0000]" : "border-[#111111] bg-[#111111] text-[#F9F9F7]"}`}>
-                                {msg.type === "ai" ? <Bot size={14} strokeWidth={1.5} /> : <User size={14} strokeWidth={1.5} />}
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.type === "ai" ? "bg-md-primary/10 text-md-primary" : "bg-md-tertiary text-md-on-tertiary"}`}>
+                                {msg.type === "ai" ? <Bot size={14} /> : <User size={14} />}
                             </div>
-                            <div className={`max-w-[80%] border px-4 py-2.5 text-sm font-body leading-relaxed ${msg.type === "ai"
-                                ? "border-[#E5E5E0] bg-white text-[#111111]"
-                                : "border-[#111111] bg-[#111111] text-[#F9F9F7]"
+                            <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${msg.type === "ai"
+                                ? "bg-md-surface text-md-on-surface-variant rounded-tl-sm"
+                                : "bg-md-primary text-md-on-primary rounded-tr-sm"
                                 }`}>
                                 {msg.content.split('\n').map((line, j) => (
                                     <p
@@ -130,13 +128,13 @@ const ChatModal = ({ isOpen, onClose }) => {
                     ))}
                     {isTyping && (
                         <div className="flex gap-3">
-                            <div className="w-8 h-8 border border-[#CC0000] text-[#CC0000] flex items-center justify-center shrink-0">
-                                <Bot size={14} strokeWidth={1.5} />
+                            <div className="w-8 h-8 rounded-full bg-md-primary/10 text-md-primary flex items-center justify-center shrink-0">
+                                <Bot size={14} />
                             </div>
-                            <div className="border border-[#E5E5E0] bg-white px-4 py-3 flex items-center gap-1">
-                                <span className="w-1.5 h-1.5 bg-neutral-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-                                <span className="w-1.5 h-1.5 bg-neutral-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-                                <span className="w-1.5 h-1.5 bg-neutral-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+                            <div className="bg-md-surface rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 bg-md-primary/40 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                                <span className="w-1.5 h-1.5 bg-md-primary/40 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                                <span className="w-1.5 h-1.5 bg-md-primary/40 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                             </div>
                         </div>
                     )}
@@ -144,7 +142,7 @@ const ChatModal = ({ isOpen, onClose }) => {
                 </div>
 
                 {/* Input */}
-                <div className="p-4 bg-[#F9F9F7] border-t-2 border-[#111111]">
+                <div className="p-4 bg-md-surface border-t border-md-outline/20">
                     <div className="flex gap-2">
                         <input
                             type="text"
@@ -152,15 +150,14 @@ const ChatModal = ({ isOpen, onClose }) => {
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
                             placeholder="Ask about projects, skills..."
-                            className="flex-1 border-b-2 border-[#111111] bg-transparent px-3 py-2 font-mono text-sm text-[#111111] placeholder:text-neutral-400 focus-visible:bg-[#F0F0F0] focus-visible:outline-none"
-                            style={{ borderRadius: 0 }}
+                            className="flex-1 bg-md-surface-variant rounded-full px-4 py-3 text-sm text-md-on-background placeholder:text-md-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-md-primary/30 transition-all duration-200"
                         />
                         <button
                             onClick={handleSend}
                             disabled={!input.trim()}
-                            className="bg-[#111111] hover:bg-[#F9F9F7] hover:text-[#111111] hover:border-[#111111] disabled:opacity-50 disabled:cursor-not-allowed text-[#F9F9F7] border border-transparent p-2.5 transition-all duration-200"
+                            className="bg-md-primary hover:bg-md-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-md-on-primary rounded-full p-3 transition-all duration-200 active:scale-95"
                         >
-                            <Send size={18} strokeWidth={1.5} />
+                            <Send size={18} />
                         </button>
                     </div>
                 </div>
