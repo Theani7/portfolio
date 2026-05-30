@@ -82,21 +82,21 @@ const FloatingChatbot = () => {
                         onTouchEnd={onTouchEnd}
                         style={{ transform: touchDelta > 0 ? `translateY(${Math.min(120, touchDelta)}px)` : undefined }}
                     >
-                        <div className="bg-md-surface rounded-3xl shadow-lg p-4 md:p-5 h-full flex flex-col border border-md-outline/20">
+                        <div className="bg-md-surface border border-md-outline rounded-3xl shadow-md-elevation-3 p-4 md:p-5 h-full flex flex-col">
                             {isMobile && (
                                 <button
                                     type="button"
                                     onClick={() => setSheetMode((prev) => (prev === "mid" ? "full" : "mid"))}
-                                    className="mx-auto mb-2 h-1.5 w-12 bg-md-outline/30 rounded-full"
+                                    className="mx-auto mb-2 h-1.5 w-12 bg-md-outline rounded-full"
                                     aria-label="Resize chat panel"
                                 />
                             )}
                             <div className="flex items-center justify-between mb-3">
-                                <p className="text-sm font-medium text-md-primary">Ask AI</p>
+                                <p className="mono text-md-on-surface-variant">Ask AI</p>
                                 <button
                                     onClick={() => setIsOpen(false)}
                                     type="button"
-                                    className="p-2 rounded-full text-md-on-surface-variant hover:bg-md-primary/10 transition-all duration-200 active:scale-95"
+                                    className="p-2 rounded-full text-md-on-surface-variant hover:text-md-on-background hover:bg-md-surface-variant transition-all duration-200 active:scale-95"
                                     aria-label="Close chat"
                                 >
                                     <X size={20} />
@@ -111,7 +111,7 @@ const FloatingChatbot = () => {
                                             onClick={() => {
                                                 window.dispatchEvent(new CustomEvent("portfolio:quick-chat", { detail: { prompt } }));
                                             }}
-                                            className="shrink-0 bg-md-surface-variant text-md-on-surface-variant px-3 py-1.5 text-xs font-medium rounded-full hover:bg-md-primary/10 transition-all duration-200 active:scale-95"
+                                            className="shrink-0 border border-md-outline text-md-on-surface-variant px-3 py-1.5 text-xs font-medium rounded-full hover:border-md-on-background hover:text-md-on-background transition-all duration-200 active:scale-95"
                                         >
                                             {prompt}
                                         </button>
@@ -127,7 +127,7 @@ const FloatingChatbot = () => {
             <button
                 onClick={() => setIsOpen((prev) => !prev)}
                 type="button"
-                className="h-14 w-14 rounded-full bg-md-primary text-md-on-primary shadow-lg hover:bg-md-primary/90 transition-all duration-200 active:scale-95 flex items-center justify-center"
+                className="btn-primary h-14 w-14 rounded-full shadow-md-elevation-3 flex items-center justify-center"
                 aria-label={isOpen ? "Close AI chat" : "Open AI chat"}
                 aria-expanded={isOpen}
                 aria-controls="floating-chat-panel"
