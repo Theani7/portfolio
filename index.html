@@ -28,7 +28,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <!-- Open Graph (Facebook, WhatsApp, LinkedIn, Slack, iMessage, etc.) -->
   <meta property="og:type" content="website" />
@@ -96,26 +96,31 @@
     ]
   }
   </script>
+
+  <!-- Dark Mode Init Script to prevent FOUC -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 
 <body>
   <div id="root">
-    <!-- SEO fallback: visible in raw HTML, replaced by the app on load -->
-    <main style="max-width:760px;margin:0 auto;padding:4rem 1.5rem;font-family:system-ui,sans-serif;color:#1A1714">
-      <h1 style="font-size:2rem;line-height:1.2;margin:0 0 1rem">Anil Paneru — ML Engineer &amp; AI Developer</h1>
-      <p style="font-size:1.1rem;margin:0 0 1rem">I build intelligent systems that scale.</p>
-      <p style="margin:0 0 1.5rem">Final year B.Tech student in AI and Data Science with deep expertise in Data Science and Machine Learning, specializing in building intelligent systems, architecting neural networks, and developing data-driven solutions for complex problems.</p>
-      <nav>
-        <a href="https://github.com/Theani7" rel="me">GitHub</a> ·
-        <a href="https://www.linkedin.com/in/theanilpaneru/" rel="me">LinkedIn</a> ·
-        <a href="mailto:theanilpaneru@gmail.com" rel="me">Email</a>
-      </nav>
-    </main>
+
   </div>
   <noscript>
     <p>Anil Paneru — ML Engineer &amp; AI Developer based in Kathmandu, Nepal. Portfolio of AI and machine learning projects. This site works best with JavaScript enabled.</p>
   </noscript>
   <script type="module" src="/src/main.jsx"></script>
+  <script src="/oneko.js"></script>
 </body>
 
 </html>

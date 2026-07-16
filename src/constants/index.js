@@ -19,10 +19,8 @@ export const CONTENT = {
 
 export const NAV_LINKS = [
     { id: "home", label: "Home" },
-    { id: "skills", label: "Skills" },
-    { id: "about", label: "About" },
     { id: "projects", label: "Projects" },
-    { id: "contact", label: "Contact" },
+    { id: "resume", label: "Resume" },
 ];
 
 export const SKILLS = [

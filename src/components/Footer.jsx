@@ -1,51 +1,62 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import SocialLinks from "./SocialLinks";
 import { CONTENT } from "../constants";
+import Magnetic from "./Magnetic";
 
 const Footer = () => {
-    const [time, setTime] = useState("");
-    const location = useLocation();
-    const isHome = location.pathname === "/";
-    const emailLink = CONTENT.social.find((item) => item.name === "Email")?.link || "mailto:theanilpaneru@gmail.com";
-    const linkedInLink = CONTENT.social.find((item) => item.name === "LinkedIn")?.link || "https://www.linkedin.com";
-
-    useEffect(() => {
-        const update = () => setTime(new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kathmandu" }));
-        update();
-        const interval = setInterval(update, 1000);
-        return () => clearInterval(interval);
-    }, []);
+    const navLinks = [
+        "Home", "Projects", "Resume"
+    ];
 
     return (
-        <footer className="w-full border-t border-md-outline mt-16">
-            <div className="mx-auto max-w-screen-xl px-4 md:px-8">
-                {!isHome && (
-                    <div className="py-10 border-b border-md-outline flex flex-wrap items-center gap-3">
-                        <a href={emailLink} className="btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm min-h-[46px]" aria-label="Hire me via email">
-                            Hire Me <ArrowRight size={16} />
-                        </a>
-                        <a href={linkedInLink} target="_blank" rel="noopener noreferrer" className="btn-ghost inline-flex items-center px-6 py-3 text-sm min-h-[46px]" aria-label="Book a call via LinkedIn">
-                            Book a Call
-                        </a>
+        <footer className="w-full mt-20 pb-8">
+            <div className="mx-auto max-w-2xl px-4">
+                <div className="flex flex-col md:flex-row gap-12 md:gap-24 mb-16">
+                    {/* NAVIGATE Section */}
+                    <div className="flex-1">
+                        <h3 className="text-[11px] font-medium tracking-widest text-md-on-surface-variant mb-6 uppercase">
+                            Navigate
+                        </h3>
+                        <div className="flex flex-wrap gap-x-5 gap-y-3.5 sm:gap-x-7 sm:gap-y-4 max-w-[380px]">
+                            {navLinks.map((link) => (
+                                <a 
+                                    key={link} 
+                                    href="#"
+                                    className="text-sm sm:text-[15px] text-md-on-surface-variant hover:text-md-on-background transition-colors"
+                                >
+                                    {link}
+                                </a>
+                            ))}
+                        </div>
                     </div>
-                )}
 
-                <div className="py-12 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="text-center md:text-left">
-                        <span className="font-display text-lg font-semibold text-md-on-background">
-                            {CONTENT.name}<span className="text-accent">.</span>
-                        </span>
-                        <p className="mono text-md-on-surface-variant mt-2">{time} · Kathmandu, Nepal</p>
+                    {/* CONNECT Section */}
+                    <div>
+                        <h3 className="text-[11px] font-medium tracking-widest text-md-on-surface-variant mb-6 uppercase">
+                            Connect
+                        </h3>
+                        <div className="grid grid-cols-4 gap-2.5 sm:gap-3">
+                            {CONTENT.social.map((social) => {
+                                const Icon = social.icon;
+                                return (
+                                <Magnetic key={social.name} strength={0.3}>
+                                    <a
+                                        href={social.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-11 h-11 flex items-center justify-center rounded-[14px] border border-md-outline/20 hover:bg-md-surface-variant text-md-on-surface-variant hover:text-md-on-background transition-colors group"
+                                        aria-label={`Follow on ${social.name}`}
+                                        title={social.name}
+                                    >
+                                        <Icon size={18} strokeWidth={1.5} className="group-hover:scale-105 transition-transform" />
+                                    </a>
+                                </Magnetic>
+                                );
+                            })}
+                        </div>
                     </div>
-                    <SocialLinks />
                 </div>
 
-                <div className="border-t border-md-outline py-6 text-center">
-                    <span className="mono text-md-on-surface-variant">
-                        &copy; {new Date().getFullYear()} {CONTENT.name} — All rights reserved
-                    </span>
+                <div className="pt-8 border-t border-md-outline/15 text-sm sm:text-[15px] text-md-on-surface-variant/80">
+                    <p>&copy; {new Date().getFullYear()} {CONTENT.name}. All rights reserved.</p>
                 </div>
             </div>
         </footer>

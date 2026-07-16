@@ -5,19 +5,51 @@
    EDITORIAL — Warm Paper Design System
    ═══════════════════════════════════════════ */
 
+:root {
+  --md-background: #FAFAFA;
+  --md-on-background: #1A1714;
+  --md-surface: #FFFFFF;
+  --md-surface-variant: #ECEAE3;
+  --md-primary: #1A1714;
+  --md-on-primary: #F7F5F0;
+  --md-outline: #DBD8CF;
+  --md-on-surface-variant: #6F6A60;
+  --accent: #B54A2E;
+}
+
+.dark {
+  --md-background: #121212;
+  --md-on-background: #EAEAEA;
+  --md-surface: #1E1E1E;
+  --md-surface-variant: #2C2C2C;
+  --md-primary: #EAEAEA;
+  --md-on-primary: #121212;
+  --md-outline: #3E3E3E;
+  --md-on-surface-variant: #A0A0A0;
+  --accent: #E56E4E;
+}
+
 html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background-color: #F7F5F0;
-  color: #1A1714;
-  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--md-background);
+  color: var(--md-on-background);
+  font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
-::selection { background-color: #1A1714; color: #F7F5F0; }
+::selection { background-color: var(--md-primary); color: var(--md-on-primary); }
+
+/* View Transitions for Dark Mode */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
 
 a, button, input, textarea { outline: none; }
 
@@ -39,25 +71,25 @@ textarea:focus-visible {
 
 /* ── Buttons ── */
 .btn-primary {
-  background: #1A1714;
-  color: #F7F5F0;
-  border: 1px solid #1A1714;
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  border: 1px solid var(--md-primary);
   border-radius: 9999px;
   font-weight: 500;
   transition: all 200ms ease;
 }
-.btn-primary:hover { background: #2E2A24; transform: translateY(-1px); }
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
 .btn-primary:active { transform: translateY(0); }
 
 .btn-ghost {
   background: transparent;
-  border: 1px solid #DBD8CF;
-  color: #1A1714;
+  border: 1px solid var(--md-outline);
+  color: var(--md-primary);
   border-radius: 9999px;
   font-weight: 500;
   transition: all 200ms ease;
 }
-.btn-ghost:hover { border-color: #1A1714; background: #ECEAE3; }
+.btn-ghost:hover { border-color: var(--md-primary); background: var(--md-surface-variant); }
 .btn-ghost:active { transform: translateY(0); }
 
 .pill-button { border-radius: 9999px; transition: all 200ms ease; }
@@ -65,26 +97,26 @@ textarea:focus-visible {
 
 /* ── Card ── */
 .card {
-  background: #FFFFFF;
-  border: 1px solid #DBD8CF;
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline);
   transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
 }
 .card:hover {
-  border-color: #1A1714;
+  border-color: var(--md-primary);
   transform: translateY(-3px);
-  box-shadow: 0 18px 50px -24px rgb(26 23 20 / 0.25);
+  box-shadow: 0 18px 50px -24px rgba(0, 0, 0, 0.15);
 }
 .md-card {
-  background: #FFFFFF;
-  border: 1px solid #DBD8CF;
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline);
   border-radius: 18px;
   transition: border-color 220ms ease, transform 220ms ease;
 }
-.md-card:hover { border-color: #1A1714; transform: translateY(-3px); }
+.md-card:hover { border-color: var(--md-primary); transform: translateY(-3px); }
 
 /* ── Animated underline link ── */
 .link-underline {
-  background-image: linear-gradient(#1A1714, #1A1714);
+  background-image: linear-gradient(var(--md-primary), var(--md-primary));
   background-size: 0% 1px;
   background-position: 0 100%;
   background-repeat: no-repeat;
@@ -93,7 +125,7 @@ textarea:focus-visible {
 .link-underline:hover { background-size: 100% 1px; }
 
 .state-layer-hover { transition: background-color 200ms ease; }
-.state-layer-hover:hover { background-color: rgb(26 23 20 / 0.06); }
+.state-layer-hover:hover { background-color: var(--md-outline); }
 
 /* ── Skip Link ── */
 .skip-link {

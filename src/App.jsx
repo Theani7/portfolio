@@ -7,7 +7,6 @@ import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import Footer from "./components/Footer";
 import FloatingChatbot from "./components/FloatingChatbot";
-import MobileDock from "./components/MobileDock";
 import MobileScrollTop from "./components/MobileScrollTop";
 
 const AnimatedRoutes = () => {
@@ -32,13 +31,12 @@ function App() {
           Skip to main content
         </a>
         <Header />
-        <main id="main-content" className="mobile-main pb-20 md:pb-0">
+        <main id="main-content" className="mobile-main">
           <Container>
             <AnimatedRoutes />
           </Container>
           <Footer />
         </main>
-        <MobileDock />
         <MobileScrollTop />
         <FloatingChatbot />
       </div>
