@@ -5,8 +5,8 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./components/Footer";
-import FloatingChatbot from "./components/FloatingChatbot";
 import MobileScrollTop from "./components/MobileScrollTop";
 
 const AnimatedRoutes = () => {
@@ -18,6 +18,7 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AnimatePresence>
   );
@@ -38,7 +39,6 @@ function App() {
           <Footer />
         </main>
         <MobileScrollTop />
-        <FloatingChatbot />
       </div>
     </Router>
   );

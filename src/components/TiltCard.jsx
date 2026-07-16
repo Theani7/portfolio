@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { playHoverSound, playClickSound } from '../utils/sound';
 
 const TiltCard = ({ children, className = "" }) => {
     const ref = useRef(null);
@@ -37,12 +38,22 @@ const TiltCard = ({ children, className = "" }) => {
         y.set(0);
     };
 
+    const handleMouseEnter = () => {
+        playHoverSound();
+    };
+
+    const handleClick = () => {
+        playClickSound();
+    };
+
     return (
         <div style={{ perspective: "1500px" }} className="w-full">
             <motion.div
                 ref={ref}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
+                onMouseEnter={handleMouseEnter}
+                onClick={handleClick}
                 style={{
                     rotateY,
                     rotateX,

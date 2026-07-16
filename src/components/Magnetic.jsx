@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { playHoverSound, playClickSound } from '../utils/sound';
 
-const Magnetic = ({ children, strength = 0.2 }) => {
+const Magnetic = ({ children, strength = 0.2, disableHoverSound = false, disableClickSound = false }) => {
     const ref = useRef(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -21,6 +22,14 @@ const Magnetic = ({ children, strength = 0.2 }) => {
         setPosition({ x: 0, y: 0 });
     };
 
+    const handleMouseEnter = () => {
+        if (!disableHoverSound) playHoverSound();
+    };
+
+    const handleClick = () => {
+        if (!disableClickSound) playClickSound();
+    };
+
     const { x, y } = position;
 
     return (
@@ -29,6 +38,8 @@ const Magnetic = ({ children, strength = 0.2 }) => {
             ref={ref}
             onMouseMove={handleMouse}
             onMouseLeave={reset}
+            onMouseEnter={handleMouseEnter}
+            onClick={handleClick}
             animate={{ x, y }}
             transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.1 }}
         >
