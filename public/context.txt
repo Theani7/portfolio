@@ -1,0 +1,26 @@
+Anil Paneru
+AI Engineer & LLM Developer
+Bio: AI Engineer with a B.Tech in AI and Data Science. I specialize in building intelligent systems, working with Large Language Models (LLMs), and developing scalable, data-driven solutions to solve complex engineering problems.
+
+Technical Skills:
+- Python (Expert)
+- PyTorch (Expert)
+- MongoDB (Advanced)
+- SQL (Advanced)
+- Machine Learning Systems (Expert)
+- LLM Infrastructure (Advanced)
+- Computer Vision (Advanced)
+
+Projects:
+1. IntelliML Platform
+Description: An AI-powered data science platform that automates EDA, cleaning, and model training through a natural language interface.
+Tags: Next.js, FastAPI, Llama 3.3, Scikit-learn, Tailwind CSS
+
+2. Violence Detection System
+Description: A real-time deep learning pipeline achieving 97% accuracy in detecting violent activities in video streams with automated alerts.
+Tags: Python, MobileNetV2, LSTM, OpenCV
+
+Socials:
+GitHub: https://github.com/Theani7
+LinkedIn: https://www.linkedin.com/in/theanilpaneru/
+Email: theanilpaneru@gmail.com

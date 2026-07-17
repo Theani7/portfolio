@@ -1,17 +1,17 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Terminal } from 'lucide-react';
+import { FileText } from 'lucide-react';
 
-const NotFoundPage = () => (
+const ResumePage = () => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         className="min-h-[70vh] flex flex-col items-center justify-center gap-8 py-12"
     >
-        <Terminal size={48} className="text-md-on-surface-variant/50" />
-        <h1 className="text-6xl font-display font-bold text-md-on-background">404</h1>
-        <p className="text-md-on-surface-variant text-lg">Page not found.</p>
+        <FileText size={48} className="text-md-on-surface-variant/50" />
+        <h1 className="text-5xl font-display font-bold text-md-on-background">Resume</h1>
+        <p className="text-md-on-surface-variant text-lg">Check back soon.</p>
         <Link
             to="/"
             className="px-6 py-3 rounded-full bg-md-on-background text-md-background font-medium hover:scale-105 transition-transform"
@@ -21,4 +21,4 @@ const NotFoundPage = () => (
     </motion.div>
 );
 
-export default NotFoundPage;
+export default ResumePage;

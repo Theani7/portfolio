@@ -37,22 +37,12 @@ const TiltCard = ({ children, className = "" }) => {
         y.set(0);
     };
 
-    const handleMouseEnter = () => {
-        // Sound removed per user request
-    };
-
-    const handleClick = () => {
-        // Sound removed per user request
-    };
-
     return (
         <div style={{ perspective: "1500px" }} className="w-full">
             <motion.div
                 ref={ref}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                onMouseEnter={handleMouseEnter}
-                onClick={handleClick}
                 style={{
                     rotateY,
                     rotateX,

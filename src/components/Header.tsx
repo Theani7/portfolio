@@ -87,7 +87,6 @@ const Header = () => {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            // ponytail: Cmd+K / Ctrl+K shortcut
             if ((e.metaKey || e.ctrlKey) && e.key === "k") {
                 e.preventDefault();
                 setSearchOpen(true);

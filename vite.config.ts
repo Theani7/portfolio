@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react(), ViteImageOptimizer()],
   build: {
     // Ensure proper asset hashing for cache busting
-    rollupOptions: {
+rollupOptions: {
       output: {
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
@@ -20,9 +20,13 @@ export default defineConfig({
           }
           return 'assets/[name]-[hash][extname]'
         },
+        manualChunks: {
+          'vendor-router': ['react-router-dom'],
+          'vendor-motion': ['framer-motion'],
+          'vendor-ui': ['lucide-react', 'cmdk', 'react-markdown', 'remark-gfm', 'react-github-calendar']
+        }
       },
     },
-    // Generate manifest for service worker
     manifest: true,
   },
 })

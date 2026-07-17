@@ -1,44 +1,14 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { Command } from 'cmdk';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Moon, Sun, Home, Folder, FileText, Terminal, Calculator, ExternalLink, Code2, Cpu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { PROJECTS, SKILLS, CONTENT, slugify } from '../constants';
-import Fuse from 'fuse.js';
 import TechBadge from './TechBadge';
 
 const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
     const navigate = useNavigate();
     const [query, setQuery] = useState("");
-
-    // Build master list for Fuse.js
-    const searchableItems = useMemo(() => [
-        ...PROJECTS.map(p => ({ value: p.title + " " + p.description + " " + p.tags.join(" ") })),
-        ...SKILLS.map(s => ({ value: s.name + " " + s.level })),
-        ...CONTENT.social.map(s => ({ value: s.name })),
-        { value: "Go to Home" },
-        { value: "Go to Projects" },
-        { value: "Go to Resume" },
-        { value: "Toggle Light Mode" },
-        { value: "Toggle Dark Mode" }
-    ], []);
-
-    const fuse = useMemo(() => new Fuse(searchableItems, { 
-        keys: ['value'], 
-        includeScore: true, 
-        threshold: 0.4 
-    }), [searchableItems]);
-
-    const fuzzyScores = useMemo(() => {
-        if (!query) return new Map<string, number>();
-        
-        const results = fuse.search(query);
-        const scores = new Map<string, number>();
-        results.forEach(res => {
-            scores.set(res.item.value.toLowerCase(), res.score || 0);
-        });
-        return scores;
-    }, [query, fuse]);
 
     useEffect(() => {
         const down = (e) => {
@@ -96,19 +66,6 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
                     >
                         <Command 
                             className="flex flex-col h-full w-full bg-transparent"
-                            filter={(value, search) => {
-                                if (!search) return 1;
-                                // Calculator math value check
-                                if (value.startsWith('math-')) return 1;
-                                
-                                const score = fuzzyScores.get(value);
-                                if (score !== undefined) {
-                                    // cmdk expects higher = better (1 is best)
-                                    // Fuse provides lower = better (0 is best)
-                                    return 1 - score;
-                                }
-                                return 0;
-                            }}
                         >
                             {/* Header / Input */}
                             <div className="flex items-center px-6 py-4 border-b border-md-outline bg-md-surface shrink-0">
@@ -125,7 +82,7 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
                                 </div>
                             </div>
 
-                            <Command.List className="overflow-y-auto flex-1 p-4 custom-scrollbar">
+                            <Command.List className="overflow-y-auto max-h-[60vh] flex-1 p-4 custom-scrollbar">
                                 <Command.Empty className="py-16 flex flex-col items-center justify-center text-center">
                                     <div className="w-16 h-16 rounded-full bg-md-surface-variant/50 flex items-center justify-center mb-4 border border-md-outline/30">
                                         <Search size={28} className="text-md-on-surface-variant/70" />
@@ -142,6 +99,21 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
                                         </Command.Item>
                                     </Command.Group>
                                 )}
+
+                                <Command.Group heading="Ask About Me" className={groupClassName}>
+                                    <Command.Item value="Ask Claude" forceMount onSelect={() => { window.open('https://claude.ai/new?q=Please%20review%20this%20text%20file%20at%20https%3A%2F%2Fanilpaneru.com.np%2Fcontext.txt%20and%20summarize%20his%20technical%20skills%2C%20project%20experience%2C%20and%20overall%20strengths.', '_blank'); setOpen(false); }} className={itemClassName}>
+                                        <img src="/images/tech-stack/claude.png" alt="Claude" className="w-5 h-5 object-contain" />
+                                        <span className="font-medium">Ask Claude</span>
+                                    </Command.Item>
+                                    <Command.Item value="Ask ChatGPT" forceMount onSelect={() => { window.open('https://chatgpt.com/?q=Please%20review%20this%20text%20file%20at%20https%3A%2F%2Fanilpaneru.com.np%2Fcontext.txt%20and%20summarize%20his%20technical%20skills%2C%20project%20experience%2C%20and%20overall%20strengths.', '_blank'); setOpen(false); }} className={itemClassName}>
+                                        <img src="/images/tech-stack/chatgpt.png" alt="ChatGPT" className="w-5 h-5 object-contain" />
+                                        <span className="font-medium">Ask ChatGPT</span>
+                                    </Command.Item>
+                                    <Command.Item value="Ask Gemini" forceMount onSelect={() => { window.open('https://gemini.google.com/app?q=Please%20review%20this%20text%20file%20at%20https%3A%2F%2Fanilpaneru.com.np%2Fcontext.txt%20and%20summarize%20his%20technical%20skills%2C%20project%20experience%2C%20and%20overall%20strengths.', '_blank'); setOpen(false); }} className={itemClassName}>
+                                        <img src="/images/tech-stack/gemini.png" alt="Gemini" className="w-5 h-5 object-contain" />
+                                        <span className="font-medium">Ask Gemini</span>
+                                    </Command.Item>
+                                </Command.Group>
 
                                 <Command.Group heading="Navigation" className={groupClassName}>
                                     <Command.Item value="Go to Home" onSelect={() => { navigate('/'); setOpen(false); }} className={itemClassName}>
@@ -203,7 +175,7 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
                                         </Command.Item>
                                     ))}
                                 </Command.Group>
-                                
+
                                 <Command.Group heading="Social" className={groupClassName}>
                                     {CONTENT.social.map(s => (
                                         <Command.Item 

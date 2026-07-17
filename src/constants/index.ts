@@ -36,7 +36,6 @@ export const NAV_LINKS = [
 
 export const SKILLS = [
     { name: "Python", level: "Expert" },
-    { name: "TensorFlow", level: "Expert" },
     { name: "PyTorch", level: "Expert" },
     { name: "MongoDB", level: "Advanced" },
     { name: "SQL", level: "Advanced" },

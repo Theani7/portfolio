@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import Container from "./components/Container";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ResumePage from "./pages/ResumePage";
 import Footer from "./components/Footer";
 import MobileScrollTop from "./components/MobileScrollTop";
 
@@ -18,6 +18,7 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
+        <Route path="/resume" element={<ResumePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AnimatePresence>
@@ -32,10 +33,10 @@ function App() {
           Skip to main content
         </a>
         <Header />
-        <main id="main-content" className="mobile-main">
-          <Container>
-            <AnimatedRoutes />
-          </Container>
+<main id="main-content" className="mobile-main">
+           <div className="mx-auto max-w-2xl px-4 py-10 md:py-16">
+             <AnimatedRoutes />
+           </div>
           <Footer />
         </main>
         <MobileScrollTop />
