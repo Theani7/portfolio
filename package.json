@@ -9,12 +9,14 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "new:project": "bun run scripts/new-project.ts",
     "prepare": "husky"
   },
   "dependencies": {
     "cmdk": "^1.1.1",
     "framer-motion": "^12.31.0",
     "front-matter": "^4.0.2",
+    "fuse.js": "^7.5.0",
     "lucide-react": "^0.563.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

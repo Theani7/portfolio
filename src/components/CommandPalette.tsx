@@ -1,16 +1,45 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Command } from 'cmdk';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Moon, Sun, Home, Folder, FileText, Terminal, Calculator, ExternalLink, Code2, Cpu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { PROJECTS, SKILLS, CONTENT } from '../constants';
-
+import Fuse from 'fuse.js';
 
 const getSlug = (title) => String(title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
     const navigate = useNavigate();
     const [query, setQuery] = useState("");
+
+    // Build master list for Fuse.js
+    const searchableItems = useMemo(() => [
+        ...PROJECTS.map(p => ({ value: p.title + " " + p.description + " " + p.tags.join(" ") })),
+        ...SKILLS.map(s => ({ value: s.name + " " + s.level })),
+        ...CONTENT.social.map(s => ({ value: s.name })),
+        { value: "Go to Home" },
+        { value: "Go to Projects" },
+        { value: "Go to Resume" },
+        { value: "Toggle Light Mode" },
+        { value: "Toggle Dark Mode" }
+    ], []);
+
+    const fuse = useMemo(() => new Fuse(searchableItems, { 
+        keys: ['value'], 
+        includeScore: true, 
+        threshold: 0.4 
+    }), [searchableItems]);
+
+    const fuzzyScores = useMemo(() => {
+        if (!query) return new Map<string, number>();
+        
+        const results = fuse.search(query);
+        const scores = new Map<string, number>();
+        results.forEach(res => {
+            scores.set(res.item.value.toLowerCase(), res.score || 0);
+        });
+        return scores;
+    }, [query, fuse]);
 
     useEffect(() => {
         const down = (e) => {
@@ -66,7 +95,22 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
                         style={{ fontFamily: 'inherit' }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <Command className="flex flex-col h-full w-full bg-transparent">
+                        <Command 
+                            className="flex flex-col h-full w-full bg-transparent"
+                            filter={(value, search) => {
+                                if (!search) return 1;
+                                // Calculator math value check
+                                if (value.startsWith('math-')) return 1;
+                                
+                                const score = fuzzyScores.get(value);
+                                if (score !== undefined) {
+                                    // cmdk expects higher = better (1 is best)
+                                    // Fuse provides lower = better (0 is best)
+                                    return 1 - score;
+                                }
+                                return 0;
+                            }}
+                        >
                             {/* Header / Input */}
                             <div className="flex items-center px-6 py-4 border-b border-md-outline bg-md-surface shrink-0">
                                 <Search size={22} className="text-md-on-surface-variant mr-4" />
@@ -101,15 +145,15 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
                                 )}
 
                                 <Command.Group heading="Navigation" className={groupClassName}>
-                                    <Command.Item onSelect={() => { navigate('/'); setOpen(false); }} className={itemClassName}>
+                                    <Command.Item value="Go to Home" onSelect={() => { navigate('/'); setOpen(false); }} className={itemClassName}>
                                         <Home size={18} className="text-md-on-surface-variant" /> 
                                         <span className="font-medium">Go to Home</span>
                                     </Command.Item>
-                                    <Command.Item onSelect={() => { navigate('/projects'); setOpen(false); }} className={itemClassName}>
+                                    <Command.Item value="Go to Projects" onSelect={() => { navigate('/projects'); setOpen(false); }} className={itemClassName}>
                                         <Folder size={18} className="text-md-on-surface-variant" /> 
                                         <span className="font-medium">Go to Projects</span>
                                     </Command.Item>
-                                    <Command.Item onSelect={() => { navigate('/resume'); setOpen(false); }} className={itemClassName}>
+                                    <Command.Item value="Go to Resume" onSelect={() => { navigate('/resume'); setOpen(false); }} className={itemClassName}>
                                         <FileText size={18} className="text-md-on-surface-variant" /> 
                                         <span className="font-medium">Go to Resume</span>
                                     </Command.Item>
@@ -117,6 +161,7 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
 
                                 <Command.Group heading="Actions" className={groupClassName}>
                                     <Command.Item 
+                                        value={isDark ? "Toggle Light Mode" : "Toggle Dark Mode"}
                                         onSelect={() => { 
                                             toggleDark(new MouseEvent('click', { clientX: window.innerWidth/2, clientY: window.innerHeight/2 })); 
                                             setOpen(false); 
