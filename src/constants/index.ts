@@ -9,6 +9,9 @@ const parsedProjects = Object.values(projectFiles).map((content) => {
     return { ...(attributes as any), markdownBody: body };
 });
 
+export const slugify = (value) =>
+    String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
 export const CONTENT = {
     name: "Anil Paneru",
     role: "AI Engineer & LLM Developer",

@@ -2,13 +2,10 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import PageWrapper from "../components/PageWrapper";
 import Seo from "../components/Seo";
-import { PROJECTS } from "../constants";
+import { PROJECTS, slugify } from "../constants";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import TechBadge from "../components/TechBadge";
-
-const slugify = (value) =>
-    String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 const ProjectDetailPage = () => {
     const { projectId } = useParams();

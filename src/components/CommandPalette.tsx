@@ -3,11 +3,9 @@ import { Command } from 'cmdk';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Moon, Sun, Home, Folder, FileText, Terminal, Calculator, ExternalLink, Code2, Cpu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { PROJECTS, SKILLS, CONTENT } from '../constants';
+import { PROJECTS, SKILLS, CONTENT, slugify } from '../constants';
 import Fuse from 'fuse.js';
 import TechBadge from './TechBadge';
-
-const getSlug = (title) => String(title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
     const navigate = useNavigate();
@@ -179,7 +177,7 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
                                         <Command.Item 
                                             key={p.id}
                                             value={p.title + " " + p.description + " " + p.tags.join(" ")}
-                                            onSelect={() => { navigate(`/projects/${p.id}-${getSlug(p.title)}`); setOpen(false); }}
+                                            onSelect={() => { navigate(`/projects/${p.id}-${slugify(p.title)}`); setOpen(false); }}
                                             className={itemClassName}
                                         >
                                             <div className="w-10 h-10 rounded-xl bg-md-background flex items-center justify-center shrink-0 border border-md-outline">

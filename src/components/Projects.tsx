@@ -2,12 +2,9 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Github } from "lucide-react";
 import { Link } from "react-router-dom";
-import { PROJECTS } from "../constants";
+import { PROJECTS, slugify } from "../constants";
 import TiltCard from "./TiltCard";
 import TechBadge from "./TechBadge";
-
-const getSlug = (title) =>
-    String(title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 const Projects = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -54,7 +51,7 @@ const Projects = () => {
                         transition={{ delay: 0.1 + i * 0.08 }}
                     >
                         <TiltCard className="flex flex-col border border-md-outline/20 rounded-[24px] bg-md-surface overflow-hidden shadow-sm h-full w-full">
-                        <Link to={`/projects/${project.id}-${getSlug(project.title)}`} className="block p-3 pb-0 group">
+                        <Link to={`/projects/${project.id}-${slugify(project.title)}`} className="block p-3 pb-0 group">
                             {project.image && (
                                 <div className="overflow-hidden rounded-[14px] border border-md-outline/10 bg-md-surface-variant/20">
                                     <img
