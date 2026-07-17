@@ -58,6 +58,8 @@ export default async function handler(req: any, res: any) {
                 artist: track.artists.map((_artist: any) => _artist.name).join(', '),
                 albumImageUrl: track.album.images[0].url,
                 songUrl: track.external_urls.spotify,
+                progressMs: track.duration_ms, // Full progress for last played
+                durationMs: track.duration_ms,
             });
         }
 
@@ -72,6 +74,9 @@ export default async function handler(req: any, res: any) {
         const artist = song.item.artists.map((_artist: any) => _artist.name).join(', ');
         const albumImageUrl = song.item.album.images[0].url;
         const songUrl = song.item.external_urls.spotify;
+        const progressMs = song.progress_ms;
+        const durationMs = song.item.duration_ms;
+        const previewUrl = song.item.preview_url;
 
         return res.status(200).json({
             albumImageUrl,
@@ -79,6 +84,9 @@ export default async function handler(req: any, res: any) {
             isPlaying,
             songUrl,
             title,
+            progressMs,
+            durationMs,
+            previewUrl
         });
     } catch (error) {
         return res.status(500).json({ error: 'Failed to fetch' });
