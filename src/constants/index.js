@@ -1,5 +1,13 @@
 import { Github, Linkedin, Mail, Twitter } from "lucide-react";
-import projects from "../data/projects.json";
+import fm from "front-matter";
+
+// Load all markdown files from the projects directory
+const projectFiles = import.meta.glob("../content/projects/*.md", { query: '?raw', import: 'default', eager: true });
+
+const parsedProjects = Object.values(projectFiles).map((content) => {
+    const { attributes, body } = fm(content);
+    return { ...attributes, markdownBody: body };
+});
 
 export const CONTENT = {
     name: "Anil Paneru",
@@ -44,6 +52,6 @@ const normalizeProject = (project, index) => ({
     github: typeof project?.github === "string" ? project.github : "",
 });
 
-export const PROJECTS = Array.isArray(projects?.projects)
-    ? projects.projects.map(normalizeProject)
-    : [];
+export const PROJECTS = parsedProjects
+    .map(normalizeProject)
+    .sort((a, b) => a.id - b.id);
