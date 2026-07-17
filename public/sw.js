@@ -2,7 +2,7 @@ const CACHE_NAME = "portfolio-v2-" + new Date().toISOString().slice(0,10);
 const STATIC_ASSETS = [
   "/",
   "/manifest.webmanifest",
-  "/logo.svg",
+  "/favicon.ico",
   "/favicon.png",
 ];
 
