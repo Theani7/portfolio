@@ -9,16 +9,22 @@ const Hero = () => {
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-        // Fetch Spotify data on mount
-        fetch('/api/spotify')
-            .then(res => res.json())
-            .then(data => {
-                setSpotifyData(data);
-                if (data.progressMs !== undefined) {
-                    setProgress(data.progressMs);
-                }
-            })
-            .catch(err => console.error("Spotify fetch error:", err));
+        const fetchSpotify = () => {
+            fetch('/api/spotify')
+                .then(res => res.json())
+                .then(data => {
+                    setSpotifyData(data);
+                    if (data.progressMs !== undefined) {
+                        setProgress(data.progressMs);
+                    }
+                })
+                .catch(err => console.error("Spotify fetch error:", err));
+        };
+        
+        fetchSpotify();
+        const pollInterval = setInterval(fetchSpotify, 10000); // Check every 10 seconds
+        
+        return () => clearInterval(pollInterval);
     }, []);
 
     const audioRef = useRef<HTMLAudioElement | null>(null);

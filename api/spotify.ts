@@ -23,6 +23,7 @@ const getAccessToken = async () => {
 };
 
 export default async function handler(req: any, res: any) {
+    res.setHeader('Cache-Control', 'public, s-maxage=1, stale-while-revalidate=2');
     try {
         const { access_token } = await getAccessToken();
 
