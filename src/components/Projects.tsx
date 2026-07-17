@@ -4,6 +4,7 @@ import { Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PROJECTS } from "../constants";
 import TiltCard from "./TiltCard";
+import TechBadge from "./TechBadge";
 
 const getSlug = (title) =>
     String(title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -80,9 +81,7 @@ const Projects = () => {
                             </p>
                             <div className="flex flex-wrap gap-2 mt-auto mb-2">
                                 {project.tags.map((tag) => (
-                                    <span key={tag} className="px-2.5 py-1 text-xs border border-md-outline/20 rounded-md text-md-on-surface-variant">
-                                        {tag}
-                                    </span>
+                                    <TechBadge key={tag} name={tag} />
                                 ))}
                             </div>
                         </div>

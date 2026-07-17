@@ -5,6 +5,7 @@ import Seo from "../components/Seo";
 import { PROJECTS } from "../constants";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import TechBadge from "../components/TechBadge";
 
 const slugify = (value) =>
     String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -48,9 +49,9 @@ const ProjectDetailPage = () => {
                         {project.title}
                     </h1>
                     {!!project.tags?.length && (
-                        <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+                        <div className="flex flex-wrap gap-x-4 gap-y-1.5 mt-2">
                             {project.tags.map((tag) => (
-                                <span key={tag} className="mono text-md-on-surface-variant">{tag}</span>
+                                <TechBadge key={tag} name={tag} />
                             ))}
                         </div>
                     )}

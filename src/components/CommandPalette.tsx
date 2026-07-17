@@ -5,6 +5,7 @@ import { Search, Moon, Sun, Home, Folder, FileText, Terminal, Calculator, Extern
 import { useNavigate } from 'react-router-dom';
 import { PROJECTS, SKILLS, CONTENT } from '../constants';
 import Fuse from 'fuse.js';
+import TechBadge from './TechBadge';
 
 const getSlug = (title) => String(title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
@@ -199,8 +200,7 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
                                             value={s.name + " " + s.level}
                                             className={itemClassName}
                                         >
-                                            <Cpu size={18} className="text-md-on-surface-variant" />
-                                            <span className="font-medium">{s.name}</span>
+                                            <TechBadge name={s.name} />
                                             <span className="ml-auto text-xs text-md-on-surface-variant px-2 py-1 bg-md-surface-variant/50 rounded-md border border-md-outline/30">{s.level}</span>
                                         </Command.Item>
                                     ))}

@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { playHoverSound, playClickSound } from '../utils/sound';
 
 const TiltCard = ({ children, className = "" }) => {
     const ref = useRef(null);
@@ -39,11 +38,11 @@ const TiltCard = ({ children, className = "" }) => {
     };
 
     const handleMouseEnter = () => {
-        playHoverSound();
+        // Sound removed per user request
     };
 
     const handleClick = () => {
-        playClickSound();
+        // Sound removed per user request
     };
 
     return (

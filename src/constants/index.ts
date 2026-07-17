@@ -11,8 +11,8 @@ const parsedProjects = Object.values(projectFiles).map((content) => {
 
 export const CONTENT = {
     name: "Anil Paneru",
-    role: "Final Year B.Tech | AI & Data Science",
-    bio: "Final year B.Tech student in AI and Data Science with deep expertise in Data Science and Machine Learning. I specialize in building intelligent systems, architecting neural networks, and developing data-driven solutions for complex problems.",
+    role: "AI Engineer & LLM Developer",
+    bio: "AI Engineer with a B.Tech in AI and Data Science. I specialize in building intelligent systems, working with Large Language Models (LLMs), and developing scalable, data-driven solutions to solve complex engineering problems.",
     cta: {
         primary: "View Research", // Href to #projects
         secondary: "Contact Me", // Href to #contact

@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { playHoverSound, playClickSound } from '../utils/sound';
 
-const Magnetic = ({ children, strength = 0.2, disableHoverSound = false, disableClickSound = false }) => {
+const Magnetic = ({ children, strength = 0.2, disableHoverSound = true, disableClickSound = true }) => {
     const ref = useRef(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
 
