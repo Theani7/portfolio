@@ -24,6 +24,7 @@ const PageWrapper = ({ children }) => {
     const direction = currentIndex >= prevIndex ? 1 : -1;
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setPrevIndex(currentIndex);
     }, [currentIndex]);
 

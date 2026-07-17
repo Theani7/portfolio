@@ -5,8 +5,8 @@ import fm from "front-matter";
 const projectFiles = import.meta.glob("../content/projects/*.md", { query: '?raw', import: 'default', eager: true });
 
 const parsedProjects = Object.values(projectFiles).map((content) => {
-    const { attributes, body } = fm(content);
-    return { ...attributes, markdownBody: body };
+    const { attributes, body } = fm(content as string);
+    return { ...(attributes as any), markdownBody: body };
 });
 
 export const CONTENT = {
