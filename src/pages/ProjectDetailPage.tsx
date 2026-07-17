@@ -3,6 +3,8 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import PageWrapper from "../components/PageWrapper";
 import Seo from "../components/Seo";
 import { PROJECTS } from "../constants";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const slugify = (value) =>
     String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -62,9 +64,11 @@ const ProjectDetailPage = () => {
 
                 <div className="grid md:grid-cols-[10rem_1fr] gap-6 md:gap-10 mb-12">
                     <p className="mono text-md-on-surface-variant pt-1">Overview</p>
-                    <p className="text-lg md:text-xl text-md-on-background leading-relaxed max-w-3xl">
-                        {project.description || "No project description is available yet."}
-                    </p>
+                    <div className="prose prose-lg dark:prose-invert max-w-3xl prose-headings:font-display prose-a:text-accent hover:prose-a:text-accent/80">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {(project as any).markdownBody || project.description || "No project description is available yet."}
+                        </ReactMarkdown>
+                    </div>
                 </div>
 
                 <section className="flex flex-wrap gap-3">
