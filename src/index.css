@@ -173,3 +173,26 @@ textarea:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Spotify Audio Visualizer ── */
+@keyframes equalizer {
+  0% { height: 4px; }
+  50% { height: 12px; }
+  100% { height: 4px; }
+}
+
+.animate-equalizer-1 { animation: equalizer 1s ease-in-out infinite; }
+.animate-equalizer-2 { animation: equalizer 1.2s ease-in-out infinite; animation-delay: 0.2s; }
+.animate-equalizer-3 { animation: equalizer 0.8s ease-in-out infinite; animation-delay: 0.4s; }
+.animate-equalizer-4 { animation: equalizer 1.1s ease-in-out infinite; animation-delay: 0.1s; }
+
+/* ── Spotify Heartbeat Glow ── */
+@keyframes spotify-glow {
+  0% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(29, 185, 84, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0); }
+}
+
+.spotify-playing-glow {
+  animation: spotify-glow 2s infinite;
+}

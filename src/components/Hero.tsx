@@ -113,7 +113,7 @@ const Hero = () => {
                         href={spotifyData?.songUrl || "https://open.spotify.com/track/3AJwUDP919kvQ9QcozQPxg"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-3 mt-1.5 text-sm sm:text-base text-md-on-surface-variant bg-md-surface-variant/30 hover:bg-md-surface-variant/60 w-fit px-4 py-2 rounded-full border border-md-outline/20 transition-all cursor-pointer group"
+                        className={`flex items-center gap-3 mt-1.5 text-sm sm:text-base text-md-on-surface-variant bg-md-surface-variant/30 hover:bg-md-surface-variant/60 w-fit px-4 py-2 rounded-full border border-md-outline/20 transition-all cursor-pointer group ${spotifyData?.isPlaying ? 'spotify-playing-glow border-[#1DB954]/30' : ''}`}
                     >
                         <div className="relative shrink-0 flex items-center justify-center">
                             <svg viewBox="0 0 24 24" width="20" height="20" className={`text-[#1DB954] transition-transform ${spotifyData?.previewUrl ? 'group-hover:opacity-0' : 'group-hover:scale-105'}`} fill="currentColor">
@@ -130,16 +130,25 @@ const Hero = () => {
                         </div>
                         <div className="flex flex-col overflow-hidden">
                             <div className="flex items-center gap-2">
-                                <span className="font-medium shrink-0 group-hover:text-md-on-background transition-colors">
+                                <span className="font-medium shrink-0 group-hover:text-md-on-background transition-colors flex items-center gap-1.5">
                                     {spotifyData?.isPlaying ? "Now playing" : "Last played"}
+                                    {/* Audio Visualizer */}
+                                    {spotifyData && (
+                                        <div className="flex items-end gap-[2px] h-3 ml-1 opacity-80 shrink-0">
+                                            <div className={`w-[2.5px] bg-[#1DB954] rounded-full transition-all ${spotifyData.isPlaying ? 'animate-equalizer-1' : 'h-[3px]'}`} />
+                                            <div className={`w-[2.5px] bg-[#1DB954] rounded-full transition-all ${spotifyData.isPlaying ? 'animate-equalizer-2' : 'h-[6px]'}`} />
+                                            <div className={`w-[2.5px] bg-[#1DB954] rounded-full transition-all ${spotifyData.isPlaying ? 'animate-equalizer-3' : 'h-[4px]'}`} />
+                                            <div className={`w-[2.5px] bg-[#1DB954] rounded-full transition-all ${spotifyData.isPlaying ? 'animate-equalizer-4' : 'h-[3px]'}`} />
+                                        </div>
+                                    )}
                                 </span>
-                                <span className="opacity-50">—</span>
+                                <span className="opacity-50 shrink-0">—</span>
                                 <span className="truncate max-w-[200px] sm:max-w-xs group-hover:text-md-on-background transition-colors">
                                     {spotifyData?.title ? `${spotifyData.title} • ${spotifyData.artist}` : "Yellow • Coldplay"}
                                 </span>
                             </div>
                             {spotifyData?.durationMs && (
-                                <div className="w-full bg-md-outline/10 h-[3px] mt-1 rounded-full overflow-hidden">
+                                <div className="w-full bg-md-outline/10 h-[3px] mt-1 rounded-full overflow-hidden shrink-0">
                                     <div 
                                         className="bg-[#1DB954] h-full transition-all duration-1000 ease-linear" 
                                         style={{ width: `${Math.min((progress / spotifyData.durationMs) * 100, 100)}%` }}
