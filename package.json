@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky"
   },
   "dependencies": {
     "cmdk": "^1.1.1",
@@ -20,9 +21,12 @@
     "react-router-dom": "^7.13.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.2.0",
     "@eslint/js": "^9.39.1",
     "@tailwindcss/postcss": "^4.1.18",
-    "@types/react": "^19.2.5",
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.24",
@@ -30,8 +34,19 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.8",
     "postcss": "^8.5.6",
+    "sharp": "^0.35.3",
+    "svgo": "^4.0.2",
     "tailwindcss": "^4.1.18",
-    "vite": "^7.2.4"
+    "typescript": "^7.0.2",
+    "vite": "^7.2.4",
+    "vite-plugin-image-optimizer": "^2.0.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
   }
 }
