@@ -4,7 +4,7 @@ A modern, responsive, and interactive portfolio website built with React, Vite, 
 
 ## 🌟 Overview
 
-This portfolio represents my journey as a Final Year B.Tech student in AI and Data Science, demonstrating expertise in Machine Learning, Neural Networks, and Data-driven solutions. The site combines cutting-edge web technologies with intelligent features to create an engaging user experience.
+This portfolio represents my journey as a Graduate in AI and Data Science, currently working in LLMs and AI Engineering. The site combines cutting-edge web technologies with intelligent features to create an engaging user experience.
 
 ## 🚀 Features
 
@@ -16,6 +16,7 @@ This portfolio represents my journey as a Final Year B.Tech student in AI and Da
 - **⚡ Progressive Web App**: Service Worker integration for offline capabilities and improved performance
 
 ### Advanced Features
+- **🎵 Live Spotify Integration**: Real-time "Now Playing" widget featuring a live audio equalizer, heartbeat glow, interactive 30-second audio previews, and Vercel Edge caching
 - **🔄 Animated Routes**: Smooth page transitions using Framer Motion's AnimatePresence
 - **📊 Project Showcase**: Dynamic project gallery with filtering, tags, and detailed views
 - **🎯 Accessibility**: Skip links, semantic HTML, and ARIA labels for inclusive design
@@ -191,6 +192,9 @@ GITHUB_CLIENT_SECRET=your_github_app_client_secret
 OAUTH_BASE_URL=https://your-domain.vercel.app
 OAUTH_CALLBACK_URL=https://your-domain.vercel.app/api/callback
 GITHUB_OAUTH_SCOPE=repo
+SPOTIFY_CLIENT_ID=your_spotify_client_id
+SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token
 ```
 
 #### GitHub OAuth App Setup
