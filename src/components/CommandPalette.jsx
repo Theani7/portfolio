@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Moon, Sun, Home, Folder, FileText, Terminal, Calculator, ExternalLink, Code2, Cpu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { PROJECTS, SKILLS, CONTENT } from '../constants';
-import { playHoverSound, playClickSound } from '../utils/sound';
+
 
 const getSlug = (title) => String(title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
@@ -37,10 +37,9 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
     let mathResult = null;
     if (/^[0-9+\-*/().\s]+$/.test(query) && /[0-9]/.test(query) && /[+\-*/]/.test(query)) {
         try {
-            // eslint-disable-next-line no-new-func
             mathResult = new Function(`return ${query}`)();
             if (!Number.isFinite(mathResult)) mathResult = null;
-        } catch (e) {
+        } catch {
             mathResult = null;
         }
     }

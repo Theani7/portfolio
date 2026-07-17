@@ -1,16 +1,9 @@
-import { useState, useEffect, useRef } from "react";
-import { NavLink, Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { Search } from "lucide-react";
-import { PROJECTS, SKILLS, CONTENT } from "../constants";
 import Magnetic from "./Magnetic";
 import CommandPalette from "./CommandPalette";
 import { playLightModeSound, playDarkModeSound } from "../utils/sound";
-
-const navItem = ({ isActive }) =>
-    `mono py-1 transition-colors ${isActive ? "text-md-on-background font-bold uppercase" : "text-md-on-surface-variant hover:text-md-on-background font-medium"}`;
-
-const getSlug = (title) => String(title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 const Header = () => {
     const [searchOpen, setSearchOpen] = useState(false);
@@ -98,7 +91,6 @@ const Header = () => {
             if ((e.metaKey || e.ctrlKey) && e.key === "k") {
                 e.preventDefault();
                 setSearchOpen(true);
-                setQuery("");
             }
             if (e.key === "Escape") setSearchOpen(false);
         };

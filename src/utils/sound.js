@@ -30,7 +30,7 @@ export const playHoverSound = () => {
         
         osc.start(ctx.currentTime);
         osc.stop(ctx.currentTime + 0.04);
-    } catch (e) {
+    } catch {
         // Silently fail if autoplay policy blocks it
     }
 };
@@ -59,7 +59,7 @@ export const playClickSound = () => {
         
         osc.start(ctx.currentTime);
         osc.stop(ctx.currentTime + 0.1);
-    } catch (e) {
+    } catch {
         // Silently fail if autoplay policy blocks it
     }
 };
@@ -87,7 +87,7 @@ export const playLightModeSound = () => {
         
         osc.start(ctx.currentTime);
         osc.stop(ctx.currentTime + 0.15);
-    } catch (e) {}
+    } catch { /* ignore */ }
 };
 
 export const playDarkModeSound = () => {
@@ -112,5 +112,5 @@ export const playDarkModeSound = () => {
         
         osc.start(ctx.currentTime);
         osc.stop(ctx.currentTime + 0.2);
-    } catch (e) {}
+    } catch { /* ignore */ }
 };

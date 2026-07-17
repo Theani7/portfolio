@@ -29,13 +29,12 @@ const NotFoundPage = () => {
                 x: Math.floor(Math.random() * GRID_SIZE),
                 y: Math.floor(Math.random() * GRID_SIZE)
             };
-            // eslint-disable-next-line no-loop-func
             isOccupied = currentSnake.some(segment => segment.x === newFood.x && segment.y === newFood.y);
         }
         return newFood;
     }, []);
 
-    const resetGame = () => {
+    const resetGame = useCallback(() => {
         setSnake(INITIAL_SNAKE);
         setDirection(INITIAL_DIRECTION);
         directionRef.current = INITIAL_DIRECTION;
@@ -43,7 +42,7 @@ const NotFoundPage = () => {
         setGameOver(false);
         setScore(0);
         setIsPlaying(true);
-    };
+    }, [generateFood]);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -87,7 +86,7 @@ const NotFoundPage = () => {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isPlaying]);
+    }, [isPlaying, resetGame]);
 
     useEffect(() => {
         if (!isPlaying || gameOver) return;
