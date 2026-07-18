@@ -1,6 +1,6 @@
 ---
 id: 2
-title: "Violence Detection System"
+title: "SafeVision"
 description: "A real-time deep learning pipeline achieving 97% accuracy in detecting violent activities in video streams with automated alerts."
 tags:
   - Python
@@ -9,7 +9,7 @@ tags:
   - LSTM
   - OpenCV
 image: "/images/violence%20detection.png"
-demo: "https://github.com/Theani7/Violence-Detection-System-using-CNN-LSTM-Models"
+demo: "https://violence-detection-system-using-cnn.vercel.app/"
 github: "https://github.com/Theani7/Violence-Detection-System-using-CNN-LSTM-Models"
 ---
 

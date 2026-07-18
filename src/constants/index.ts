@@ -45,6 +45,7 @@ export const SKILLS = [
 ];
 
 const normalizeProject = (project, index) => ({
+    ...project,
     id: Number.isFinite(project?.id) ? project.id : index + 1,
     title: typeof project?.title === "string" && project.title.trim() ? project.title : "Untitled Project",
     description: typeof project?.description === "string" ? project.description : "",
@@ -52,6 +53,8 @@ const normalizeProject = (project, index) => ({
     image: typeof project?.image === "string" ? project.image : "",
     demo: typeof project?.demo === "string" && project.demo.trim() ? project.demo : "#",
     github: typeof project?.github === "string" ? project.github : "",
+    role: project?.role || "Lead Developer",
+    timeline: project?.timeline || "2025 - Present"
 });
 
 export const PROJECTS = parsedProjects

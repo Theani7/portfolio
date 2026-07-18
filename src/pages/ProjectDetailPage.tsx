@@ -56,31 +56,64 @@ const ProjectDetailPage = () => {
 
                 {project.image && (
                     <div className="mb-12 rounded-md-lg overflow-hidden border border-md-outline">
-                        <img src={project.image} alt={`${project.title} preview`} className="w-full h-60 md:h-[28rem] object-cover" loading="lazy" />
+                        <img src={project.image} alt={`${project.title} preview`} className="w-full aspect-video object-cover" loading="lazy" />
                     </div>
                 )}
 
-                <div className="grid md:grid-cols-[10rem_1fr] gap-6 md:gap-10 mb-12">
-                    <p className="mono text-md-on-surface-variant pt-1">Overview</p>
-                    <div className="prose prose-lg dark:prose-invert max-w-3xl prose-headings:font-display prose-a:text-accent hover:prose-a:text-accent/80">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                            {(project as any).markdownBody || project.description || "No project description is available yet."}
-                        </ReactMarkdown>
+                <div className="grid lg:grid-cols-[1fr_300px] gap-12 mb-12">
+                    <div className="space-y-12">
+                        <div>
+                            <p className="mono text-md-on-surface-variant pt-1 mb-4">Overview</p>
+                            <div className="prose prose-lg dark:prose-invert max-w-3xl prose-headings:font-display prose-a:text-accent hover:prose-a:text-accent/80">
+                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                    {(project as any).markdownBody || project.description || "No project description is available yet."}
+                                </ReactMarkdown>
+                            </div>
+                        </div>
                     </div>
+
+                    <aside className="space-y-8">
+                        <div className="bg-md-surface/50 border border-md-outline/10 rounded-2xl p-6">
+                            <h3 className="font-display text-lg font-medium text-md-on-background mb-4">At a Glance</h3>
+                            <dl className="space-y-4 text-[15px]">
+                                {project.role && (
+                                    <div>
+                                        <dt className="text-md-on-surface-variant mb-1">Role</dt>
+                                        <dd className="font-medium text-md-on-background">{project.role}</dd>
+                                    </div>
+                                )}
+                                {project.timeline && (
+                                    <div>
+                                        <dt className="text-md-on-surface-variant mb-1">Timeline</dt>
+                                        <dd className="font-medium text-md-on-background">{project.timeline}</dd>
+                                    </div>
+                                )}
+                                {project.demo && project.demo !== "#" && (
+                                    <div>
+                                        <dt className="text-md-on-surface-variant mb-1">Live Demo</dt>
+                                        <dd className="font-medium text-md-on-background">
+                                            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors underline underline-offset-4">
+                                                View Project
+                                            </a>
+                                        </dd>
+                                    </div>
+                                )}
+                                {project.github && (
+                                    <div>
+                                        <dt className="text-md-on-surface-variant mb-1">Source</dt>
+                                        <dd className="font-medium text-md-on-background">
+                                            <a href={project.github} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors underline underline-offset-4">
+                                                View Code
+                                            </a>
+                                        </dd>
+                                    </div>
+                                )}
+                            </dl>
+                        </div>
+                    </aside>
                 </div>
 
-                <section className="flex flex-wrap gap-3">
-                    {project.demo && project.demo !== "#" && (
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm min-h-[46px]" aria-label={`Open live demo for ${project.title}`}>
-                            Live Demo <ArrowUpRight size={16} />
-                        </a>
-                    )}
-                    {project.github && (
-                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-ghost inline-flex items-center gap-2 px-6 py-3 text-sm min-h-[46px]" aria-label={`Open GitHub repository for ${project.title}`}>
-                            Source Code <ArrowUpRight size={16} />
-                        </a>
-                    )}
-                </section>
+
             </article>
         </PageWrapper>
     );

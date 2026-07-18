@@ -42,7 +42,7 @@ const Projects = () => {
             )}
 
             {/* List */}
-            <div className={`flex flex-col gap-10 ${isLoading ? "hidden" : ""}`}>
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-10 ${isLoading ? "hidden" : ""}`}>
                 {PROJECTS.map((project, i) => (
                     <motion.article
                         key={project.id}
@@ -50,21 +50,26 @@ const Projects = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 + i * 0.08 }}
                     >
-                        <TiltCard className="flex flex-col border border-md-outline/20 rounded-[24px] bg-md-surface overflow-hidden shadow-sm h-full w-full">
-                        <Link to={`/projects/${project.id}-${slugify(project.title)}`} className="block p-3 pb-0 group">
+                        <div className="flex flex-col h-full w-full group">
+                        <Link to={`/projects/${project.id}-${slugify(project.title)}`} className="block pb-5">
                             {project.image && (
-                                <div className="overflow-hidden rounded-[14px] border border-md-outline/10 bg-md-surface-variant/20">
+                                <div className="relative overflow-hidden rounded-[14px] border border-md-outline/10 bg-md-surface-variant/20">
                                     <img
                                         src={project.image}
                                         alt={`${project.title} preview`}
-                                        className="w-full h-64 sm:h-80 object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                                        className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                                         loading="lazy"
                                     />
+                                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
+                                        <span className="bg-white/10 backdrop-blur-md text-white px-5 py-2.5 rounded-full font-medium text-[15px] border border-white/20 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                            View Project &rarr;
+                                        </span>
+                                    </div>
                                 </div>
                             )}
                         </Link>
                         
-                        <div className="p-5 flex flex-col flex-1">
+                        <div className="flex flex-col flex-1">
                             <div className="flex justify-between items-baseline mb-2">
                                 <h3 className="text-xl font-bold text-md-on-background">
                                     {project.title}
@@ -83,25 +88,25 @@ const Projects = () => {
                             </div>
                         </div>
 
-                        <div className="mt-auto border-t border-dashed border-md-outline/30 flex divide-x divide-dashed divide-md-outline/30 bg-md-background/50">
+                        <div className="mt-6 flex items-center gap-6">
                             <a 
                                 href={project.demo || '#'} 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
-                                className="flex-1 py-3 text-center text-[15px] text-md-on-surface-variant hover:bg-md-surface-variant/30 hover:text-md-on-background transition-colors"
+                                className="text-[15px] font-medium text-md-on-background hover:text-accent transition-colors underline underline-offset-4 decoration-md-outline/50 hover:decoration-accent"
                             >
-                                Live link
+                                Live Project
                             </a>
                             <a 
                                 href={project.github || '#'} 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
-                                className="flex-1 py-3 flex items-center justify-center gap-2 text-[15px] text-md-on-surface-variant hover:bg-md-surface-variant/30 hover:text-md-on-background transition-colors"
+                                className="flex items-center gap-2 text-[15px] font-medium text-md-on-surface-variant hover:text-md-on-background transition-colors"
                             >
-                                GitHub <Github size={16} />
+                                <Github size={16} /> Source Code
                             </a>
                         </div>
-                        </TiltCard>
+                    </div>
                     </motion.article>
                 ))}
             </div>

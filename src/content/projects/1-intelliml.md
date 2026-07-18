@@ -9,7 +9,7 @@ tags:
   - Scikit-learn
   - Tailwind CSS
 image: "/images/intelliML.png"
-demo: "https://github.com/NeonNinjaX/IntelliML-Platform"
+demo: "https://intelli-ml-platform-phi.vercel.app/"
 github: "https://github.com/NeonNinjaX/IntelliML-Platform"
 ---
 

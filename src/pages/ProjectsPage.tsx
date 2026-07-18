@@ -7,7 +7,7 @@ const ProjectsPage = () => {
         <PageWrapper>
             <Seo
                 title="Projects — Anil Paneru"
-                description="Selected AI and machine learning projects by Anil Paneru, including the IntelliML platform and a real-time violence detection system."
+                description="Selected AI and machine learning projects by Anil Paneru, including the IntelliML platform, SafeVision, and Intrusion Detection System."
                 path="/projects"
             />
             <Projects />

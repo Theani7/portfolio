@@ -7,12 +7,12 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="w-full mt-20 pb-8">
+        <footer className="w-full mt-20 pt-10 pb-6 border-t border-md-outline/10 bg-gradient-to-b from-transparent to-md-surface/30 relative">
             <div className="mx-auto max-w-2xl px-4">
-                <div className="flex flex-col md:flex-row gap-12 md:gap-24 mb-16">
+                <div className="flex flex-col md:flex-row gap-8 md:gap-16 mb-10">
                     {/* NAVIGATE Section */}
                     <div className="flex-1">
-                        <h3 className="text-[11px] font-medium tracking-widest text-md-on-surface-variant mb-6 uppercase">
+                        <h3 className="text-[11px] font-medium tracking-widest text-md-on-surface-variant mb-4 uppercase">
                             Navigate
                         </h3>
                         <div className="flex flex-wrap gap-x-5 gap-y-3.5 sm:gap-x-7 sm:gap-y-4 max-w-[380px]">
@@ -30,7 +30,7 @@ const Footer = () => {
 
                     {/* CONNECT Section */}
                     <div>
-                        <h3 className="text-[11px] font-medium tracking-widest text-md-on-surface-variant mb-6 uppercase">
+                        <h3 className="text-[11px] font-medium tracking-widest text-md-on-surface-variant mb-4 uppercase">
                             Connect
                         </h3>
                         <div className="grid grid-cols-4 gap-2.5 sm:gap-3">
@@ -55,7 +55,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="pt-8 border-t border-md-outline/15 text-sm sm:text-[15px] text-md-on-surface-variant/80">
+                <div className="pt-6 border-t border-md-outline/15 text-sm sm:text-[15px] text-md-on-surface-variant/80">
                     <p>&copy; {new Date().getFullYear()} {CONTENT.name}. All rights reserved.</p>
                 </div>
             </div>
