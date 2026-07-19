@@ -74,11 +74,11 @@ const Hero = () => {
                 className="flex flex-col gap-6"
             >
                 {/* Header Profile Section */}
-                <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+                <div className="flex flex-row items-center gap-5 sm:gap-6">
                     <img 
                         src="https://github.com/Theani7.png" 
                         alt={CONTENT.name} 
-                        className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-md-surface-variant border border-md-outline/20 object-cover shrink-0" 
+                        className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-md-surface-variant border border-md-outline/20 object-cover shrink-0" 
                     />
                     <div>
                         <h1 id="hero-heading" className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-md-on-background mb-3">
