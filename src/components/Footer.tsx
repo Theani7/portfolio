@@ -37,7 +37,7 @@ const Footer = () => {
                             {CONTENT.social.map((social) => {
                                 const Icon = social.icon;
                                 return (
-                                <Magnetic key={social.name} strength={0.3} disableHoverSound={false} disableClickSound={false}>
+                                <Magnetic key={social.name} strength={0.3}>
                                     <a
                                         href={social.link}
                                         target="_blank"

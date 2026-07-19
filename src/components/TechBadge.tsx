@@ -1,52 +1,28 @@
 import React, { useState } from 'react';
 
-const iconMap: Record<string, string> = {
-    "Next.js": "Next.js.png",
-    "FastAPI": "FastAPI.png",
-    "Scikit-learn": "scikit-learn.png",
-    "Tailwind CSS": "Tailwind-CSS.png",
-    "Python": "Python.png",
-    "TensorFlow": "TensorFlow.png",
-    "OpenCV": "OpenCV.png",
-    "PyTorch": "PyTorch.png",
-    "MongoDB": "MongoDB.png",
-    "React": "React.png",
-    "Node.js": "Node.js.png",
-    "TypeScript": "TypeScript.png",
-    "Vite": "Vite.png",
-    "Docker": "Docker.png",
-    "AWS": "AWS.png",
-    "SQL": "SQLite.png",
-    "HuggingFace": "Hugging Face.png",
-    "LangChain": "langchain.png",
-    "LlamaIndex": "llamaindex.png",
-    "OpenAI API": "openAI.png",
-    "Anthropic API": "Anthropic .png",
-};
-
-const urlMap: Record<string, string> = {
-    "Next.js": "https://nextjs.org/",
-    "FastAPI": "https://fastapi.tiangolo.com/",
-    "Scikit-learn": "https://scikit-learn.org/",
-    "Tailwind CSS": "https://tailwindcss.com/",
-    "Python": "https://www.python.org/",
-    "TensorFlow": "https://www.tensorflow.org/",
-    "OpenCV": "https://opencv.org/",
-    "PyTorch": "https://pytorch.org/",
-    "MongoDB": "https://www.mongodb.com/",
-    "React": "https://react.dev/",
-    "Node.js": "https://nodejs.org/",
-    "TypeScript": "https://www.typescriptlang.org/",
-    "Vite": "https://vitejs.dev/",
-    "Docker": "https://www.docker.com/",
-    "AWS": "https://aws.amazon.com/",
-    "SQL": "https://en.wikipedia.org/wiki/SQL",
-    "HuggingFace": "https://huggingface.co/",
-    "Git": "https://git-scm.com/",
-    "LangChain": "https://www.langchain.com/",
-    "LlamaIndex": "https://www.llamaindex.ai/",
-    "OpenAI API": "https://openai.com/api/",
-    "Anthropic API": "https://www.anthropic.com/api",
+const TECH: Record<string, { icon: string; url: string }> = {
+    "Next.js": { icon: "Next.js.png", url: "https://nextjs.org/" },
+    "FastAPI": { icon: "FastAPI.png", url: "https://fastapi.tiangolo.com/" },
+    "Scikit-learn": { icon: "scikit-learn.png", url: "https://scikit-learn.org/" },
+    "Tailwind CSS": { icon: "Tailwind-CSS.png", url: "https://tailwindcss.com/" },
+    "Python": { icon: "Python.png", url: "https://www.python.org/" },
+    "TensorFlow": { icon: "TensorFlow.png", url: "https://www.tensorflow.org/" },
+    "OpenCV": { icon: "OpenCV.png", url: "https://opencv.org/" },
+    "PyTorch": { icon: "PyTorch.png", url: "https://pytorch.org/" },
+    "MongoDB": { icon: "MongoDB.png", url: "https://www.mongodb.com/" },
+    "React": { icon: "React.png", url: "https://react.dev/" },
+    "Node.js": { icon: "Node.js.png", url: "https://nodejs.org/" },
+    "TypeScript": { icon: "TypeScript.png", url: "https://www.typescriptlang.org/" },
+    "Vite": { icon: "Vite.png", url: "https://vitejs.dev/" },
+    "Docker": { icon: "Docker.png", url: "https://www.docker.com/" },
+    "AWS": { icon: "AWS.png", url: "https://aws.amazon.com/" },
+    "SQL": { icon: "SQLite.png", url: "https://en.wikipedia.org/wiki/SQL" },
+    "HuggingFace": { icon: "Hugging Face.png", url: "https://huggingface.co/" },
+    "Git": { icon: "Git.png", url: "https://git-scm.com/" },
+    "LangChain": { icon: "langchain.png", url: "https://www.langchain.com/" },
+    "LlamaIndex": { icon: "llamaindex.png", url: "https://www.llamaindex.ai/" },
+    "OpenAI API": { icon: "openAI.png", url: "https://openai.com/api/" },
+    "Anthropic API": { icon: "Anthropic .png", url: "https://www.anthropic.com/api" },
 };
 
 interface TechBadgeProps {
@@ -56,13 +32,10 @@ interface TechBadgeProps {
 
 const TechBadge: React.FC<TechBadgeProps> = ({ name, className = "" }) => {
     const [hasError, setHasError] = useState(false);
-    
-    // Check map, or fallback to exact name + .png
-    const fileName = iconMap[name] || `${name}.png`;
-    const imagePath = `/images/tech-stack/${fileName}`;
-    
-    // Check url map, or fallback to a google search
-    const linkUrl = urlMap[name] || `https://www.google.com/search?q=${encodeURIComponent(name + ' technology')}`;
+
+    const entry = TECH[name];
+    const imagePath = `/images/tech-stack/${entry?.icon || `${name}.png`}`;
+    const linkUrl = entry?.url || `https://www.google.com/search?q=${encodeURIComponent(name + ' technology')}`;
 
     return (
         <a 

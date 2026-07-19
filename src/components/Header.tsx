@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { Search } from "lucide-react";
 import Magnetic from "./Magnetic";
 import CommandPalette from "./CommandPalette";
-import { playLightModeSound, playDarkModeSound } from "../utils/sound";
 
 const Header = () => {
     const [searchOpen, setSearchOpen] = useState(false);
@@ -29,13 +28,6 @@ const Header = () => {
 
     const toggleDark = (e) => {
         const isCurrentlyDark = isDark;
-        
-        // Play the respective sound effect
-        if (isCurrentlyDark) {
-            playLightModeSound();
-        } else {
-            playDarkModeSound();
-        }
 
         if (!document.startViewTransition) {
             setIsDark(!isCurrentlyDark);
@@ -138,7 +130,7 @@ const Header = () => {
                             </button>
                         </Magnetic>
                         
-                        <Magnetic strength={0.3} disableHoverSound={true} disableClickSound={true}>
+                        <Magnetic strength={0.3}>
                             <button 
                                 type="button"
                                 onClick={toggleDark}

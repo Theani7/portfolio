@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PROJECTS, slugify } from "../constants";
-import TiltCard from "./TiltCard";
 import TechBadge from "./TechBadge";
 
 const Projects = () => {
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 380);
-        return () => clearTimeout(timer);
-    }, []);
-
-    // Placeholder dates to match the aesthetic if dates are missing in data
-    const mockDates = ["01.2026", "10.2025", "08.2025", "05.2025"];
-
     return (
         <section className="mb-20 md:mb-28" aria-labelledby="projects-heading">
             {/* Section Header */}
@@ -29,20 +17,8 @@ const Projects = () => {
                 </p>
             </div>
 
-            {isLoading && (
-                <div className="flex flex-col gap-10" aria-hidden="true">
-                    {[1, 2].map((item) => (
-                        <div key={item} className="border border-md-outline/20 rounded-[24px] p-6 h-[400px]">
-                            <div className="h-64 sm:h-80 rounded-2xl bg-md-surface-variant animate-pulse mb-5" />
-                            <div className="h-6 w-48 bg-md-surface-variant animate-pulse rounded" />
-                            <div className="mt-3 h-4 w-full bg-md-surface-variant animate-pulse rounded" />
-                        </div>
-                    ))}
-                </div>
-            )}
-
             {/* List */}
-            <div className={`grid grid-cols-1 md:grid-cols-2 gap-10 ${isLoading ? "hidden" : ""}`}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 {PROJECTS.map((project, i) => (
                     <motion.article
                         key={project.id}
@@ -70,14 +46,9 @@ const Projects = () => {
                         </Link>
                         
                         <div className="flex flex-col flex-1">
-                            <div className="flex justify-between items-baseline mb-2">
-                                <h3 className="text-xl font-bold text-md-on-background">
-                                    {project.title}
-                                </h3>
-                                <span className="text-[15px] text-md-on-surface-variant">
-                                    {mockDates[i % mockDates.length]}
-                                </span>
-                            </div>
+                            <h3 className="text-xl font-bold text-md-on-background mb-2">
+                                {project.title}
+                            </h3>
                             <p className="text-[15px] text-md-on-surface-variant mb-4 leading-relaxed">
                                 {project.description}
                             </p>
