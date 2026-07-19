@@ -173,7 +173,7 @@ const Hero = () => {
                                 aria-label={`Follow on ${social.name}`}
                             >
                                 <Icon size={22} strokeWidth={1.5} />
-                                <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-white text-md-on-background text-[11px] font-medium rounded-md opacity-0 group-hover:opacity-100 transition-all group-hover:-translate-y-1 pointer-events-none whitespace-nowrap border border-md-outline/30 shadow-sm">
+                                <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-md-surface text-md-on-background text-[11px] font-medium rounded-md opacity-0 group-hover:opacity-100 transition-all group-hover:-translate-y-1 pointer-events-none whitespace-nowrap border border-md-outline/30 shadow-sm">
                                     {social.name}
                                 </span>
                             </a>
