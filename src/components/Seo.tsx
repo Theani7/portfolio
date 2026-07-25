@@ -23,10 +23,9 @@ const upsertLink = (rel, href) => {
 };
 
 // Updates the existing index.html head tags in place per route (no duplicates).
-const Seo = ({ title, description, path = "/", image = "/og-image.png" }) => {
+const Seo = ({ title, description, path = "/" }) => {
     useEffect(() => {
         const url = `${SITE_URL}${path}`;
-        const img = image.startsWith("http") ? image : `${SITE_URL}${image}`;
 
         document.title = title;
         upsertMeta("name", "description", description);
@@ -35,12 +34,10 @@ const Seo = ({ title, description, path = "/", image = "/og-image.png" }) => {
         upsertMeta("property", "og:title", title);
         upsertMeta("property", "og:description", description);
         upsertMeta("property", "og:url", url);
-        upsertMeta("property", "og:image", img);
 
         upsertMeta("name", "twitter:title", title);
         upsertMeta("name", "twitter:description", description);
-        upsertMeta("name", "twitter:image", img);
-    }, [title, description, path, image]);
+    }, [title, description, path]);
 
     return null;
 };

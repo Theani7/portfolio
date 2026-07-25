@@ -34,7 +34,6 @@ const ProjectDetailPage = () => {
                 title={`${project.title} — Anil Paneru`}
                 description={project.description || `${project.title}, a project by Anil Paneru.`}
                 path={`/projects/${projectId}`}
-                image={project.image || "/og-image.png"}
             />
             <article className="mb-20 md:mb-28" aria-labelledby="project-title">
                 <Link to="/projects" className="inline-flex items-center gap-2 mono text-md-on-surface-variant hover:text-md-on-background transition-colors">
