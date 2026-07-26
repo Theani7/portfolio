@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { Search } from "lucide-react";
 import Magnetic from "./Magnetic";
 import CommandPalette from "./CommandPalette";
-import { playToggleSound } from "../utils/sound";
 
 const Header = () => {
     const [searchOpen, setSearchOpen] = useState(false);
@@ -28,7 +27,6 @@ const Header = () => {
     }, [isDark]);
 
     const toggleDark = (e) => {
-        playToggleSound();
         const isCurrentlyDark = isDark;
 
         if (!document.startViewTransition) {
@@ -86,6 +84,14 @@ const Header = () => {
                 setSearchOpen(true);
             }
             if (e.key === "Escape") setSearchOpen(false);
+
+            const target = e.target;
+            const isInput = target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable);
+            
+            if (!isInput && !e.metaKey && !e.ctrlKey && !e.altKey) {
+                if (e.key.toLowerCase() === 'd') setIsDark(true);
+                if (e.key.toLowerCase() === 'l') setIsDark(false);
+            }
         };
         document.addEventListener("keydown", handleKeyDown);
         return () => document.removeEventListener("keydown", handleKeyDown);
