@@ -101,15 +101,15 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
                                 )}
 
                                 <Command.Group heading="Ask About Me" className={groupClassName}>
-                                    <Command.Item value="Ask Claude" forceMount onSelect={() => { window.open('https://claude.ai/new?q=Please%20review%20this%20text%20file%20at%20https%3A%2F%2Fanilpaneru.com.np%2Fcontext.txt%20and%20summarize%20his%20technical%20skills%2C%20project%20experience%2C%20and%20overall%20strengths.', '_blank'); setOpen(false); }} className={itemClassName}>
+                                    <Command.Item value="Ask Claude" forceMount onSelect={() => { window.open('https://claude.ai/new?q=Please%20review%20this%20text%20file%20at%20https%3A%2F%2Fraw.githubusercontent.com%2FTheani7%2Fportfolio%2Fmain%2Fpublic%2Fcontext.txt%20and%20summarize%20his%20technical%20skills%2C%20project%20experience%2C%20and%20overall%20strengths.', '_blank'); setOpen(false); }} className={itemClassName}>
                                         <img src="/images/tech-stack/claude.png" alt="Claude" className="w-5 h-5 object-contain" />
                                         <span className="font-medium">Ask Claude</span>
                                     </Command.Item>
-                                    <Command.Item value="Ask ChatGPT" forceMount onSelect={() => { window.open('https://chatgpt.com/?q=Please%20review%20this%20text%20file%20at%20https%3A%2F%2Fanilpaneru.com.np%2Fcontext.txt%20and%20summarize%20his%20technical%20skills%2C%20project%20experience%2C%20and%20overall%20strengths.', '_blank'); setOpen(false); }} className={itemClassName}>
+                                    <Command.Item value="Ask ChatGPT" forceMount onSelect={() => { window.open('https://chatgpt.com/?q=Please%20review%20this%20text%20file%20at%20https%3A%2F%2Fraw.githubusercontent.com%2FTheani7%2Fportfolio%2Fmain%2Fpublic%2Fcontext.txt%20and%20summarize%20his%20technical%20skills%2C%20project%20experience%2C%20and%20overall%20strengths.', '_blank'); setOpen(false); }} className={itemClassName}>
                                         <img src="/images/tech-stack/chatgpt.png" alt="ChatGPT" className="w-5 h-5 object-contain" />
                                         <span className="font-medium">Ask ChatGPT</span>
                                     </Command.Item>
-                                    <Command.Item value="Ask Gemini" forceMount onSelect={() => { window.open('https://gemini.google.com/app?q=Please%20review%20this%20text%20file%20at%20https%3A%2F%2Fanilpaneru.com.np%2Fcontext.txt%20and%20summarize%20his%20technical%20skills%2C%20project%20experience%2C%20and%20overall%20strengths.', '_blank'); setOpen(false); }} className={itemClassName}>
+                                    <Command.Item value="Ask Gemini" forceMount onSelect={() => { window.open('https://gemini.google.com/app?q=Please%20review%20this%20text%20file%20at%20https%3A%2F%2Fraw.githubusercontent.com%2FTheani7%2Fportfolio%2Fmain%2Fpublic%2Fcontext.txt%20and%20summarize%20his%20technical%20skills%2C%20project%20experience%2C%20and%20overall%20strengths.', '_blank'); setOpen(false); }} className={itemClassName}>
                                         <img src="/images/tech-stack/gemini.png" alt="Gemini" className="w-5 h-5 object-contain" />
                                         <span className="font-medium">Ask Gemini</span>
                                     </Command.Item>
