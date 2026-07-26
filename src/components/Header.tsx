@@ -142,10 +142,12 @@ const Header = () => {
                             <button 
                                 type="button"
                                 onClick={toggleDark}
-                                className="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                                className="relative group p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
                                 aria-label="Toggle theme (Press D or L)"
-                                title="Toggle Theme (D / L)"
                             >
+                                <span className="absolute -bottom-9 left-1/2 -translate-x-1/2 px-2 py-1 bg-md-surface-variant text-md-on-surface-variant text-[11px] font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap border border-md-outline/30 pointer-events-none shadow-sm z-50">
+                                    Theme (D / L)
+                                </span>
                                 {isDark ? (
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-md-on-surface-variant">
                                         <circle cx="12" cy="12" r="5"></circle>
