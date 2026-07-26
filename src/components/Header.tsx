@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Search } from "lucide-react";
 import Magnetic from "./Magnetic";
 import CommandPalette from "./CommandPalette";
+import { playToggleSound } from "../utils/sound";
 
 const Header = () => {
     const [searchOpen, setSearchOpen] = useState(false);
@@ -27,6 +28,7 @@ const Header = () => {
     }, [isDark]);
 
     const toggleDark = (e) => {
+        playToggleSound();
         const isCurrentlyDark = isDark;
 
         if (!document.startViewTransition) {
