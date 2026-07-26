@@ -141,6 +141,7 @@ const CommandPalette = ({ open, setOpen, isDark, toggleDark }) => {
                                     >
                                         {isDark ? <Sun size={18} className="text-md-on-surface-variant" /> : <Moon size={18} className="text-md-on-surface-variant" />} 
                                         <span className="font-medium">Toggle {isDark ? 'Light' : 'Dark'} Mode</span>
+                                        <span className="ml-auto text-[10px] sm:text-xs text-md-on-surface-variant px-2 py-1 bg-md-surface-variant/50 border border-md-outline/30 rounded-md tracking-widest font-mono">D / L</span>
                                     </Command.Item>
                                 </Command.Group>
 
