@@ -55,8 +55,18 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="pt-6 border-t border-md-outline/15 text-sm sm:text-[15px] text-md-on-surface-variant/80">
+                <div className="pt-6 border-t border-md-outline/15 flex flex-col md:flex-row justify-between items-center gap-4 text-sm sm:text-[15px] text-md-on-surface-variant/80">
                     <p>&copy; {new Date().getFullYear()} {CONTENT.name}. All rights reserved.</p>
+                    <p>
+                        <a 
+                            href="https://github.com/Theani7/portfolio" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="hover:text-md-on-background transition-colors flex items-center gap-1.5"
+                        >
+                            View Source on GitHub
+                        </a>
+                    </p>
                 </div>
             </div>
         </footer>
