@@ -122,6 +122,7 @@ const Header = () => {
                         <NavLink to="/" className={({ isActive }) => `text-[15px] transition-colors px-3 py-1 ${isActive ? "text-md-on-background font-bold uppercase" : "text-md-on-surface-variant hover:text-md-on-background font-medium"}`}>Home</NavLink>
                         <NavLink to="/projects" className={({ isActive }) => `text-[15px] transition-colors px-3 py-1 ${isActive ? "text-md-on-background font-bold uppercase" : "text-md-on-surface-variant hover:text-md-on-background font-medium"}`}>Projects</NavLink>
                         <NavLink to="/resume" className={({ isActive }) => `text-[15px] transition-colors px-3 py-1 ${isActive ? "text-md-on-background font-bold uppercase" : "text-md-on-surface-variant hover:text-md-on-background font-medium"}`}>Resume</NavLink>
+                        <NavLink to="/setup" className={({ isActive }) => `text-[15px] transition-colors px-3 py-1 ${isActive ? "text-md-on-background font-bold uppercase" : "text-md-on-surface-variant hover:text-md-on-background font-medium"}`}>Setup</NavLink>
                     </nav>
 
                     <div className="flex items-center gap-3">

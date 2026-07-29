@@ -6,6 +6,7 @@ import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ResumePage from "./pages/ResumePage";
+import SetupPage from "./pages/SetupPage";
 import Footer from "./components/Footer";
 import MobileScrollTop from "./components/MobileScrollTop";
 
@@ -19,6 +20,7 @@ const AnimatedRoutes = () => {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
         <Route path="/resume" element={<ResumePage />} />
+        <Route path="/setup" element={<SetupPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AnimatePresence>
