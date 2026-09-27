@@ -3,19 +3,16 @@ import { Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PROJECTS, slugify } from "../constants";
 import TechBadge from "./TechBadge";
+import GridSectionHeader from "./GridSectionHeader";
 
 const Projects = () => {
     return (
-        <section className="mb-20 md:mb-28" aria-labelledby="projects-heading">
+        <section className="mb-12 sm:mb-14 pt-2 sm:pt-4" aria-labelledby="projects-heading">
             {/* Section Header */}
-            <div className="border-b border-md-outline/20 pb-6 mb-8">
-                <h2 id="projects-heading" className="text-3xl md:text-4xl font-bold text-md-on-background tracking-tight mb-4">
-                    Projects
-                </h2>
-                <p className="text-[15px] sm:text-base text-md-on-surface-variant leading-relaxed">
-                    Projects I've built along the way, shaped by curiosity, AI, and a focus on building things that actually work and mean something.
-                </p>
-            </div>
+            <GridSectionHeader title="Projects" />
+            <p className="text-[15px] sm:text-base text-md-on-surface-variant leading-relaxed mb-8">
+                Projects I've built along the way, shaped by curiosity, AI, and a focus on building things that actually work and mean something.
+            </p>
 
             {/* List */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
