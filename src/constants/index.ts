@@ -23,7 +23,6 @@ export const CONTENT = {
     social: [
         { name: "GitHub", icon: Github, link: "https://github.com/Theani7" },
         { name: "LinkedIn", icon: Linkedin, link: "https://www.linkedin.com/in/theanilpaneru/" },
-        { name: "Twitter", icon: Twitter, link: "https://twitter.com" },
         { name: "Email", icon: Mail, link: "mailto:theanilpaneru@gmail.com" },
     ],
 };
