@@ -7,7 +7,7 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="w-full mt-20 pt-10 pb-6 border-t border-md-outline/10 bg-gradient-to-b from-transparent to-md-surface/30 relative">
+        <footer className="w-full mt-6 sm:mt-8 pt-8 pb-8 border-t border-md-outline/10 bg-gradient-to-b from-transparent to-md-surface/30 relative">
             <div className="mx-auto max-w-2xl px-4">
                 <div className="flex flex-col md:flex-row gap-8 md:gap-16 mb-10">
                     {/* NAVIGATE Section */}
