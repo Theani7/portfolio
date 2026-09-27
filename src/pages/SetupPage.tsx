@@ -2,7 +2,7 @@ import PageWrapper from "../components/PageWrapper";
 import Seo from "../components/Seo";
 import CodeBlock from "../components/CodeBlock";
 import { ExternalLink, Terminal, ChevronDown, Monitor, Cpu, Fingerprint, Type, Palette, Box } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 const ghosttyConfig = `theme = Tokyo Night Storm
 
@@ -109,7 +109,7 @@ curl         # HTTP client
 wget         # File downloader`;
 
 const SetupPage = () => {
-    const container = {
+    const container: Variants = {
         hidden: { opacity: 0 },
         show: {
             opacity: 1,
@@ -117,7 +117,7 @@ const SetupPage = () => {
         }
     };
     
-    const item = {
+    const item: Variants = {
         hidden: { opacity: 0, y: 20 },
         show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
     };
