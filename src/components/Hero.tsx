@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { CONTENT } from "../constants";
 import { motion, AnimatePresence } from "framer-motion";
-import { Copy, Check, Github, Linkedin, Mail, Twitter, Play, Pause, MapPin, FileText } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Github, Linkedin, Mail, Twitter, Play, Pause, MapPin, FileText } from "lucide-react";
+
+const CATEGORIES = ["Engineer", "AI", "Data"];
 
 const Hero = () => {
-    const [copied, setCopied] = useState(false);
     const [spotifyData, setSpotifyData] = useState<any>(null);
     const [progress, setProgress] = useState(0);
     const [githubData, setGithubData] = useState<any>(null);
@@ -13,6 +13,17 @@ const Hero = () => {
     const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const [showLinkedinCard, setShowLinkedinCard] = useState(false);
     const linkedinHoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const [showMapCard, setShowMapCard] = useState(false);
+    const mapHoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const [categoryIndex, setCategoryIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCategoryIndex((prev) => (prev + 1) % CATEGORIES.length);
+        }, 2500);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         fetch("https://api.github.com/users/Theani7")
@@ -76,53 +87,123 @@ const Hero = () => {
     
     const email = CONTENT.social.find(s => s.name === "Email")?.link?.replace('mailto:', '') || 'theanilpaneru@gmail.com';
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(email);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
-
     return (
-        <section className="mb-12 sm:mb-14 pt-2 sm:pt-4" aria-labelledby="hero-heading">
+        <section className="mb-12 sm:mb-14" aria-labelledby="hero-heading">
             <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, ease: "easeOut" }}
                 className="flex flex-col gap-6"
             >
-                {/* Header Profile Section */}
-                <div className="flex flex-row items-center gap-4 sm:gap-6">
-                    {/* Double-bordered squircle avatar frame */}
-                    <div className="p-1 sm:p-1.5 rounded-[12px] border border-black/10 dark:border-white/10 shrink-0 bg-neutral-50 dark:bg-zinc-900 shadow-xs">
-                        <div className="relative w-[72px] h-[72px] sm:w-[90px] sm:h-[90px] rounded-[8px] overflow-hidden border border-black/10 dark:border-white/20 bg-white dark:bg-zinc-950">
+                {/* Banner & Overlapping Profile Header */}
+                <div className="relative w-full">
+                    {/* Background Banner */}
+                    <div className="w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-black/10 dark:border-white/10 bg-neutral-100 dark:bg-zinc-900 shadow-xs">
+                        <img 
+                            src="/banner.gif" 
+                            alt="Banner" 
+                            className="w-full h-36 sm:h-48 md:h-56 object-cover object-center [image-rendering:pixelated]" 
+                            loading="eager"
+                            decoding="async"
+                        />
+                    </div>
+
+                    {/* Overlapping Avatar */}
+                    <div className="px-3 sm:px-5 -mt-10 sm:-mt-14">
+                        {/* Circular Avatar with outer border ring */}
+                        <div className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-full border-[3.5px] sm:border-4 border-md-background shadow-md overflow-hidden bg-white dark:bg-zinc-900 ring-1 ring-black/10 dark:ring-white/10 shrink-0">
                             <img 
                                 src="https://github.com/Theani7.png" 
                                 alt={CONTENT.name} 
-                                className="w-full h-full object-cover scale-[1.08] translate-y-[2px]" 
+                                className="w-full h-full object-cover scale-[1.05]" 
                             />
                         </div>
                     </div>
+                </div>
 
-                    <div className="flex-1 flex justify-between items-start min-w-0">
-                        <div className="flex flex-col min-w-0 pr-1">
-                            <h1 id="hero-heading" className="text-[22px] sm:text-4xl font-display font-normal leading-[1.25] text-md-on-background">
-                                Hi, I’m {CONTENT.name}
-                            </h1>
-                            <div className="flex flex-wrap items-center gap-2 text-sm sm:text-base mt-1 text-md-on-surface-variant">
-                                <span className="font-normal tracking-wide">
-                                    Engineer <span className="opacity-40 mx-0.5">•</span> AI <span className="opacity-40 mx-0.5">•</span> Data
-                                </span>
-                                <span className="opacity-40">•</span>
-                                <button 
-                                    onClick={handleCopy}
-                                    className="flex items-center gap-1.5 hover:text-md-on-background transition-colors group cursor-pointer text-sm font-sans"
-                                    aria-label="Copy email address"
+                {/* Profile Identity & Info */}
+                <div className="flex flex-col min-w-0 px-1 pt-1 gap-1">
+                    <h1 id="hero-heading" className="text-2xl sm:text-4xl font-display font-normal leading-[1.25] text-md-on-background">
+                        Hi, I’m {CONTENT.name}
+                    </h1>
+
+                    {/* Animated Role / Category */}
+                    <div className="h-[24px] sm:h-[26px] overflow-hidden flex items-center text-sm sm:text-base text-md-on-surface-variant font-medium">
+                        <AnimatePresence mode="wait">
+                            <motion.span
+                                key={CATEGORIES[categoryIndex]}
+                                initial={{ opacity: 0, y: 12, filter: "blur(2px)" }}
+                                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                exit={{ opacity: 0, y: -12, filter: "blur(2px)" }}
+                                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                                className="tracking-wide inline-block"
+                            >
+                                {CATEGORIES[categoryIndex]}
+                            </motion.span>
+                        </AnimatePresence>
+                    </div>
+
+                    {/* Second Line: Location with Hover Map Card */}
+                    <div 
+                        className="relative inline-block w-fit mt-0.5"
+                        onMouseEnter={() => {
+                            if (mapHoverTimeoutRef.current) clearTimeout(mapHoverTimeoutRef.current);
+                            setShowMapCard(true);
+                        }}
+                        onMouseLeave={() => {
+                            mapHoverTimeoutRef.current = setTimeout(() => setShowMapCard(false), 200);
+                        }}
+                    >
+                        <a
+                            href="https://maps.google.com/?q=Kathmandu,Nepal"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 text-xs sm:text-sm text-md-on-surface-variant hover:text-md-on-background transition-colors group cursor-pointer w-fit"
+                            aria-label="Location: Kathmandu, Nepal (opens in Google Maps)"
+                        >
+                            <MapPin size={14} className="text-accent opacity-80 group-hover:opacity-100 transition-opacity shrink-0" />
+                            <span className="underline decoration-dotted decoration-md-outline/60 underline-offset-4 group-hover:decoration-md-on-background">
+                                Kathmandu, Nepal
+                            </span>
+                        </a>
+
+                        {/* Interactive Map Preview Card */}
+                        <AnimatePresence>
+                            {showMapCard && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                                    transition={{ duration: 0.18, ease: "easeOut" }}
+                                    className="absolute left-0 top-full mt-2 z-50 w-64 rounded-xl border border-md-outline/30 bg-md-surface p-2 shadow-xl backdrop-blur-md"
                                 >
-                                    <span>{email}</span>
-                                    {copied ? <Check size={14} className="text-[#1DB954]" /> : <Copy size={14} className="opacity-60 group-hover:opacity-100 transition-opacity" />}
-                                </button>
-                            </div>
-                        </div>
+                                    <div className="relative w-full h-32 rounded-lg overflow-hidden border border-black/5 dark:border-white/10 mb-2 bg-neutral-100 dark:bg-zinc-800">
+                                        <img
+                                            src="/images/kathmandu-map.png"
+                                            alt="Map of Kathmandu, Nepal"
+                                            className="w-full h-full object-cover"
+                                            loading="lazy"
+                                        />
+                                        {/* Glowing Location Pin Marker */}
+                                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                            <div className="relative flex items-center justify-center">
+                                                <span className="absolute w-4 h-4 rounded-full bg-accent/40 animate-ping" />
+                                                <span className="relative w-2.5 h-2.5 rounded-full bg-accent border-2 border-white dark:border-black shadow-sm" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center justify-between px-1 text-xs">
+                                        <span className="font-medium text-md-on-background flex items-center gap-1">
+                                            <MapPin size={12} className="text-accent" />
+                                            Kathmandu, Nepal
+                                        </span>
+                                        <span className="text-[11px] text-md-on-surface-variant opacity-75">
+                                            27.71° N, 85.32° E
+                                        </span>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
 
@@ -132,17 +213,7 @@ const Hero = () => {
                         I’m an <span className="font-semibold text-md-on-background underline decoration-neutral-400 dark:decoration-neutral-500 decoration-2 underline-offset-4">AI Engineer</span> & developer building intelligent systems, neural networks, and scalable ML solutions. I use <span className="inline-flex items-center gap-1 font-medium text-md-on-background"><img src="/images/tech-stack/Python.png" alt="Python" className="w-3.5 h-3.5 inline-block object-contain" /> Python</span> and <span className="inline-flex items-center gap-1 font-medium text-md-on-background"><img src="/images/tech-stack/PyTorch.png" alt="PyTorch" className="w-3.5 h-3.5 inline-block object-contain" /> PyTorch</span> for deep learning, <span className="inline-flex items-center gap-1 font-medium text-md-on-background"><img src="/images/tech-stack/Hugging Face.png" alt="Hugging Face" className="w-3.5 h-3.5 inline-block object-contain" /> Hugging Face</span> and <span className="inline-flex items-center gap-1 font-medium text-md-on-background"><img src="/images/tech-stack/langchain.png" alt="LangChain" className="w-3.5 h-3.5 inline-block object-contain" /> LangChain</span> for LLM applications, <span className="inline-flex items-center gap-1 font-medium text-md-on-background"><img src="/images/tech-stack/FastAPI.png" alt="FastAPI" className="w-3.5 h-3.5 inline-block object-contain" /> FastAPI</span> & <span className="inline-flex items-center gap-1 font-medium text-md-on-background"><img src="/images/tech-stack/Docker.png" alt="Docker" className="w-3.5 h-3.5 inline-block object-contain" /> Docker</span> for model deployment, and modern databases like <span className="inline-flex items-center gap-1 font-medium text-md-on-background"><img src="/images/tech-stack/PostgresSQL.png" alt="PostgreSQL" className="w-3.5 h-3.5 inline-block object-contain" /> PostgreSQL</span> and <span className="inline-flex items-center gap-1 font-medium text-md-on-background"><img src="/images/tech-stack/MongoDB.png" alt="MongoDB" className="w-3.5 h-3.5 inline-block object-contain" /> MongoDB</span>.
                     </p>
 
-                    <div>
-                        <a 
-                            href={`mailto:${email}?subject=Let's%20Connect`}
-                            className="group relative inline-block"
-                        >
-                            <span className="border border-md-outline/30 text-md-on-background text-sm py-1.5 px-3.5 rounded-lg cursor-pointer inline-flex items-center gap-1.5 transition-all duration-300 ease-out bg-md-surface-variant/30 hover:bg-md-surface-variant/60 dark:bg-md-surface/50 dark:hover:bg-md-surface/80 group-hover:shadow-sm group-hover:-translate-y-0.5">
-                                Book A Call!
-                                <span className="inline-block transition-all duration-300 animate-[spin_4s_linear_infinite] group-hover:animate-[spin_0.7s_linear_infinite]">✿</span>
-                            </span>
-                        </a>
-                    </div>
+
                 </div>
 
                 {/* Spotify Section */}
