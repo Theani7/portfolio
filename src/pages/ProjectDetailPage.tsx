@@ -18,7 +18,7 @@ const ProjectDetailPage = () => {
         return (
             <PageWrapper>
                 <Seo title="Project not found — Anil Paneru" description="The requested project could not be found." path="/projects" />
-                <section className="mb-20 md:mb-28">
+                <section className="mb-12 sm:mb-14">
                     <p className="text-md-on-surface-variant mb-5">Project not found.</p>
                     <Link to="/projects" className="inline-flex items-center gap-2 mono text-md-on-background link-underline">
                         <ArrowLeft size={14} /> Back to Projects
@@ -35,12 +35,12 @@ const ProjectDetailPage = () => {
                 description={project.description || `${project.title}, a project by Anil Paneru.`}
                 path={`/projects/${projectId}`}
             />
-            <article className="mb-20 md:mb-28" aria-labelledby="project-title">
+            <article className="mb-12 sm:mb-14" aria-labelledby="project-title">
                 <Link to="/projects" className="inline-flex items-center gap-2 mono text-md-on-surface-variant hover:text-md-on-background transition-colors">
                     <ArrowLeft size={14} /> Back to Projects
                 </Link>
 
-                <header className="mt-10 mb-10 pb-8 border-b border-md-outline">
+                <header className="mt-10 mb-10 pb-6 border-b border-md-outline/20">
                     <h1 id="project-title" className="font-display text-4xl lg:text-6xl font-medium tracking-tight text-md-on-background mb-6">
                         {project.title}
                     </h1>
@@ -54,12 +54,12 @@ const ProjectDetailPage = () => {
                 </header>
 
                 {project.image && (
-                    <div className="mb-12 rounded-md-lg overflow-hidden border border-md-outline">
+                    <div className="mb-12 sm:mb-14 rounded-md-lg overflow-hidden border border-md-outline">
                         <img src={project.image} alt={`${project.title} preview`} className="w-full aspect-video object-cover" loading="lazy" />
                     </div>
                 )}
 
-                <div className="grid lg:grid-cols-[1fr_300px] gap-12 mb-12">
+                <div className="grid lg:grid-cols-[1fr_300px] gap-12 mb-12 sm:mb-14">
                     <div className="space-y-12">
                         <div>
                             <p className="mono text-md-on-surface-variant pt-1 mb-4">Overview</p>

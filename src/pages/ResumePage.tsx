@@ -1,16 +1,18 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FileText } from 'lucide-react';
+import PageWrapper from "../components/PageWrapper";
+import Seo from "../components/Seo";
 
 const ResumePage = () => (
-    <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        className="min-h-[70vh] flex flex-col items-center justify-center gap-8 py-12"
-    >
-        <motion.div 
-            animate={{ y: [0, -8, 0] }} 
+    <PageWrapper>
+        <Seo
+            title="Resume — Anil Paneru"
+            description="Resume of Anil Paneru, ML Engineer and AI Developer. Coming soon."
+            path="/resume"
+        />
+        <div className="min-h-[70vh] flex flex-col items-center justify-center gap-8 py-12">
+        <motion.div
+            animate={{ y: [0, -8, 0] }}
             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
             className="mb-2"
         >
@@ -69,7 +71,8 @@ const ResumePage = () => (
         >
             Go Home
         </Link>
-    </motion.div>
+    </div>
+    </PageWrapper>
 );
 
 export default ResumePage;
