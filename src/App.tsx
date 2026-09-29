@@ -36,7 +36,7 @@ function App() {
         </a>
         <Header />
         <main id="main-content" className="mobile-main relative">
-          <div className="relative mx-auto max-w-2xl px-6 sm:px-8 pt-6 sm:pt-8 pb-10 sm:pb-12">
+          <div className="relative mx-auto max-w-2xl px-6 sm:px-8 pt-6 sm:pt-8 pb-4 sm:pb-6">
             <div className="absolute top-0 bottom-0 left-0 grid-line-v hidden sm:block" />
             <div className="absolute top-0 bottom-0 right-0 grid-line-v hidden sm:block" />
             <AnimatedRoutes />
