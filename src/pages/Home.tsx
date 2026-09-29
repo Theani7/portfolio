@@ -7,6 +7,7 @@ import { GitHubCalendar } from 'react-github-calendar';
 import TechBadge from "../components/TechBadge";
 import GridDivider from "../components/GridDivider";
 import GridSectionHeader from "../components/GridSectionHeader";
+import ScrolledTooFar from "../components/ScrolledTooFar";
 
 const Home = () => {
     const [monthsToShow, setMonthsToShow] = useState(8);
@@ -118,7 +119,7 @@ const Home = () => {
                 </div>
             </section>
             
-            <GridDivider className="!mt-8 !mb-0" />
+            <ScrolledTooFar />
         </PageWrapper>
     );
 };
