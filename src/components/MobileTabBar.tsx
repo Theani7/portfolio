@@ -32,23 +32,31 @@ const MobileTabBar = () => {
     }, []);
 
     return (
-        // Outer layer is click-through so the gaps between tabs stay tappable
-        // content, not dead glass.
-        <motion.nav
-            aria-label="Main"
-            // 120% clears the bar regardless of safe-area inset or bar height.
-            animate={{ y: hidden ? "120%" : 0 }}
-            initial={false}
-            transition={
-                reduceMotion
-                    ? { duration: 0 }
-                    : { type: "spring", stiffness: 420, damping: 38, mass: 0.7 }
-            }
-            className="sm:hidden fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pointer-events-none"
-        >
-            <ul
-                className={`pointer-events-auto flex w-full max-w-md items-stretch gap-1 rounded-[28px] translate-z-0 border border-white/70 dark:border-white/15 bg-white/80 dark:bg-zinc-900/75 px-2 py-1.5 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_10px_34px_-10px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.9)] dark:shadow-[0_10px_34px_-10px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.14)] ${hidden ? "pointer-events-none" : ""}`}
+        // Inert wrapper: owns the safe-area inset so the pill can slide clear of it.
+        // Nothing here may carry opacity or transform, because an ancestor with
+        // either becomes the backdrop root and collapses the child's backdrop-filter
+        // mid-animation, which is why the bar used to fade in at low blur and then
+        // snap to full blur. So the glass and the motion live on the same element.
+        <div className="sm:hidden fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pointer-events-none">
+            <motion.nav
+                aria-label="Main"
+                // Same unit in both states. Framer-motion appends px to numbers but
+                // passes strings through, so mixing 0 with a percentage animates
+                // between two different units and snaps instead of tweening.
+                animate={{ y: hidden ? "130%" : "0%" }}
+                initial={false}
+                transition={
+                    reduceMotion
+                        ? { duration: 0 }
+                        : { type: "spring", stiffness: 420, damping: 38, mass: 0.7 }
+                }
+                // backdrop-blur-xl rather than 2xl on purpose. At 24px the content
+                // behind smears into flat colour and reads as an opaque bar; 16px keeps
+                // shapes discernible so the frost is legible. The near-opaque dark inner
+                // rim is what makes it read as a physical glass edge, not a card.
+                className={`w-full max-w-md rounded-[28px] translate-z-0 border border-white/70 dark:border-white/15 bg-white/35 dark:bg-zinc-900/40 px-2 py-1.5 backdrop-blur-xl backdrop-saturate-150 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.30),0_2px_8px_-2px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.95),inset_0_-1px_1px_rgba(0,0,0,0.10)] dark:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.65),0_2px_8px_-2px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.16),inset_0_-1px_1px_rgba(0,0,0,0.5)] ${hidden ? "pointer-events-none" : "pointer-events-auto"}`}
             >
+            <ul className="flex items-stretch gap-1">
                 {NAV_LINKS.map(({ to, label }) => {
                     const Icon = ICONS[to];
                     return (
@@ -69,7 +77,13 @@ const MobileTabBar = () => {
                                         {isActive && (
                                             <motion.span
                                                 layoutId="tab-bar-lens"
-                                                className="absolute inset-0 rounded-full bg-white/70 dark:bg-white/16 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.2)] backdrop-blur-sm"
+                                                // No backdrop-filter here. The nav above
+                                                // carries a transform and its own
+                                                // backdrop-filter, which makes it the
+                                                // backdrop root, so a blur on this child
+                                                // would only ever sample the nav's own
+                                                // flat fill and do nothing.
+                                                className="absolute inset-0 rounded-full bg-white/70 dark:bg-white/16 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.2)]"
                                                 transition={
                                                     reduceMotion
                                                         ? { duration: 0 }
@@ -92,7 +106,8 @@ const MobileTabBar = () => {
                     );
                 })}
             </ul>
-        </motion.nav>
+            </motion.nav>
+        </div>
     );
 };
 
