@@ -28,9 +28,10 @@ export const CONTENT = {
 };
 
 export const NAV_LINKS = [
-    { id: "home", label: "Home" },
-    { id: "projects", label: "Projects" },
-    { id: "resume", label: "Resume" },
+    { to: "/", label: "Home" },
+    { to: "/projects", label: "Projects" },
+    { to: "/resume", label: "Resume" },
+    { to: "/setup", label: "Setup" },
 ];
 
 export const SKILLS = [

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { CONTENT } from "../constants";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, Linkedin, Mail, Twitter, Play, Pause, MapPin, FileText } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter, Play, Pause, MapPin, FileText, Info } from "lucide-react";
 
 const CATEGORIES = ["Engineer", "AI", "Data"];
 
@@ -9,12 +9,10 @@ const Hero = () => {
     const [spotifyData, setSpotifyData] = useState<any>(null);
     const [progress, setProgress] = useState(0);
     const [githubData, setGithubData] = useState<any>(null);
-    const [showGithubCard, setShowGithubCard] = useState(false);
+
+    // Which hover card is open: "github" | "linkedin" | "map" | null
+    const [openCard, setOpenCard] = useState<string | null>(null);
     const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const [showLinkedinCard, setShowLinkedinCard] = useState(false);
-    const linkedinHoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const [showMapCard, setShowMapCard] = useState(false);
-    const mapHoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const [categoryIndex, setCategoryIndex] = useState(0);
 
@@ -87,6 +85,51 @@ const Hero = () => {
     
     const email = CONTENT.social.find(s => s.name === "Email")?.link?.replace('mailto:', '') || 'theanilpaneru@gmail.com';
 
+    // Desktop: hover opens the card, leaving closes it after a grace period so the
+    // pointer can travel from the trigger into the card without it disappearing.
+    const openOnHover = (id: string) => {
+        if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+        setOpenCard(id);
+    };
+
+    const closeOnHover = () => {
+        hoverTimeoutRef.current = setTimeout(() => setOpenCard(null), 200);
+    };
+
+    // Touch: the disclosure button toggles the card, since hover never fires.
+    const toggleOnTap = (e: React.MouseEvent, id: string) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setOpenCard((prev) => (prev === id ? null : id));
+    };
+
+    // Dismiss on outside click or Escape.
+    useEffect(() => {
+        if (!openCard) return;
+
+        const onPointerDown = (e: MouseEvent | TouchEvent) => {
+            if (!(e.target as HTMLElement)?.closest?.("[data-card-root]")) {
+                setOpenCard(null);
+            }
+        };
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setOpenCard(null);
+        };
+
+        document.addEventListener("mousedown", onPointerDown);
+        document.addEventListener("touchstart", onPointerDown);
+        document.addEventListener("keydown", onKeyDown);
+        return () => {
+            document.removeEventListener("mousedown", onPointerDown);
+            document.removeEventListener("touchstart", onPointerDown);
+            document.removeEventListener("keydown", onKeyDown);
+        };
+    }, [openCard]);
+
+    useEffect(() => () => {
+        if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    }, []);
+
     return (
         <section className="mb-12 sm:mb-14" aria-labelledby="hero-heading">
             <motion.div
@@ -144,38 +187,46 @@ const Hero = () => {
                     </div>
 
                     {/* Second Line: Location with Hover Map Card */}
-                    <div 
-                        className="relative inline-block w-fit mt-0.5"
-                        onMouseEnter={() => {
-                            if (mapHoverTimeoutRef.current) clearTimeout(mapHoverTimeoutRef.current);
-                            setShowMapCard(true);
-                        }}
-                        onMouseLeave={() => {
-                            mapHoverTimeoutRef.current = setTimeout(() => setShowMapCard(false), 200);
-                        }}
-                    >
-                        <a
-                            href="https://maps.google.com/?q=Kathmandu,Nepal"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1.5 text-xs sm:text-sm text-md-on-surface-variant hover:text-md-on-background transition-colors group cursor-pointer w-fit"
-                            aria-label="Location: Kathmandu, Nepal (opens in Google Maps)"
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                        <div
+                            className="relative inline-block w-fit"
+                            data-card-root
+                            onMouseEnter={() => openOnHover("map")}
+                            onMouseLeave={closeOnHover}
                         >
-                            <MapPin size={14} className="text-accent opacity-80 group-hover:opacity-100 transition-opacity shrink-0" />
-                            <span className="underline decoration-dotted decoration-md-outline/60 underline-offset-4 group-hover:decoration-md-on-background">
-                                Kathmandu, Nepal
-                            </span>
-                        </a>
+                            <a
+                                href="https://maps.google.com/?q=Kathmandu,Nepal"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1.5 text-xs sm:text-sm text-md-on-surface-variant hover:text-md-on-background transition-colors group cursor-pointer w-fit"
+                                aria-label="Location: Kathmandu, Nepal (opens in Google Maps)"
+                            >
+                                <MapPin size={14} className="text-accent opacity-80 group-hover:opacity-100 transition-opacity shrink-0" />
+                                <span className="underline decoration-dotted decoration-md-outline/60 underline-offset-4 group-hover:decoration-md-on-background">
+                                    Kathmandu, Nepal
+                                </span>
+                            </a>
+
+                            {/* Touch: no hover, so reveal the card from a disclosure button. */}
+                            <button
+                                type="button"
+                                onClick={(e) => toggleOnTap(e, "map")}
+                                className="sm:hidden -mr-1 p-1 text-md-on-surface-variant"
+                                aria-label="Show Kathmandu map preview"
+                                aria-expanded={openCard === "map"}
+                            >
+                                <Info size={13} />
+                            </button>
 
                         {/* Interactive Map Preview Card */}
                         <AnimatePresence>
-                            {showMapCard && (
+                            {openCard === "map" && (
                                 <motion.div
                                     initial={{ opacity: 0, y: 8, scale: 0.96 }}
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: 6, scale: 0.96 }}
                                     transition={{ duration: 0.18, ease: "easeOut" }}
-                                    className="absolute left-0 top-full mt-2 z-50 w-64 rounded-xl border border-md-outline/30 bg-md-surface p-2 shadow-xl backdrop-blur-md"
+                                    className="absolute left-0 top-full mt-2 z-50 w-64 max-w-[calc(100vw-3rem)] rounded-xl border border-md-outline/30 bg-md-surface p-2 shadow-xl backdrop-blur-md"
                                 >
                                     <div className="relative w-full h-32 rounded-lg overflow-hidden border border-black/5 dark:border-white/10 mb-2 bg-neutral-100 dark:bg-zinc-800">
                                         <img
@@ -204,6 +255,7 @@ const Hero = () => {
                                 </motion.div>
                             )}
                         </AnimatePresence>
+                        </div>
                     </div>
                 </div>
 
@@ -217,29 +269,24 @@ const Hero = () => {
                 </div>
 
                 {/* Spotify Section */}
-                <div className="relative flex flex-col w-fit mt-1">
+                <div className="relative flex flex-col w-fit mt-1 group">
                     <p className="text-sm text-md-on-surface-variant mb-1">
                         Here’s what I’m <strong className="font-semibold text-md-on-background">listening</strong> to
                     </p>
                     <audio ref={audioRef} onEnded={() => setIsPlayingPreview(false)} />
-                    <a 
+                    {/* Wrapper is the hover group so the play button can sit outside the link
+                        (a <button> nested in an <a> is invalid and taps would navigate). */}
+                    <div className="relative">
+                    <a
                         href={spotifyData?.songUrl || "https://open.spotify.com/track/3AJwUDP919kvQ9QcozQPxg"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center gap-3 mt-1.5 text-sm sm:text-base text-md-on-surface-variant bg-md-surface-variant/30 hover:bg-md-surface-variant/60 w-fit px-4 py-2 rounded-full border border-md-outline/20 transition-all cursor-pointer group ${spotifyData?.isPlaying ? 'spotify-playing-glow border-[#1DB954]/30' : ''}`}
+                        className={`flex items-center gap-3 mt-1.5 text-sm sm:text-base text-md-on-surface-variant bg-md-surface-variant/30 hover:bg-md-surface-variant/60 w-fit px-4 py-2 rounded-full border border-md-outline/20 transition-all cursor-pointer ${spotifyData?.isPlaying ? 'spotify-playing-glow border-[#1DB954]/30' : ''}`}
                     >
                         <div className="relative shrink-0 flex items-center justify-center">
                             <svg viewBox="0 0 24 24" width="20" height="20" className={`text-[#1DB954] transition-transform ${spotifyData?.previewUrl ? 'group-hover:opacity-0' : 'group-hover:scale-105'}`} fill="currentColor">
                                 <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.84.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
                             </svg>
-                            {spotifyData?.previewUrl && (
-                                <button 
-                                    onClick={togglePreview}
-                                    className="absolute inset-0 bg-[#1DB954] text-black rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:scale-110"
-                                >
-                                    {isPlayingPreview ? <Pause className="w-3 h-3 fill-current" /> : <Play className="w-3 h-3 fill-current ml-0.5" />}
-                                </button>
-                            )}
                         </div>
                         <div className="flex flex-col overflow-hidden">
                             <div className="flex items-center gap-2">
@@ -262,14 +309,26 @@ const Hero = () => {
                             </div>
                             {spotifyData?.durationMs && (
                                 <div className="w-full bg-md-outline/10 h-[3px] mt-1 rounded-full overflow-hidden shrink-0">
-                                    <div 
-                                        className="bg-[#1DB954] h-full transition-all duration-1000 ease-linear" 
+                                    <div
+                                        className="bg-[#1DB954] h-full transition-all duration-1000 ease-linear"
                                         style={{ width: `${Math.min((progress / spotifyData.durationMs) * 100, 100)}%` }}
                                     />
                                 </div>
                             )}
                         </div>
                     </a>
+                    {/* Sits above the logo slot; always visible on touch where hover never fires. */}
+                    {spotifyData?.previewUrl && (
+                        <button
+                            type="button"
+                            onClick={togglePreview}
+                            className="absolute inset-y-0 left-4 my-auto h-5 w-5 bg-[#1DB954] text-black rounded-full flex items-center justify-center transition-opacity sm:opacity-0 sm:group-hover:opacity-100 hover:scale-110 after:absolute after:-inset-2 after:content-['']"
+                            aria-label={isPlayingPreview ? "Pause preview" : "Play preview"}
+                        >
+                            {isPlayingPreview ? <Pause className="w-3 h-3 fill-current" /> : <Play className="w-3 h-3 fill-current ml-0.5" />}
+                        </button>
+                    )}
+                    </div>
                 </div>
 
                 {/* Social Links */}
@@ -279,20 +338,16 @@ const Hero = () => {
                     </p>
                     <div className="flex flex-wrap items-center gap-2.5">
                         {/* GitHub with Hover Card */}
-                        <div 
+                        <div
                             className="relative"
-                            onMouseEnter={() => {
-                                if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
-                                setShowGithubCard(true);
-                            }}
-                            onMouseLeave={() => {
-                                hoverTimeoutRef.current = setTimeout(() => setShowGithubCard(false), 200);
-                            }}
+                            data-card-root
+                            onMouseEnter={() => openOnHover("github")}
+                            onMouseLeave={closeOnHover}
                         >
-                            <a 
-                                href="https://github.com/Theani7" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
+                            <a
+                                href="https://github.com/Theani7"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="px-3.5 py-1.5 rounded-lg border border-md-outline/30 bg-md-surface-variant/20 hover:bg-md-surface-variant/50 text-md-on-surface-variant hover:text-md-on-background text-sm font-medium inline-flex items-center gap-2 transition-all shadow-xs"
                                 aria-label="GitHub Profile"
                             >
@@ -300,21 +355,26 @@ const Hero = () => {
                                 <span>GitHub</span>
                             </a>
 
+                            <button
+                                type="button"
+                                onClick={(e) => toggleOnTap(e, "github")}
+                                className="sm:hidden -ml-1.5 p-1 text-md-on-surface-variant"
+                                aria-label="Show GitHub profile details"
+                                aria-expanded={openCard === "github"}
+                            >
+                                <Info size={13} />
+                            </button>
+
                             <AnimatePresence>
-                                {showGithubCard && (
+                                {openCard === "github" && (
                                     <motion.div
                                         initial={{ opacity: 0, y: 6, scale: 0.98 }}
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 6, scale: 0.98 }}
                                         transition={{ duration: 0.15 }}
-                                        className="absolute top-full left-0 mt-2 z-50 w-72 sm:w-80 p-4 rounded-2xl bg-md-surface border border-md-outline/30 shadow-xl text-md-on-background pointer-events-auto"
-                                        onMouseEnter={() => {
-                                            if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
-                                            setShowGithubCard(true);
-                                        }}
-                                        onMouseLeave={() => {
-                                            hoverTimeoutRef.current = setTimeout(() => setShowGithubCard(false), 200);
-                                        }}
+                                        className="absolute top-full left-0 mt-2 z-50 w-72 sm:w-80 max-w-[calc(100vw-3rem)] p-4 rounded-2xl bg-md-surface border border-md-outline/30 shadow-xl text-md-on-background pointer-events-auto"
+                                        onMouseEnter={() => openOnHover("github")}
+                                        onMouseLeave={closeOnHover}
                                     >
                                         <div className="flex items-center gap-3">
                                             <img
@@ -361,20 +421,16 @@ const Hero = () => {
                         </div>
 
                         {/* LinkedIn with Hover Card */}
-                        <div 
+                        <div
                             className="relative"
-                            onMouseEnter={() => {
-                                if (linkedinHoverTimeoutRef.current) clearTimeout(linkedinHoverTimeoutRef.current);
-                                setShowLinkedinCard(true);
-                            }}
-                            onMouseLeave={() => {
-                                linkedinHoverTimeoutRef.current = setTimeout(() => setShowLinkedinCard(false), 200);
-                            }}
+                            data-card-root
+                            onMouseEnter={() => openOnHover("linkedin")}
+                            onMouseLeave={closeOnHover}
                         >
-                            <a 
-                                href="https://www.linkedin.com/in/theanilpaneru/" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
+                            <a
+                                href="https://www.linkedin.com/in/theanilpaneru/"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="px-3.5 py-1.5 rounded-lg border border-md-outline/30 bg-md-surface-variant/20 hover:bg-md-surface-variant/50 text-md-on-surface-variant hover:text-md-on-background text-sm font-medium inline-flex items-center gap-2 transition-all shadow-xs"
                                 aria-label="LinkedIn Profile"
                             >
@@ -382,21 +438,26 @@ const Hero = () => {
                                 <span>LinkedIn</span>
                             </a>
 
+                            <button
+                                type="button"
+                                onClick={(e) => toggleOnTap(e, "linkedin")}
+                                className="sm:hidden -ml-1.5 p-1 text-md-on-surface-variant"
+                                aria-label="Show LinkedIn profile details"
+                                aria-expanded={openCard === "linkedin"}
+                            >
+                                <Info size={13} />
+                            </button>
+
                             <AnimatePresence>
-                                {showLinkedinCard && (
+                                {openCard === "linkedin" && (
                                     <motion.div
                                         initial={{ opacity: 0, y: 6, scale: 0.98 }}
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 6, scale: 0.98 }}
                                         transition={{ duration: 0.15 }}
-                                        className="absolute top-full left-0 mt-2 z-50 w-72 sm:w-80 p-4 rounded-2xl bg-md-surface border border-md-outline/30 shadow-xl text-md-on-background pointer-events-auto"
-                                        onMouseEnter={() => {
-                                            if (linkedinHoverTimeoutRef.current) clearTimeout(linkedinHoverTimeoutRef.current);
-                                            setShowLinkedinCard(true);
-                                        }}
-                                        onMouseLeave={() => {
-                                            linkedinHoverTimeoutRef.current = setTimeout(() => setShowLinkedinCard(false), 200);
-                                        }}
+                                        className="absolute top-full left-0 mt-2 z-50 w-72 sm:w-80 max-w-[calc(100vw-3rem)] p-4 rounded-2xl bg-md-surface border border-md-outline/30 shadow-xl text-md-on-background pointer-events-auto"
+                                        onMouseEnter={() => openOnHover("linkedin")}
+                                        onMouseLeave={closeOnHover}
                                     >
                                         <div className="flex items-center gap-3">
                                             <img

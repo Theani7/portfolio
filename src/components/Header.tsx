@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Search } from "lucide-react";
 import Magnetic from "./Magnetic";
 import CommandPalette from "./CommandPalette";
+import { CONTENT, NAV_LINKS } from "../constants";
 
 const Header = () => {
     const [searchOpen, setSearchOpen] = useState(false);
@@ -17,12 +18,17 @@ const Header = () => {
 
     useEffect(() => {
         const root = document.documentElement;
+        // Keep the browser/PWA chrome in step with the site, which the manifest
+        // can't do on its own once the user overrides the OS preference.
+        const themeColor = document.querySelector('meta[name="theme-color"]');
         if (isDark) {
             root.classList.add('dark');
             localStorage.setItem('theme', 'dark');
+            themeColor?.setAttribute('content', '#121212');
         } else {
             root.classList.remove('dark');
             localStorage.setItem('theme', 'light');
+            themeColor?.setAttribute('content', '#FAFAFA');
         }
     }, [isDark]);
 
@@ -116,26 +122,34 @@ const Header = () => {
                     className={`absolute inset-0 pointer-events-none transition-opacity duration-500 bg-md-background ${isScrolled ? 'opacity-0' : 'opacity-100'}`} 
                 />
 
-                <div className="relative z-10 mx-auto max-w-2xl px-4 flex items-center justify-between">
-                    
-                    <nav className="flex items-center gap-3 sm:gap-6" aria-label="Main">
-                        <NavLink to="/" className={({ isActive }) => `text-[15px] transition-colors px-3 py-1 ${isActive ? "text-md-on-background font-bold uppercase" : "text-md-on-surface-variant hover:text-md-on-background font-medium"}`}>Home</NavLink>
-                        <NavLink to="/projects" className={({ isActive }) => `text-[15px] transition-colors px-3 py-1 ${isActive ? "text-md-on-background font-bold uppercase" : "text-md-on-surface-variant hover:text-md-on-background font-medium"}`}>Projects</NavLink>
-                        <NavLink to="/resume" className={({ isActive }) => `text-[15px] transition-colors px-3 py-1 ${isActive ? "text-md-on-background font-bold uppercase" : "text-md-on-surface-variant hover:text-md-on-background font-medium"}`}>Resume</NavLink>
-                        <NavLink to="/setup" className={({ isActive }) => `text-[15px] transition-colors px-3 py-1 ${isActive ? "text-md-on-background font-bold uppercase" : "text-md-on-surface-variant hover:text-md-on-background font-medium"}`}>Setup</NavLink>
+                <div className="relative z-10 mx-auto max-w-2xl px-6 sm:px-8 flex items-center justify-between">
+
+                    <nav className="hidden sm:flex items-center gap-3 sm:gap-6" aria-label="Main">
+                        {NAV_LINKS.map(({ to, label }) => (
+                            <NavLink
+                                key={to}
+                                to={to}
+                                end={to === "/"}
+                                className={({ isActive }) => `text-[15px] transition-colors px-3 py-1 ${isActive ? "text-md-on-background font-bold uppercase" : "text-md-on-surface-variant hover:text-md-on-background font-medium"}`}
+                            >
+                                {label}
+                            </NavLink>
+                        ))}
                     </nav>
+
+                    <span className="sm:hidden font-display text-lg text-md-on-background">{CONTENT.name}</span>
 
                     <div className="flex items-center gap-3">
                         <Magnetic strength={0.15}>
                             <button
                                 type="button"
                                 onClick={() => setSearchOpen(true)}
-                                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border border-md-outline/30 bg-md-surface text-md-on-surface-variant text-[13px] transition hover:border-md-outline shadow-sm"
+                                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border border-md-outline/30 bg-md-surface text-md-on-surface-variant text-[13px] transition hover:border-md-outline shadow-sm min-h-[36px]"
                                 aria-label="Open search"
                             >
                                 <Search size={14} />
-                                <span className="opacity-70">⌘</span>
-                                <span className="opacity-70">K</span>
+                                <span className="hidden sm:inline opacity-70">⌘</span>
+                                <span className="hidden sm:inline opacity-70">K</span>
                             </button>
                         </Magnetic>
                         
@@ -143,10 +157,10 @@ const Header = () => {
                             <button 
                                 type="button"
                                 onClick={toggleDark}
-                                className="relative group p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                                className="relative group p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
                                 aria-label="Toggle theme (Press D or L)"
                             >
-                                <span className="absolute -bottom-9 left-1/2 -translate-x-1/2 px-2 py-1 bg-md-surface-variant text-md-on-surface-variant text-[11px] font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap border border-md-outline/30 pointer-events-none shadow-sm z-50">
+                                <span className="hidden sm:block absolute -bottom-9 left-1/2 -translate-x-1/2 px-2 py-1 bg-md-surface-variant text-md-on-surface-variant text-[11px] font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap border border-md-outline/30 pointer-events-none shadow-sm z-50">
                                     Theme (D / L)
                                 </span>
                                 {isDark ? (

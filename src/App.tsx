@@ -9,6 +9,7 @@ import ResumePage from "./pages/ResumePage";
 import SetupPage from "./pages/SetupPage";
 import Footer from "./components/Footer";
 import MobileScrollTop from "./components/MobileScrollTop";
+import MobileTabBar from "./components/MobileTabBar";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -30,7 +31,7 @@ const AnimatedRoutes = () => {
 function App() {
   return (
     <Router>
-      <div className="mobile-app-shell min-h-screen text-md-on-background bg-md-background">
+      <div className="mobile-app-shell min-h-screen text-md-on-background bg-md-background pb-[calc(env(safe-area-inset-bottom)+5.5rem)] sm:pb-0">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
@@ -44,6 +45,7 @@ function App() {
           <Footer />
         </main>
         <MobileScrollTop />
+        <MobileTabBar />
       </div>
     </Router>
   );

@@ -33,8 +33,9 @@ const Projects = () => {
                                         className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                                         loading="lazy"
                                     />
-                                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
-                                        <span className="bg-white/10 backdrop-blur-md text-white px-5 py-2.5 rounded-full font-medium text-[15px] border border-white/20 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                    {/* Shown on touch, where group-hover never fires. */}
+                                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
+                                        <span className="bg-white/10 backdrop-blur-md text-white px-5 py-2.5 rounded-full font-medium text-[15px] border border-white/20 transition-transform duration-300 translate-y-0 sm:translate-y-4 sm:group-hover:translate-y-0">
                                             View Project &rarr;
                                         </span>
                                     </div>
