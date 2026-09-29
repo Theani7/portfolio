@@ -1,7 +1,8 @@
 import PageWrapper from "../components/PageWrapper";
 import Seo from "../components/Seo";
 import CodeBlock from "../components/CodeBlock";
-import { ExternalLink, Terminal, ChevronDown, Monitor, Cpu, Fingerprint, Type, Palette, Box } from "lucide-react";
+import GridSectionHeader from "../components/GridSectionHeader";
+import { ExternalLink, ChevronDown, Monitor, Terminal, Cpu, Fingerprint, Type, Palette, Box, Package } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 
 const ghosttyConfig = `theme = Tokyo Night Storm
@@ -108,6 +109,17 @@ jq           # JSON processor
 curl         # HTTP client
 wget         # File downloader`;
 
+const environment = [
+    { label: "Operating System", value: "macOS", Icon: Monitor },
+    { label: "Terminal Emulator", value: "Ghostty", href: "https://ghostty.org/", Icon: Terminal },
+    { label: "Shell", value: "Fish", href: "https://fishshell.com/", Icon: Cpu },
+    { label: "Prompt", value: "Starship", href: "https://starship.rs/", Icon: Fingerprint },
+    { label: "Theme", value: "Tokyo Night Storm", Icon: Palette },
+    { label: "Font", value: "JetBrainsMono Nerd", href: "https://www.nerdfonts.com/", Icon: Type },
+    { label: "Multiplexer", value: "tmux", href: "https://github.com/tmux/tmux", Icon: Box },
+    { label: "Package Manager", value: "Homebrew", href: "https://brew.sh/", Icon: Package },
+];
+
 const SetupPage = () => {
     const container: Variants = {
         hidden: { opacity: 0 },
@@ -131,7 +143,7 @@ const SetupPage = () => {
             />
             
             <motion.div 
-                className="mb-16 pt-8 md:pt-16"
+                className="mb-12 sm:mb-14 pt-8 md:pt-16"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, ease: "easeOut" }}
@@ -146,68 +158,40 @@ const SetupPage = () => {
                 </div>
             </motion.div>
 
-            <motion.section 
+            <motion.section
                 variants={container}
                 initial="hidden"
-                animate="show"
-                className="mb-20"
+                whileInView="show"
+                viewport={{ once: true, margin: "-100px" }}
+                className="mb-12 sm:mb-14"
             >
-                <div className="border-b border-md-outline/20 pb-4 mb-6">
-                    <h2 className="text-2xl font-bold text-md-on-background">Terminal Environment</h2>
-                </div>
-                
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 mb-8">
-                    <motion.div variants={item} className="flex flex-col">
-                        <h3 className="text-sm text-md-on-surface-variant mb-1">Operating System</h3>
-                        <p className="font-medium text-lg text-md-on-surface">macOS</p>
-                    </motion.div>
-                    
-                    <motion.div variants={item} className="flex flex-col">
-                        <h3 className="text-sm text-md-on-surface-variant mb-1">Terminal Emulator</h3>
-                        <a href="https://ghostty.org/" target="_blank" rel="noopener noreferrer" className="font-medium text-lg text-md-on-background hover:text-accent transition-colors underline underline-offset-4 decoration-md-outline/50 hover:decoration-accent inline-flex items-center gap-1.5 w-fit">
-                            Ghostty <ExternalLink size={14} />
-                        </a>
-                    </motion.div>
-                    
-                    <motion.div variants={item} className="flex flex-col">
-                        <h3 className="text-sm text-md-on-surface-variant mb-1">Shell</h3>
-                        <a href="https://fishshell.com/" target="_blank" rel="noopener noreferrer" className="font-medium text-lg text-md-on-background hover:text-accent transition-colors underline underline-offset-4 decoration-md-outline/50 hover:decoration-accent inline-flex items-center gap-1.5 w-fit">
-                            Fish <ExternalLink size={14} />
-                        </a>
-                    </motion.div>
-                    
-                    <motion.div variants={item} className="flex flex-col">
-                        <h3 className="text-sm text-md-on-surface-variant mb-1">Prompt</h3>
-                        <a href="https://starship.rs/" target="_blank" rel="noopener noreferrer" className="font-medium text-lg text-md-on-background hover:text-accent transition-colors underline underline-offset-4 decoration-md-outline/50 hover:decoration-accent inline-flex items-center gap-1.5 w-fit">
-                            Starship <ExternalLink size={14} />
-                        </a>
-                    </motion.div>
-                    
-                    <motion.div variants={item} className="flex flex-col">
-                        <h3 className="text-sm text-md-on-surface-variant mb-1">Theme</h3>
-                        <p className="font-medium text-lg text-md-on-surface">Tokyo Night Storm</p>
-                    </motion.div>
-                    
-                    <motion.div variants={item} className="flex flex-col">
-                        <h3 className="text-sm text-md-on-surface-variant mb-1">Font</h3>
-                        <a href="https://www.nerdfonts.com/" target="_blank" rel="noopener noreferrer" className="font-medium text-lg text-md-on-background hover:text-accent transition-colors underline underline-offset-4 decoration-md-outline/50 hover:decoration-accent inline-flex items-center gap-1.5 w-fit">
-                            JetBrainsMono Nerd <ExternalLink size={14} />
-                        </a>
-                    </motion.div>
-                    
-                    <motion.div variants={item} className="flex flex-col">
-                        <h3 className="text-sm text-md-on-surface-variant mb-1">Multiplexer</h3>
-                        <a href="https://github.com/tmux/tmux" target="_blank" rel="noopener noreferrer" className="font-medium text-lg text-md-on-background hover:text-accent transition-colors underline underline-offset-4 decoration-md-outline/50 hover:decoration-accent inline-flex items-center gap-1.5 w-fit">
-                            tmux <ExternalLink size={14} />
-                        </a>
-                    </motion.div>
+                <GridSectionHeader title="Terminal Environment" />
 
-                    <motion.div variants={item} className="flex flex-col">
-                        <h3 className="text-sm text-md-on-surface-variant mb-1">Package Manager</h3>
-                        <a href="https://brew.sh/" target="_blank" rel="noopener noreferrer" className="font-medium text-lg text-md-on-background hover:text-accent transition-colors underline underline-offset-4 decoration-md-outline/50 hover:decoration-accent inline-flex items-center gap-1.5 w-fit">
-                            Homebrew <ExternalLink size={14} />
-                        </a>
-                    </motion.div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {environment.map(({ label, value, href, Icon }) => (
+                        <motion.div
+                            key={label}
+                            variants={item}
+                            className="flex items-start gap-3 rounded-xl border border-md-outline/20 bg-md-surface-variant/15 p-4"
+                        >
+                            <Icon size={16} className="text-accent shrink-0 mt-0.5" aria-hidden="true" />
+                            <div className="min-w-0">
+                                <p className="mono text-md-on-surface-variant">{label}</p>
+                                {href ? (
+                                    <a
+                                        href={href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="mt-1.5 inline-flex items-center gap-1.5 text-sm font-medium text-md-on-background hover:text-accent transition-colors underline underline-offset-4 decoration-md-outline/50 hover:decoration-accent"
+                                    >
+                                        {value} <ExternalLink size={12} className="shrink-0" />
+                                    </a>
+                                ) : (
+                                    <p className="mt-1.5 text-sm font-medium text-md-on-background">{value}</p>
+                                )}
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
             </motion.section>
 
@@ -216,11 +200,9 @@ const SetupPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5 }}
-                className="mb-20"
+                className="mb-12 sm:mb-14"
             >
-                <div className="border-b border-md-outline/20 pb-4 mb-6">
-                    <h2 className="text-2xl font-bold text-md-on-background">CLI Utilities</h2>
-                </div>
+                <GridSectionHeader title="CLI Utilities" />
                 <CodeBlock code={cliUtilities} language="bash" filename="CLI Tools" />
             </motion.section>
 
@@ -229,11 +211,9 @@ const SetupPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5 }}
-                className="mb-20"
+                className="mb-12 sm:mb-14"
             >
-                <div className="border-b border-md-outline/20 pb-4 mb-6">
-                    <h2 className="text-2xl font-bold text-md-on-background">Configurations</h2>
-                </div>
+                <GridSectionHeader title="Configurations" />
 
                 <div className="flex flex-col">
                     {[
@@ -244,7 +224,7 @@ const SetupPage = () => {
                         { title: "tmux", code: "set -g mouse on", lang: "bash", file: "~/.tmux.conf" }
                     ].map((config, i) => (
                         <details key={i} className="group border-b border-md-outline/20 last:border-b-0 py-4">
-                            <summary className="flex cursor-pointer items-center justify-between list-none [&::-webkit-details-marker]:hidden font-bold text-[17px] text-md-on-surface hover:text-accent transition-colors">
+                            <summary className="flex cursor-pointer items-center justify-between list-none [&::-webkit-details-marker]:hidden [&::-moz-details-marker]:hidden font-bold text-[17px] text-md-on-surface-variant hover:text-accent transition-colors">
                                 {config.title}
                                 <ChevronDown size={20} className="text-md-on-surface-variant transition-transform duration-300 group-open:rotate-180" />
                             </summary>
