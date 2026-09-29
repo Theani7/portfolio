@@ -7,7 +7,7 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="apple-touch-icon" href="/favicon.png" />
-  <meta name="theme-color" content="#F7F5F0" />
+  <meta name="theme-color" content="#FAFAFA" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -141,6 +141,7 @@
         var saved = localStorage.getItem('theme');
         if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
           document.documentElement.classList.add('dark');
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#121212');
         } else {
           document.documentElement.classList.remove('dark');
         }

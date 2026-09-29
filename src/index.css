@@ -56,13 +56,16 @@ body {
   mix-blend-mode: normal;
 }
 
-a, button, input, textarea { outline: none; }
+a, button, input, textarea {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid #1A1714;
+  outline: 2px solid var(--md-primary);
   outline-offset: 3px;
 }
 
@@ -86,39 +89,6 @@ textarea:focus-visible {
 .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
 .btn-primary:active { transform: translateY(0); }
 
-.btn-ghost {
-  background: transparent;
-  border: 1px solid var(--md-outline);
-  color: var(--md-primary);
-  border-radius: 9999px;
-  font-weight: 500;
-  transition: all 200ms ease;
-}
-.btn-ghost:hover { border-color: var(--md-primary); background: var(--md-surface-variant); }
-.btn-ghost:active { transform: translateY(0); }
-
-.pill-button { border-radius: 9999px; transition: all 200ms ease; }
-.pill-button:active { transform: scale(0.97); }
-
-/* ── Card ── */
-.card {
-  background: var(--md-surface);
-  border: 1px solid var(--md-outline);
-  transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
-}
-.card:hover {
-  border-color: var(--md-primary);
-  transform: translateY(-3px);
-  box-shadow: 0 18px 50px -24px rgba(0, 0, 0, 0.15);
-}
-.md-card {
-  background: var(--md-surface);
-  border: 1px solid var(--md-outline);
-  border-radius: 18px;
-  transition: border-color 220ms ease, transform 220ms ease;
-}
-.md-card:hover { border-color: var(--md-primary); transform: translateY(-3px); }
-
 /* ── Animated underline link ── */
 .link-underline {
   background-image: linear-gradient(var(--md-primary), var(--md-primary));
@@ -129,17 +99,14 @@ textarea:focus-visible {
 }
 .link-underline:hover { background-size: 100% 1px; }
 
-.state-layer-hover { transition: background-color 200ms ease; }
-.state-layer-hover:hover { background-color: var(--md-outline); }
-
 /* ── Skip Link ── */
 .skip-link {
   position: fixed;
   left: 1rem;
   top: 1rem;
   transform: translateY(-220%);
-  background: #1A1714;
-  color: #F7F5F0;
+  background: var(--md-primary);
+  color: var(--md-on-primary);
   padding: 0.75rem 1rem;
   border-radius: 8px;
   z-index: 100;
@@ -148,11 +115,6 @@ textarea:focus-visible {
   letter-spacing: 0.05em;
 }
 .skip-link:focus { transform: translateY(0); }
-
-/* legacy helpers (kept harmless) */
-.glass { background: #FFFFFF; border: 1px solid #DBD8CF; }
-.glass-card { background: #FFFFFF; border: 1px solid #DBD8CF; }
-.blur-shape { display: none; }
 
 /* ── Mobile App Shell ── */
 @media (max-width: 767px) {

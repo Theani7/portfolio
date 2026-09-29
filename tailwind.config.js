@@ -25,7 +25,8 @@ export default {
                 accent: 'var(--accent)',
             },
             fontFamily: {
-                sans: ['Inter', 'system-ui', 'sans-serif'],
+                // Inter is never loaded; the body sets Hanken Grotesk in index.css.
+                sans: ['Hanken Grotesk', 'system-ui', 'sans-serif'],
                 display: ['Fraunces', 'Georgia', 'serif'],
                 mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
             },

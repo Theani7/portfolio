@@ -3,8 +3,8 @@
   "short_name": "Anil",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#09090b",
-  "theme_color": "#09090b",
+  "background_color": "#FAFAFA",
+  "theme_color": "#FAFAFA",
   "description": "AI and Data Science portfolio by Anil Paneru.",
   "icons": [
     {
