@@ -21,7 +21,11 @@ const MobileTabBar = () => {
             className="sm:hidden fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pointer-events-none"
         >
             <ul
-                className="pointer-events-auto flex w-full max-w-md items-stretch gap-1 rounded-[28px] border border-white/60 dark:border-white/12 bg-white/60 dark:bg-zinc-900/50 px-2 py-1.5 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_10px_34px_-10px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.9)] dark:shadow-[0_10px_34px_-10px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.14)]"
+                // translate-z-0 promotes this to its own compositing layer. Without it,
+                // backdrop-filter on a fixed element can fail to paint until a scroll
+                // forces a repaint, leaving the bar invisible at rest on some phones.
+                // The opaque-enough background is the fallback if the blur is dropped.
+                className="pointer-events-auto flex w-full max-w-md items-stretch gap-1 rounded-[28px] translate-z-0 border border-white/70 dark:border-white/15 bg-white/80 dark:bg-zinc-900/75 px-2 py-1.5 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_10px_34px_-10px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.9)] dark:shadow-[0_10px_34px_-10px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.14)]"
             >
                 {NAV_LINKS.map(({ to, label }) => {
                     const Icon = ICONS[to];
