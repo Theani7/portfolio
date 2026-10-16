@@ -1,0 +1,19 @@
+# Anil Paneru
+> AI Engineer & LLM Developer specializing in intelligent systems, Large Language Models (LLMs), neural networks, and scalable data-driven solutions.
+
+## Core Information
+- Website: https://anilpaneru.com.np/
+- GitHub: https://github.com/Theani7
+- LinkedIn: https://www.linkedin.com/in/theanilpaneru/
+- Email: theanilpaneru@gmail.com
+- Location: Kathmandu, Nepal
+
+## Projects
+- [IntelliML Platform](https://anilpaneru.com.np/projects/1-intelliml-platform): AI-powered data science platform that automates EDA, data cleaning, and model training via natural language interface.
+- [SafeVision](https://anilpaneru.com.np/projects/2-safevision): Real-time deep learning pipeline achieving 97% accuracy in detecting violent activities in video streams with automated alerts.
+- [Intrusion Detection System](https://anilpaneru.com.np/projects/3-intrusion-detection-system): AI-powered intrusion detection system built with XGBoost, FastAPI, React, Scapy, and Telegram alerts.
+
+## Pages
+- [Projects](https://anilpaneru.com.np/projects): Complete portfolio of AI and Machine Learning systems.
+- [Setup & Environment](https://anilpaneru.com.np/setup): Development environment, terminal configuration (Ghostty, Fish, Starship), and CLI tools.
+- [Resume](https://anilpaneru.com.np/resume): Professional background and credentials.

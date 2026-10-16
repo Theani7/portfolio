@@ -51,7 +51,15 @@ Discuss the architecture, models, and tools used.
     const filePath = path.join(dir, `${id}.md`);
     fs.writeFileSync(filePath, markdown);
 
-    console.log(`\n✅ Success! Created new project at src/content/projects/${id}.md\n`);
+    console.log(`\n✅ Success! Created new project at src/content/projects/${id}.md`);
+    
+    // Auto-regenerate sitemap
+    try {
+        const { execSync } = await import('child_process');
+        execSync('bun run scripts/generate-sitemap.ts', { stdio: 'inherit' });
+    } catch {}
+
+    console.log('');
     rl.close();
 }
 

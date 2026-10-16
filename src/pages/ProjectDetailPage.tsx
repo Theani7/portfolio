@@ -17,7 +17,11 @@ const ProjectDetailPage = () => {
     if (!project) {
         return (
             <PageWrapper>
-                <Seo title="Project not found — Anil Paneru" description="The requested project could not be found." path="/projects" />
+                <Seo
+                    title="Project not found — Anil Paneru"
+                    description="The requested project could not be found."
+                    robots="noindex, nofollow"
+                />
                 <section className="mb-12 sm:mb-14">
                     <p className="text-md-on-surface-variant mb-5">Project not found.</p>
                     <Link to="/projects" className="inline-flex items-center gap-2 mono text-md-on-background link-underline">
@@ -28,12 +32,43 @@ const ProjectDetailPage = () => {
         );
     }
 
+    const canonicalSlug = `${project.id}-${slugify(project.title)}`;
+    const projectUrl = `https://anilpaneru.com.np/projects/${canonicalSlug}`;
+    const projectSchema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anilpaneru.com.np/" },
+                    { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://anilpaneru.com.np/projects" },
+                    { "@type": "ListItem", "position": 3, "name": project.title, "item": projectUrl }
+                ]
+            },
+            {
+                "@type": "SoftwareSourceCode",
+                "name": project.title,
+                "description": project.description,
+                "url": projectUrl,
+                ...(project.github ? { "codeRepository": project.github } : {}),
+                ...(project.tags?.length ? { "programmingLanguage": project.tags } : {}),
+                "author": {
+                    "@type": "Person",
+                    "name": "Anil Paneru",
+                    "url": "https://anilpaneru.com.np/"
+                }
+            }
+        ]
+    };
+
     return (
         <PageWrapper>
             <Seo
                 title={`${project.title} — Anil Paneru`}
                 description={project.description || `${project.title}, a project by Anil Paneru.`}
-                path={`/projects/${projectId}`}
+                path={`/projects/${canonicalSlug}`}
+                image={project.image}
+                jsonLd={projectSchema}
             />
             <article className="mb-12 sm:mb-14" aria-labelledby="project-title">
                 <Link to="/projects" className="inline-flex items-center gap-2 mono text-md-on-surface-variant hover:text-md-on-background transition-colors">
@@ -55,7 +90,14 @@ const ProjectDetailPage = () => {
 
                 {project.image && (
                     <div className="mb-12 sm:mb-14 rounded-md-lg overflow-hidden border border-md-outline">
-                        <img src={project.image} alt={`${project.title} preview`} className="w-full aspect-video object-cover" loading="lazy" />
+                        <img
+                            src={project.image}
+                            alt={`${project.title} preview`}
+                            width={1200}
+                            height={675}
+                            className="w-full aspect-video object-cover"
+                            loading="lazy"
+                        />
                     </div>
                 )}
 

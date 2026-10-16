@@ -53,8 +53,8 @@ const Home = () => {
     return (
         <PageWrapper>
             <Seo
-                title="Anil Paneru | AI Engineer"
-                description="Anil Paneru is an AI Engineer and LLM Developer building intelligent systems, neural networks, and scalable data-driven solutions. View his portfolio and projects."
+                title="Anil Paneru | AI Engineer & LLM Developer"
+                description="Anil Paneru is an AI Engineer and LLM Developer building intelligent systems, Large Language Models (LLMs), neural networks, and scalable data-driven solutions."
                 path="/"
             />
             <GridDivider className="!mt-0 !mb-6 sm:!mb-8" />

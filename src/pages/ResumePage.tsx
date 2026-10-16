@@ -3,12 +3,26 @@ import { Link } from 'react-router-dom';
 import PageWrapper from "../components/PageWrapper";
 import Seo from "../components/Seo";
 
+const resumeSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anilpaneru.com.np/" },
+                { "@type": "ListItem", "position": 2, "name": "Resume", "item": "https://anilpaneru.com.np/resume" }
+            ]
+        }
+    ]
+};
+
 const ResumePage = () => (
     <PageWrapper>
         <Seo
             title="Resume — Anil Paneru"
-            description="Resume of Anil Paneru, ML Engineer and AI Developer. Coming soon."
+            description="Resume of Anil Paneru, AI Engineer and LLM Developer."
             path="/resume"
+            jsonLd={resumeSchema}
         />
         <div className="min-h-[70vh] flex flex-col items-center justify-center gap-8 py-12">
         <motion.div

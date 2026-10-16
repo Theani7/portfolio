@@ -30,6 +30,8 @@ const Projects = () => {
                                     <img
                                         src={project.image}
                                         alt={`${project.title} preview`}
+                                        width={1200}
+                                        height={675}
                                         className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                                         loading="lazy"
                                     />

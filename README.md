@@ -1,6 +1,6 @@
 # Anil Paneru — Portfolio
 
-A modern, responsive portfolio website for an ML Engineer & AI Developer, built with React, Vite, and Tailwind CSS.
+A modern, responsive portfolio website for an AI Engineer & LLM Developer, built with React, Vite, and Tailwind CSS.
 
 ## Overview
 

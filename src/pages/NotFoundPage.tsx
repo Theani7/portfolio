@@ -6,9 +6,9 @@ import Seo from "../components/Seo";
 const NotFoundPage = () => (
     <PageWrapper>
         <Seo
-            title="Page not found — Anil Paneru"
+            title="404: Page Not Found — Anil Paneru"
             description="The page you were looking for could not be found."
-            path="/"
+            robots="noindex, nofollow"
         />
         <div className="min-h-[70vh] flex flex-col items-center justify-center gap-8 py-12">
             <Terminal size={48} className="text-md-on-surface-variant/50" />

@@ -134,12 +134,32 @@ const SetupPage = () => {
         show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
     };
 
+    const setupSchema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anilpaneru.com.np/" },
+                    { "@type": "ListItem", "position": 2, "name": "Setup", "item": "https://anilpaneru.com.np/setup" }
+                ]
+            },
+            {
+                "@type": "WebPage",
+                "name": "My Setup — Anil Paneru",
+                "url": "https://anilpaneru.com.np/setup",
+                "description": "A detailed overview of my development environment, terminal configuration, and CLI tools."
+            }
+        ]
+    };
+
     return (
         <PageWrapper>
             <Seo
                 title="My Setup | Anil Paneru"
                 description="A detailed overview of my development environment, terminal configuration, and CLI tools."
                 path="/setup"
+                jsonLd={setupSchema}
             />
             
             <motion.div 

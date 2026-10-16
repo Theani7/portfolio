@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "bun run scripts/generate-sitemap.ts",
     "build": "vite build",
+    "postbuild": "bun run scripts/prerender.ts",
+    "generate:sitemap": "bun run scripts/generate-sitemap.ts",
+    "prerender": "bun run scripts/prerender.ts",
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
