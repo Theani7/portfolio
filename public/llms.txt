@@ -3,7 +3,7 @@
 
 ## Core Information
 - Website: https://anilpaneru.com.np/
-- GitHub: https://github.com/Theani7
+- GitHub: https://github.com/dumbpixel
 - LinkedIn: https://www.linkedin.com/in/theanilpaneru/
 - Email: theanilpaneru@gmail.com
 - Location: Kathmandu, Nepal

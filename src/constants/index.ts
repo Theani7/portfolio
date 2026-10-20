@@ -21,7 +21,7 @@ export const CONTENT = {
         secondary: "Contact Me", // Href to #contact
     },
     social: [
-        { name: "GitHub", icon: Github, link: "https://github.com/Theani7" },
+        { name: "GitHub", icon: Github, link: "https://github.com/dumbpixel" },
         { name: "LinkedIn", icon: Linkedin, link: "https://www.linkedin.com/in/theanilpaneru/" },
         { name: "Email", icon: Mail, link: "mailto:theanilpaneru@gmail.com" },
     ],

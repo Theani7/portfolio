@@ -24,7 +24,7 @@ const Hero = () => {
     }, []);
 
     useEffect(() => {
-        fetch("https://api.github.com/users/Theani7")
+        fetch("https://api.github.com/users/dumbpixel")
             .then(res => res.json())
             .then(data => {
                 if (data && !data.message) {
@@ -156,7 +156,7 @@ const Hero = () => {
                         {/* Circular Avatar with outer border ring */}
                         <div className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-full border-[3.5px] sm:border-4 border-md-background shadow-md overflow-hidden bg-white dark:bg-zinc-900 ring-1 ring-black/10 dark:ring-white/10 shrink-0">
                             <img 
-                                src="https://github.com/Theani7.png" 
+                                src="https://github.com/dumbpixel.png" 
                                 alt={CONTENT.name} 
                                 className="w-full h-full object-cover scale-[1.05]" 
                             />
@@ -345,7 +345,7 @@ const Hero = () => {
                             onMouseLeave={closeOnHover}
                         >
                             <a
-                                href="https://github.com/Theani7"
+                                href="https://github.com/dumbpixel"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="px-3.5 py-1.5 rounded-lg border border-md-outline/30 bg-md-surface-variant/20 hover:bg-md-surface-variant/50 text-md-on-surface-variant hover:text-md-on-background text-sm font-medium inline-flex items-center gap-2 transition-all shadow-xs"
@@ -378,7 +378,7 @@ const Hero = () => {
                                     >
                                         <div className="flex items-center gap-3">
                                             <img
-                                                src={githubData?.avatar_url || "https://github.com/Theani7.png"}
+                                                src={githubData?.avatar_url || "https://github.com/dumbpixel.png"}
                                                 alt="GitHub Avatar"
                                                 className="w-12 h-12 rounded-full border border-md-outline/20 object-cover"
                                             />
@@ -387,7 +387,7 @@ const Hero = () => {
                                                     {githubData?.name || "Anil Paneru"}
                                                 </span>
                                                 <span className="text-xs text-md-on-surface-variant font-mono truncate">
-                                                    @{githubData?.login || "Theani7"}
+                                                    @{githubData?.login || "dumbpixel"}
                                                 </span>
                                             </div>
                                         </div>
@@ -461,7 +461,7 @@ const Hero = () => {
                                     >
                                         <div className="flex items-center gap-3">
                                             <img
-                                                src="https://github.com/Theani7.png"
+                                                src="https://github.com/dumbpixel.png"
                                                 alt="Anil Paneru"
                                                 className="w-12 h-12 rounded-full border border-md-outline/20 object-cover"
                                             />

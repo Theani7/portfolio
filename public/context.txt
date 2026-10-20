@@ -28,7 +28,7 @@ Tags: Python, XGBoost, FastAPI, React, Scapy
 URL: https://anilpaneru.com.np/projects/3-intrusion-detection-system
 
 Socials:
-GitHub: https://github.com/Theani7
+GitHub: https://github.com/dumbpixel
 LinkedIn: https://www.linkedin.com/in/theanilpaneru/
 Email: theanilpaneru@gmail.com
 Website: https://anilpaneru.com.np/

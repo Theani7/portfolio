@@ -5,7 +5,7 @@ const Footer = () => {
                 <p>
                     Designed &amp; Developed by{" "}
                     <a
-                        href="https://github.com/Theani7"
+                        href="https://github.com/dumbpixel"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-md-on-background font-medium hover:underline decoration-neutral-400 underline-offset-4 transition-colors"

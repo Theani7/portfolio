@@ -77,7 +77,7 @@ const Home = () => {
                     <div className="p-5 sm:p-7 rounded-2xl bg-md-surface-variant/30 dark:bg-md-surface/50 border border-md-outline/30 text-md-on-surface-variant shadow-sm overflow-x-auto transition-colors duration-200">
                         <div className="flex justify-start sm:justify-center min-w-fit pr-4 sm:pr-0">
                             <GitHubCalendar 
-                                username="Theani7" 
+                                username="dumbpixel" 
                                 blockSize={blockSize}
                                 blockMargin={4}
                                 blockRadius={3}
